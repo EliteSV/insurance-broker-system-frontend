@@ -1,30 +1,28 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
+import { createApi } from '@reduxjs/toolkit/query/react'
 import { API_URL } from '../constants'
-import { RootState } from '../store/store'
+import { axiosBaseQuery } from './axiosBaseQuery'
 
 
 export const Api = createApi({
   reducerPath: 'api',
-  baseQuery: fetchBaseQuery({
+  baseQuery: axiosBaseQuery({
     baseUrl: API_URL,
-    prepareHeaders: (headers, { getState }) => {
-      headers.set('Accept', 'application/json')
-      const token = (getState() as RootState).auth.token
-      if (token) {
-        headers.set('authentication', `Bearer ${token}`)
-      }
-      return headers
-    },
   }),
   endpoints: (builder) => ({
+    getCSRFCookie: builder.query<string, void>({
+      query: () => ({
+        url: '/sanctum/csrf-cookie',
+        method: 'GET',
+      }),
+    }),
     login: builder.mutation({
       query: (credentials) => ({
-        url: '/login',
+        url: '/api/login',
         method: 'POST',
-        body: credentials,
+        data: credentials,
       }),
     }),
   }),
 })
 
-export const { useLoginMutation } = Api
+export const { useLoginMutation, useLazyGetCSRFCookieQuery } = Api
