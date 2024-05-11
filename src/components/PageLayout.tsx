@@ -8,6 +8,7 @@ import {
     UserOutlined,
     CopyOutlined,
     FundOutlined,
+    LogoutOutlined,
 } from '@ant-design/icons';
 import { Layout, Menu } from 'antd';
 import { Link } from 'react-router-dom';
@@ -58,6 +59,11 @@ const items = [
         label: <Link to="/usuarios">Usuarios</Link>,
         icon: <TeamOutlined />,
     },
+    {
+        key: '/logout',
+        label: <Link to="/logout">Salir</Link>,
+        icon: <LogoutOutlined />,
+    }
 ];
 
 function PageLayout({ children }: { children: React.ReactNode }) {
@@ -71,7 +77,6 @@ function PageLayout({ children }: { children: React.ReactNode }) {
             </Sider>
             <Layout>
                 <Content style={{ margin: '0 16px', padding: '16px' }}>
-
                     {children}
                 </Content>
             </Layout>
