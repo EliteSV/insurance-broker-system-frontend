@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Button, Modal, Space, Table, message, Row, Col } from 'antd';
-import { PlusOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons';
+import { PlusOutlined, EditOutlined, DeleteOutlined, EyeOutlined } from '@ant-design/icons';
 import type { TableProps } from 'antd';
 import { useNavigate, Link } from 'react-router-dom';
 import PageLayout from '../../components/PageLayout'
@@ -60,12 +60,14 @@ function AseguradorasPage() {
             title: 'Email',
             dataIndex: 'email',
             key: 'email',
+            responsive: ['md'],
         },
         {
             title: 'Acciones',
             key: 'acciones',
             render: (_, record) => (
                 <Space size="middle">
+                    <Link to={`/aseguradoras/${record.id}`}><EyeOutlined /></Link>
                     <Link to={`/aseguradoras/modificar/${record.id}`}><EditOutlined /></Link>
                     <a onClick={() => handleOpen(record.id)}><DeleteOutlined /> </a>
                 </Space>
@@ -77,7 +79,8 @@ function AseguradorasPage() {
             <Row>
                 <Col xs={{ span: 24 }} lg={{ span: 20, offset: 2 }}>
                     <Button type="primary" icon={<PlusOutlined />} style={{ marginBottom: '24px' }} onClick={handleClick}>Registrar nueva</Button>
-                    <Table rowKey='id' columns={columns} dataSource={data} /></Col>
+                    <Table rowKey='id' columns={columns} dataSource={data} />
+                </Col>
             </Row>
             <Modal title="Eliminar aseguradora" open={isModalOpen} onOk={handleOk} onCancel={handleCancel} okText="Si" cancelText="No">
                 <p>Desea eliminar la aseguradora?</p>

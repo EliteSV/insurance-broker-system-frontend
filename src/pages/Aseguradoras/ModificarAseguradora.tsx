@@ -1,4 +1,5 @@
-import { Row, Col, Typography, message } from 'antd';
+import { Row, Col, Typography, Button, message } from 'antd';
+import { ArrowLeftOutlined } from '@ant-design/icons';
 import { useNavigate, useParams } from 'react-router-dom';
 import PageLayout from '../../components/PageLayout';
 import { Aseguradora } from '../../types/Aseguradora';
@@ -25,6 +26,9 @@ const ModificarAseguradora = () => {
         <PageLayout>
             <Row align='middle' style={{ marginTop: '64px' }}>
                 <Col xs={{ span: 20, offset: 2 }} lg={{ span: 8, offset: 8 }}>
+                    <Button type="primary" shape="round" icon={<ArrowLeftOutlined />} size="large" onClick={() => navigate('/aseguradoras')} style={{ marginBottom: 24 }}>
+                        Regresar
+                    </Button>
                     <Title level={2}>Modificar Aseguradora</Title>
                     <AseguradorasForm initialValues={aseguradora} onFinish={onFinish} submitText='Modificar' />
                 </Col>
