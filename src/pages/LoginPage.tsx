@@ -1,7 +1,7 @@
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { Col, Card, Row, Form, Input, Button, Typography, message } from 'antd';
 import PublicLayout from '../components/PublicLayout';
-import { useLoginMutation } from '../api/api';
+import { useLoginMutation, useLazyGetCSRFCookieQuery } from '../api/api';
 import { login } from '../store/slices/authSlice';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
@@ -12,8 +12,10 @@ const LoginPage = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const [loginRequest, loginResult] = useLoginMutation();
+    const [getCSRFCookie] = useLazyGetCSRFCookieQuery();
 
-    const onFinish = (values: any) => {
+    const onFinish = async (values: any) => {
+        await getCSRFCookie().unwrap();
         loginRequest(values).unwrap().then((response) => {
             dispatch(login({ token: response.token }));
             navigate('/');
@@ -29,7 +31,7 @@ const LoginPage = () => {
     return (
         <PublicLayout>
             <Row align='middle' style={{ marginTop: '64px' }}>
-                <Col span={6} offset={8}>
+                <Col xxl={{ span: 6, offset: 8 }} xl={{ span: 8, offset: 8 }} xs={{ span: 20, offset: 2 }}>
                     <Card style={{ padding: '20px' }}>
                         <Title level={2} style={{ textAlign: 'center' }}>Iniciar sesión</Title>
                         <Form
