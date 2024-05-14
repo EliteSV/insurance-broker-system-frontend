@@ -2,8 +2,11 @@ import { BrowserRouter, Routes, Route } from "react-router-dom"
 import Home from './pages/HomePage'
 import Login from './pages/LoginPage'
 import Logout from './pages/LogoutPage'
-import Clientes from "./pages/ClientesPage"
-import Polizas from "./pages/PolizasPage"
+import Clientes from "./pages/Clientes/ClientesPage"
+import VerCliente from "./pages/Clientes/VerCliente"
+import RegistrarCliente from "./pages/Clientes/RegistrarCliente"
+import ModificarCliente from "./pages/Clientes/ModificarCliente"
+import Polizas from "./pages/Polizas/PolizasPage"
 import Aseguradoras from "./pages/Aseguradoras/AseguradorasPage"
 import VerAseguradora from "./pages/Aseguradoras/VerAseguradora"
 import RegistrarAseguradora from "./pages/Aseguradoras/RegistrarAseguradora"
@@ -23,6 +26,9 @@ function App() {
           <Route element={<PrivateRoutes />}>
             <Route path="/" element={<Home />} />
             <Route path="/clientes" element={<Clientes />} />
+            <Route path="/clientes/registrar" element={<RegistrarCliente />} />
+            <Route path="/clientes/modificar/:id" element={<ModificarCliente />} />
+            <Route path="/clientes/:id" element={<VerCliente />} />
             <Route path="/polizas" element={<Polizas />} />
             <Route path="/aseguradoras" element={<Aseguradoras />} />
             <Route path="/aseguradoras/registrar" element={<RegistrarAseguradora />} />
