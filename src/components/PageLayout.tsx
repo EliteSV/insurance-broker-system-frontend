@@ -70,8 +70,14 @@ function PageLayout({ children }: { children: React.ReactNode }) {
     const [collapsed, setCollapsed] = useState(false);
 
     return (
-        <Layout style={{ minHeight: '100vh' }}>
-            <Sider collapsible collapsed={collapsed} onCollapse={(value) => setCollapsed(value)}>
+        <Layout style={{ width: '100%', minHeight: '100vh' }}>
+            <Sider
+                collapsed={collapsed}
+                onCollapse={setCollapsed}
+                onBreakpoint={broken => setCollapsed(broken)}
+                breakpoint="lg"
+                collapsedWidth="0"
+            >
                 <div className="demo-logo-vertical" />
                 <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline" items={items} />
             </Sider>
