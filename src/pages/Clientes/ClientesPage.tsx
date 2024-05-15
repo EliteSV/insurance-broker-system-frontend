@@ -9,8 +9,8 @@ import { useGetClientesQuery, useEliminarClienteMutation } from '../../api/api';
 
 function ClientesPage() {
     const navigate = useNavigate()
-    const { data } = useGetClientesQuery()
-    const [eliminarCliente] = useEliminarClienteMutation()
+    const { data, isLoading, isFetching } = useGetClientesQuery()
+    const [eliminarCliente, eliminarClienteResult] = useEliminarClienteMutation()
     const handleClick = () => {
         navigate('/clientes/registrar')
     }
@@ -30,9 +30,10 @@ function ClientesPage() {
             })
                 .catch(() => {
                     message.error('Error al eliminar cliente');
+                }).finally(() => {
+                    setIsModalOpen(false);
                 });
         }
-        setIsModalOpen(false);
     };
 
     const handleCancel = () => {
@@ -91,10 +92,10 @@ function ClientesPage() {
             <Row>
                 <Col xs={{ span: 24 }} lg={{ span: 20, offset: 2 }}>
                     <Button type="primary" icon={<PlusOutlined />} style={{ marginBottom: '24px' }} onClick={handleClick}>Registrar nuevo</Button>
-                    <Table rowKey='id' columns={columns} dataSource={data} />
+                    <Table rowKey='id' columns={columns} dataSource={data} loading={isLoading || isFetching} />
                 </Col>
             </Row>
-            <Modal title="Eliminar cliente" open={isModalOpen} onOk={handleOk} onCancel={handleCancel} okText="Si" cancelText="No">
+            <Modal title="Eliminar cliente" open={isModalOpen} onOk={handleOk} onCancel={handleCancel} confirmLoading={eliminarClienteResult.isLoading} okText="Si" cancelText="No">
                 <p>Desea eliminar el cliente?</p>
             </Modal>
         </PageLayout>

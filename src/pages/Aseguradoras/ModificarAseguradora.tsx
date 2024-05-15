@@ -15,7 +15,7 @@ const ModificarAseguradora = () => {
     const [modificar] = useModificarAseguradoraMutation();
     const onFinish = (values: Partial<Aseguradora>) => {
         modificar({ id: Number(id), ...values }).unwrap().then(() => {
-            message.success('Aseguradora registrada con éxito.');
+            message.success('Aseguradora modificada con éxito.');
             navigate('/aseguradoras');
         }).catch(() => {
             message.error('Ocurrió un error al modificar la aseguradora.');

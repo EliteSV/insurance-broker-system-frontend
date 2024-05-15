@@ -84,11 +84,11 @@ export const Api = createApi({
       }),
       invalidatesTags: ['clientes'],
     }),
-    modificarCliente: builder.mutation<Cliente, Partial<Cliente>>({
-      query: (cliente) => ({
-        url: `/api/clientes/${cliente.id}`,
-        method: 'PUT',
-        data: cliente,
+    modificarCliente: builder.mutation<Cliente, any>({
+      query: ({id,formData}) => ({
+        url: `/api/clientes/${id}`,
+        method: 'POST',
+        data: formData,
       }),
       invalidatesTags: (_result, _error, { id }) => [{ type: 'cliente', id}, 'clientes'],
     }),
