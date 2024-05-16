@@ -7,6 +7,9 @@ import VerCliente from "./pages/Clientes/VerCliente"
 import RegistrarCliente from "./pages/Clientes/RegistrarCliente"
 import ModificarCliente from "./pages/Clientes/ModificarCliente"
 import Polizas from "./pages/Polizas/PolizasPage"
+import VerPoliza from "./pages/Polizas/VerPoliza"
+import RegistrarPoliza from "./pages/Polizas/RegistrarPoliza"
+import ModificarPoliza from "./pages/Polizas/ModificarPoliza"
 import Aseguradoras from "./pages/Aseguradoras/AseguradorasPage"
 import VerAseguradora from "./pages/Aseguradoras/VerAseguradora"
 import RegistrarAseguradora from "./pages/Aseguradoras/RegistrarAseguradora"
@@ -30,6 +33,9 @@ function App() {
             <Route path="/clientes/modificar/:id" element={<ModificarCliente />} />
             <Route path="/clientes/:id" element={<VerCliente />} />
             <Route path="/polizas" element={<Polizas />} />
+            <Route path="/polizas/registrar" element={<RegistrarPoliza />} />
+            <Route path="/polizas/modificar/:id" element={<ModificarPoliza />} />
+            <Route path="/polizas/:id" element={<VerPoliza />} />
             <Route path="/aseguradoras" element={<Aseguradoras />} />
             <Route path="/aseguradoras/registrar" element={<RegistrarAseguradora />} />
             <Route path="/aseguradoras/modificar/:id" element={<ModificarAseguradora />} />

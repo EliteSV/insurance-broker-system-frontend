@@ -99,6 +99,38 @@ export const Api = createApi({
       }),
       invalidatesTags: (_result, _error, id) => [{ type: 'cliente', id }, 'clientes'],
     }),
+    getPolizas: builder.query<any, void>({
+      query: () => ({
+        method: 'GET',
+        url: `/api/polizas`,
+      }),
+    }),
+    getPoliza: builder.query<any, number>({
+      query: (id) => ({
+        url: `/api/polizas/${id}`,
+        method: 'GET',
+      }),
+    }),
+    crearPoliza: builder.mutation<any, any>({
+      query: (poliza) => ({
+        url: `/api/polizas`,
+        method: 'POST',
+        data: poliza,
+      }),
+    }),
+    modificarPoliza: builder.mutation<any, any>({
+      query: (poliza) => ({
+        url: `/api/polizas/${poliza.id}`,
+        method: 'PUT',
+        data: poliza,
+      }),
+    }),
+    eliminarPoliza: builder.mutation<void, number>({
+      query: (id) => ({
+        url: `/api/polizas/${id}`,
+        method: 'DELETE',
+      }),
+    }),
   }),
 })
 
@@ -115,4 +147,9 @@ export const {
   useCrearClienteMutation,
   useModificarClienteMutation,
   useEliminarClienteMutation,
+  useGetPolizasQuery,
+  useGetPolizaQuery,
+  useCrearPolizaMutation,
+  useModificarPolizaMutation,
+  useEliminarPolizaMutation,
 } = Api
