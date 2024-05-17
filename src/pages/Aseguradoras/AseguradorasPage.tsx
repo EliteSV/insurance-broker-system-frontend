@@ -9,7 +9,7 @@ import { useGetAseguradorasQuery, useEliminarAseguradoraMutation } from '../../a
 
 function AseguradorasPage() {
     const navigate = useNavigate()
-    const { data } = useGetAseguradorasQuery()
+    const { data, isLoading } = useGetAseguradorasQuery()
     const [eliminarAseguradora] = useEliminarAseguradoraMutation()
     const handleClick = () => {
         navigate('/aseguradoras/registrar')
@@ -41,6 +41,11 @@ function AseguradorasPage() {
 
     const columns: TableProps<Aseguradora>['columns'] = [
         {
+            title: 'ID',
+            dataIndex: 'id',
+            key: 'id',
+        },
+        {
             title: 'Nombre',
             dataIndex: 'nombre',
             key: 'nombre',
@@ -55,6 +60,7 @@ function AseguradorasPage() {
             title: 'Telefono',
             dataIndex: 'telefono',
             key: 'telefono',
+            responsive: ['md'],
         },
         {
             title: 'Email',
@@ -79,7 +85,7 @@ function AseguradorasPage() {
             <Row>
                 <Col xs={{ span: 24 }} lg={{ span: 20, offset: 2 }}>
                     <Button type="primary" icon={<PlusOutlined />} style={{ marginBottom: '24px' }} onClick={handleClick}>Registrar nueva</Button>
-                    <Table rowKey='id' columns={columns} dataSource={data} />
+                    <Table rowKey='id' columns={columns} dataSource={data} loading={isLoading} />
                 </Col>
             </Row>
             <Modal title="Eliminar aseguradora" open={isModalOpen} onOk={handleOk} onCancel={handleCancel} okText="Si" cancelText="No">

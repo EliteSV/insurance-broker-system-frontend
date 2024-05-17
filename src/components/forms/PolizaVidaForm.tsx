@@ -8,7 +8,7 @@ function PolizaVida() {
             <Title level={4}>Detalles del Asegurado</Title>
             <Form.Item
                 label="Nombre del Asegurado"
-                name="nombre_asegurado"
+                name={['detalles', 'nombre_asegurado']}
                 rules={[{ required: true, message: 'Por favor, ingrese el nombre del asegurado!' }]}
             >
                 <Input />
@@ -16,7 +16,7 @@ function PolizaVida() {
 
             <Form.Item
                 label="Fecha de Nacimiento"
-                name="fecha_nacimiento"
+                name={['detalles', 'fecha_nacimiento']}
                 rules={[{ required: true, message: 'Por favor, ingrese la fecha de nacimiento!' }]}
             >
                 <DatePicker style={{ width: '100%' }} />
@@ -24,7 +24,7 @@ function PolizaVida() {
 
             <Form.Item
                 label="Género"
-                name="genero"
+                name={['detalles', 'genero']}
                 rules={[{ required: true, message: 'Por favor, seleccione el género!' }]}
             >
                 <Radio.Group>
@@ -36,7 +36,7 @@ function PolizaVida() {
 
             <Form.Item
                 label="Número de Documento"
-                name="numero_documento"
+                name={['detalles', 'numero_documento']}
                 rules={[{ required: true, message: 'Por favor, ingrese el número de documento!' }]}
             >
                 <Input />
@@ -44,7 +44,7 @@ function PolizaVida() {
 
             <Form.Item
                 label="Valor Asegurado"
-                name="valor_asegurado"
+                name={['detalles', 'valor_asegurado']}
                 rules={[{ required: true, message: 'Por favor, ingrese el valor asegurado!' }]}
             >
                 <InputNumber min={0} style={{ width: '100%' }} addonBefore="$" />
@@ -52,7 +52,7 @@ function PolizaVida() {
 
             <Form.Item
                 label="Beneficiarios"
-                name="beneficiarios"
+                name={['detalles', 'beneficiarios']}
                 rules={[{ required: true, message: 'Por favor, ingrese los beneficiarios!' }]}
             >
                 <Input.TextArea />

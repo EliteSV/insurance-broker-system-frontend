@@ -17,9 +17,6 @@ type Props = {
     submitText?: string;
 }
 
-const filterOption = (input: string, option?: { label: string; value: string }) =>
-    (option?.label ?? '').toLowerCase().includes(input.toLowerCase());
-
 function PolizaForm({ initialValues, isLoading, onFinish, submitText }: Props) {
     const [form] = Form.useForm();
     useEffect(() => form.resetFields(), [form, initialValues]);
@@ -98,7 +95,7 @@ function PolizaForm({ initialValues, isLoading, onFinish, submitText }: Props) {
                 name="cliente_id"
                 rules={[{ required: true, message: 'Por favor, seleccione el cliente' }]}
             >
-                <Select placeholder="Seleccione el cliente" showSearch filterOption={filterOption} optionFilterProp="children">
+                <Select placeholder="Seleccione el cliente" showSearch filterOption optionFilterProp="children">
                     {clientes?.map(cliente => (
                         <Option key={cliente.id} value={cliente.id}>{`${cliente.id} | ${cliente.nombre}`}</Option>
                     ))}

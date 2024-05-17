@@ -9,7 +9,7 @@ import { useGetPolizasQuery, useEliminarPolizaMutation } from '../../api/api';
 
 function PolizasPage() {
     const navigate = useNavigate()
-    const { data } = useGetPolizasQuery()
+    const { data, isLoading } = useGetPolizasQuery()
     const [eliminarPoliza] = useEliminarPolizaMutation()
     const handleClick = () => {
         navigate('/polizas/registrar')
@@ -85,7 +85,7 @@ function PolizasPage() {
             <Row>
                 <Col xs={{ span: 24 }} lg={{ span: 20, offset: 2 }}>
                     <Button type="primary" icon={<PlusOutlined />} style={{ marginBottom: '24px' }} onClick={handleClick}>Registrar nueva</Button>
-                    <Table rowKey='id' columns={columns} dataSource={data} />
+                    <Table rowKey='id' columns={columns} dataSource={data} loading={isLoading} />
                 </Col>
             </Row>
             <Modal title="Eliminar poliza" open={isModalOpen} onOk={handleOk} onCancel={handleCancel} okText="Si" cancelText="No">

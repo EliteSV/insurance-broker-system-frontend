@@ -9,7 +9,7 @@ function PolizaIncendioForm() {
             <Title level={4}>Detalles de la propiedad</Title>
             <Form.Item
                 label="Propietario"
-                name="propietario"
+                name={['detalles', 'propietario']}
                 rules={[{ required: true, message: 'Por favor, ingrese el nombre del propietario!' }]}
             >
                 <Input />
@@ -17,7 +17,7 @@ function PolizaIncendioForm() {
 
             <Form.Item
                 label="Dirección de la Propiedad"
-                name="direccion"
+                name={['detalles', 'direccion_propiedad']}
                 rules={[{ required: true, message: 'Por favor, ingrese la dirección de la propiedad!' }]}
             >
                 <Input />
@@ -25,7 +25,7 @@ function PolizaIncendioForm() {
 
             <Form.Item
                 label="Tipo de Propiedad"
-                name="tipo_propiedad"
+                name={['detalles', 'tipo_propiedad']}
                 rules={[{ required: true, message: 'Por favor, seleccione el tipo de propiedad!' }]}
             >
                 <Select placeholder="Seleccione el tipo de propiedad">
@@ -38,15 +38,15 @@ function PolizaIncendioForm() {
 
             <Form.Item
                 label="Valor Asegurado"
-                name="valor_asegurado"
+                name={['detalles', 'valor_asegurado']}
                 rules={[{ required: true, message: 'Por favor, ingrese el valor asegurado!' }]}
             >
-                <InputNumber min={0} style={{ width: '100%' }} />
+                <InputNumber min={0} style={{ width: '100%' }} addonBefore="$" />
             </Form.Item>
 
             <Form.Item
                 label="Año de Construcción"
-                name="año_construccion"
+                name={['detalles', 'anio_construccion']}
                 rules={[{ required: true, message: 'Por favor, ingrese el año de construcción!' }]}
             >
                 <DatePicker picker="year" style={{ width: '100%' }} placeholder='Año' />
@@ -54,7 +54,7 @@ function PolizaIncendioForm() {
 
             <Form.Item
                 label="Materiales de Construcción"
-                name="materiales_construccion"
+                name={['detalles', 'materiales_construccion']}
                 rules={[{ required: true, message: 'Por favor, ingrese los materiales de construcción!' }]}
             >
                 <Input />
@@ -62,7 +62,7 @@ function PolizaIncendioForm() {
 
             <Form.Item
                 label="Sistemas de Seguridad"
-                name="sistemas_seguridad"
+                name={['detalles', 'sistemas_seguridad']}
             >
                 <Input />
             </Form.Item>

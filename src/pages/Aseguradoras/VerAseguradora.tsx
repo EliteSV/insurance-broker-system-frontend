@@ -7,7 +7,7 @@ import { useGetAseguradoraQuery } from '../../api/api';
 const VerAseguradora = () => {
     const { id } = useParams();
     const navigate = useNavigate();
-    const { data: aseguradora } = useGetAseguradoraQuery(Number(id));
+    const { data: aseguradora, isLoading } = useGetAseguradoraQuery(Number(id));
 
     return (
         <PageLayout>
@@ -16,7 +16,7 @@ const VerAseguradora = () => {
                     <Button type="primary" shape="round" icon={<ArrowLeftOutlined />} size="large" onClick={() => navigate('/aseguradoras')} style={{ marginBottom: 24 }}>
                         Regresar
                     </Button>
-                    <Card title={aseguradora?.nombre}>
+                    <Card title={aseguradora?.nombre} loading={isLoading}>
                         <Card type="inner" title="Dirección">
                             {aseguradora?.direccion}
                         </Card>

@@ -9,7 +9,7 @@ function PolizaMedico() {
             <Title level={4}>Detalles del Asegurado</Title>
             <Form.Item
                 label="Nombre del Asegurado"
-                name="nombre_asegurado"
+                name={['detalles', 'nombre_asegurado']}
                 rules={[{ required: true, message: 'Por favor, ingrese el nombre del asegurado!' }]}
             >
                 <Input />
@@ -17,7 +17,7 @@ function PolizaMedico() {
 
             <Form.Item
                 label="Fecha de Nacimiento"
-                name="fecha_nacimiento"
+                name={['detalles', 'fecha_nacimiento']}
                 rules={[{ required: true, message: 'Por favor, ingrese la fecha de nacimiento!' }]}
             >
                 <DatePicker style={{ width: '100%' }} />
@@ -25,7 +25,7 @@ function PolizaMedico() {
 
             <Form.Item
                 label="Género"
-                name="genero"
+                name={['detalles', 'genero']}
                 rules={[{ required: true, message: 'Por favor, seleccione el género!' }]}
             >
                 <Radio.Group>
@@ -37,7 +37,7 @@ function PolizaMedico() {
 
             <Form.Item
                 label="Número de Documento"
-                name="numero_documento"
+                name={['detalles', 'numero_documento']}
                 rules={[{ required: true, message: 'Por favor, ingrese el número de documento!' }]}
             >
                 <Input />
@@ -45,7 +45,7 @@ function PolizaMedico() {
 
             <Form.Item
                 label="Tipo de Plan"
-                name="tipo_plan"
+                name={['detalles', 'tipo_plan']}
                 rules={[{ required: true, message: 'Por favor, seleccione el tipo de plan!' }]}
             >
                 <Select placeholder="Seleccione el tipo de plan">
@@ -57,7 +57,7 @@ function PolizaMedico() {
 
             <Form.Item
                 label="Coberturas Adicionales"
-                name="coberturas_adicionales"
+                name={['detalles', 'coberturas_adicionales']}
             >
                 <Select mode="multiple" placeholder="Seleccione coberturas adicionales">
                     <Option value="dental">Dental</Option>
@@ -69,7 +69,7 @@ function PolizaMedico() {
 
             <Form.Item
                 label="Valor Asegurado"
-                name="valor_asegurado"
+                name={['detalles', 'valor_asegurado']}
                 rules={[{ required: true, message: 'Por favor, ingrese el valor asegurado!' }]}
             >
                 <InputNumber min={0} style={{ width: '100%' }} addonBefore="$" />

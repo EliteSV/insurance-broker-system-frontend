@@ -42,6 +42,11 @@ function ClientesPage() {
 
     const columns: TableProps<Cliente>['columns'] = [
         {
+            title: 'ID',
+            dataIndex: 'id',
+            key: 'id',
+        },
+        {
             title: 'Nombre',
             dataIndex: 'nombre',
             key: 'nombre',

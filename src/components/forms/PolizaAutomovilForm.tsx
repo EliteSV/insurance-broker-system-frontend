@@ -16,6 +16,14 @@ function PolizaAutomovilForm() {
             </Form.Item>
 
             <Form.Item
+                label="Valor Asegurado"
+                name={['detalles', 'valor_asegurado']}
+                rules={[{ required: true, message: 'Por favor, ingrese el valor asegurado!' }]}
+            >
+                <InputNumber min={0} style={{ width: '100%' }} addonBefore="$" />
+            </Form.Item>
+
+            <Form.Item
                 label="Tipo de Vehículo"
                 name={["detalles", "tipo_vehiculo"]}
                 rules={[{ required: true, message: 'Por favor, seleccione el tipo de vehículo!' }]}
