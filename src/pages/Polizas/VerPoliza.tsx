@@ -9,7 +9,7 @@ const VerPoliza = () => {
     const { id } = useParams();
     const navigate = useNavigate();
     const { data: poliza, isLoading } = useGetPolizaQuery(Number(id));
-    const detalles = JSON.parse(poliza?.detalles);
+    const detalles = JSON.parse(poliza?.detalles || '{}');
     return (
         <PageLayout>
             <Row align='middle' style={{ marginTop: '64px' }}>
@@ -17,7 +17,7 @@ const VerPoliza = () => {
                     <Button type="primary" shape="round" icon={<ArrowLeftOutlined />} size="large" onClick={() => navigate('/polizas')} style={{ marginBottom: 24 }}>
                         Regresar
                     </Button>
-                    <Card title={`${poliza?.id} - ${poliza?.nombre}`} loading={isLoading}>
+                    <Card title={`${poliza?.id || ''} - ${poliza?.nombre || ''}`} loading={isLoading}>
                         <Card type="inner" title="Monto" size='small'>
                             {poliza?.monto}
                         </Card>

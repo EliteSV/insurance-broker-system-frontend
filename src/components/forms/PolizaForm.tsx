@@ -15,18 +15,25 @@ type Props = {
     initialValues?: any;
     onFinish: (values: any) => void;
     submitText?: string;
+    showVigencia?: boolean;
 }
 
-function PolizaForm({ initialValues, isLoading, onFinish, submitText }: Props) {
+function PolizaForm({ initialValues, isLoading, onFinish, submitText, showVigencia }: Props) {
     const [form] = Form.useForm();
     useEffect(() => form.resetFields(), [form, initialValues]);
     const tipoPoliza = Form.useWatch('tipo_poliza_id', form);
     const { data: aseguradoras } = useGetAseguradorasQuery();
     const { data: clientes } = useGetClientesQuery();
+
+    const handleChange = () => {
+        form.setFieldsValue({ detalles: null });
+    };
+
     return (
         <Form
             name="polizaForm"
             form={form}
+            initialValues={initialValues}
             onFinish={onFinish}
         >
             <Form.Item
@@ -51,26 +58,28 @@ function PolizaForm({ initialValues, isLoading, onFinish, submitText }: Props) {
                 rules={[{ required: true, message: 'Por favor, seleccione el numero de cuotas' }]}
             >
                 <Select placeholder="Seleccione la opcion de pago">
-                    <Option value="1">Mensual</Option>
-                    <Option value="3">Trimestral</Option>
-                    <Option value="6">Semestrar</Option>
-                    <Option value="12">Anual</Option>
+                    <Option value={1}>Mensual</Option>
+                    <Option value={3}>Trimestral</Option>
+                    <Option value={6}>Semestral</Option>
+                    <Option value={12}>Anual</Option>
                 </Select>
             </Form.Item>
 
-            <Form.Item
-                label="Vigencia"
-                name="vigencia"
-                rules={[{ required: true, message: 'Por favor, seleccione la fecha de inicio y fin.' }]}
-            >
-                <RangePicker placeholder={['Inicio', 'Vencimiento']} />
-            </Form.Item>
+            {showVigencia && (
+                <Form.Item
+                    label="Vigencia"
+                    name="vigencia"
+                    rules={[{ required: true, message: 'Por favor, seleccione la fecha de inicio y fin.' }]}
+                >
+                    <RangePicker placeholder={['Inicio', 'Vencimiento']} />
+                </Form.Item>
+            )}
             <Form.Item
                 label="Tipo de Poliza"
                 name="tipo_poliza_id"
                 rules={[{ required: true, message: 'Por favor, seleccione el tipo de poliza' }]}
             >
-                <Select placeholder="Seleccione el tipo">
+                <Select placeholder="Seleccione el tipo" onChange={handleChange}>
                     <Option value={TipoPoliza.Incendio}>Incendio</Option>
                     <Option value={TipoPoliza.Automovil}>Automovil</Option>
                     <Option value={TipoPoliza.Medico}>Medico</Option>
