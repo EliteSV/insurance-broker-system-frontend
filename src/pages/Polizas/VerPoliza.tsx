@@ -9,7 +9,6 @@ const VerPoliza = () => {
     const { id } = useParams();
     const navigate = useNavigate();
     const { data: poliza, isLoading } = useGetPolizaQuery(Number(id));
-    const detalles = JSON.parse(poliza?.detalles || '{}');
     return (
         <PageLayout>
             <Row align='middle' style={{ marginTop: '64px' }}>
@@ -59,7 +58,7 @@ const VerPoliza = () => {
                             title="Detalles"
                             size='small'
                         >
-                            <DetallesPoliza tipo_poliza_id={poliza?.tipo_poliza_id} detalles={detalles} />
+                            <DetallesPoliza tipo_poliza_id={poliza?.tipo_poliza_id} detalles={poliza?.detalles} />
                         </Card>
                     </Card>
                 </Col>

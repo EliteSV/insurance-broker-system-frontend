@@ -5,14 +5,13 @@ import PageLayout from '../../components/PageLayout';
 import { Poliza } from '../../types/Poliza';
 import { useGetPolizaQuery, useModificarPolizaMutation } from '../../api/api';
 import PolizaForm from '../../components/forms/PolizaForm';
-import { formatPoliza } from '../../utils/utils';
 
 const { Title } = Typography;
 
 const ModificarPoliza = () => {
     const { id } = useParams();
     const navigate = useNavigate();
-    const { data, isLoading } = useGetPolizaQuery(Number(id));
+    const { data: poliza, isLoading } = useGetPolizaQuery(Number(id));
     const [modificar, modificarResult] = useModificarPolizaMutation();
     const onFinish = (values: Partial<Poliza>) => {
         const payload: any = { id: Number(id), ...values };
@@ -23,7 +22,6 @@ const ModificarPoliza = () => {
             message.error('Ocurrió un error al modificar la poliza.');
         });
     };
-    const poliza = formatPoliza(data || {});
 
     return (
         <PageLayout>
