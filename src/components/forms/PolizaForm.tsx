@@ -58,10 +58,10 @@ function PolizaForm({ initialValues, isLoading, onFinish, submitText, showVigenc
                 rules={[{ required: true, message: 'Por favor, seleccione el numero de cuotas' }]}
             >
                 <Select placeholder="Seleccione la opcion de pago">
-                    <Option value={1}>Mensual</Option>
-                    <Option value={3}>Trimestral</Option>
-                    <Option value={6}>Semestral</Option>
-                    <Option value={12}>Anual</Option>
+                    <Option value={12}>Mensual</Option>
+                    <Option value={4}>Trimestral</Option>
+                    <Option value={2}>Semestral</Option>
+                    <Option value={1}>Anual</Option>
                 </Select>
             </Form.Item>
 

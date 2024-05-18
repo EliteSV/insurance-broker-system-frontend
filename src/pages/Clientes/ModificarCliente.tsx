@@ -32,6 +32,7 @@ const ModificarCliente = () => {
         if (values.documentos_nit) {
             formData.append(`documentos[${docIndex}][file]`, values.documentos_nit.file)
             formData.append(`documentos[${docIndex}][tipo_documento_id]`, TipoDocumento.NIT.toString());
+            docIndex++;
         }
         if (values.documentos_polizas) {
             for (let i = 0; i < values.documentos_polizas.fileList.length; i++) {
