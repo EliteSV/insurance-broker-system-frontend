@@ -34,7 +34,7 @@ const RegistrarPoliza = () => {
                         Regresar
                     </Button>
                     <Title level={2}>Registrar Poliza</Title>
-                    <PolizaForm onFinish={onFinish} submitText='Registrar' isLoading={crearPolizaResult.isLoading} />
+                    <PolizaForm onFinish={onFinish} submitText='Registrar' isLoading={crearPolizaResult.isLoading} showVigencia />
                 </Col>
             </Row>
         </PageLayout>
