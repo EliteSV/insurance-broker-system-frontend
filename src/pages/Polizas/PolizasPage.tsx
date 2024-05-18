@@ -4,15 +4,15 @@ import { PlusOutlined, EditOutlined, DeleteOutlined, EyeOutlined } from '@ant-de
 import type { TableProps } from 'antd';
 import { useNavigate, Link } from 'react-router-dom';
 import PageLayout from '../../components/PageLayout'
-import { Aseguradora } from '../../types/Aseguradora';
-import { useGetAseguradorasQuery, useEliminarAseguradoraMutation } from '../../api/api';
+import { Poliza } from '../../types/Poliza';
+import { useGetPolizasQuery, useEliminarPolizaMutation } from '../../api/api';
 
-function AseguradorasPage() {
+function PolizasPage() {
     const navigate = useNavigate()
-    const { data, isLoading } = useGetAseguradorasQuery()
-    const [eliminarAseguradora] = useEliminarAseguradoraMutation()
+    const { data, isLoading } = useGetPolizasQuery()
+    const [eliminarPoliza] = useEliminarPolizaMutation()
     const handleClick = () => {
-        navigate('/aseguradoras/registrar')
+        navigate('/polizas/registrar')
     }
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [id, setId] = useState<number | null>(null);
@@ -24,12 +24,12 @@ function AseguradorasPage() {
 
     const handleOk = () => {
         if (id) {
-            eliminarAseguradora(id).unwrap().then(() => {
-                message.success('Aseguradora eliminada correctamente');
-                navigate('/aseguradoras')
+            eliminarPoliza(id).unwrap().then(() => {
+                message.success('Poliza eliminada correctamente');
+                navigate('/polizas')
             })
                 .catch(() => {
-                    message.error('Error al eliminar la aseguradora');
+                    message.error('Error al eliminar la poliza');
                 });
         }
         setIsModalOpen(false);
@@ -39,7 +39,7 @@ function AseguradorasPage() {
         setIsModalOpen(false);
     };
 
-    const columns: TableProps<Aseguradora>['columns'] = [
+    const columns: TableProps<Poliza>['columns'] = [
         {
             title: 'ID',
             dataIndex: 'id',
@@ -51,21 +51,21 @@ function AseguradorasPage() {
             key: 'nombre',
         },
         {
-            title: 'Dirección',
-            dataIndex: 'direccion',
-            key: 'direccion',
+            title: 'Monto',
+            dataIndex: 'monto',
+            key: 'monto',
             responsive: ['lg'],
         },
         {
-            title: 'Telefono',
-            dataIndex: 'telefono',
-            key: 'telefono',
-            responsive: ['md'],
+            title: 'Cuotas',
+            dataIndex: 'cuotas',
+            key: 'cuotas',
+            responsive: ['lg'],
         },
         {
-            title: 'Email',
-            dataIndex: 'email',
-            key: 'email',
+            title: 'Estado',
+            dataIndex: 'estado',
+            key: 'estado',
             responsive: ['md'],
         },
         {
@@ -73,8 +73,8 @@ function AseguradorasPage() {
             key: 'acciones',
             render: (_, record) => (
                 <Space size="middle">
-                    <Link to={`/aseguradoras/${record.id}`}><EyeOutlined /></Link>
-                    <Link to={`/aseguradoras/modificar/${record.id}`}><EditOutlined /></Link>
+                    <Link to={`/polizas/${record.id}`}><EyeOutlined /></Link>
+                    <Link to={`/polizas/modificar/${record.id}`}><EditOutlined /></Link>
                     <a onClick={() => handleOpen(record.id)}><DeleteOutlined /> </a>
                 </Space>
             ),
@@ -88,11 +88,11 @@ function AseguradorasPage() {
                     <Table rowKey='id' columns={columns} dataSource={data} loading={isLoading} />
                 </Col>
             </Row>
-            <Modal title="Eliminar aseguradora" open={isModalOpen} onOk={handleOk} onCancel={handleCancel} okText="Si" cancelText="No">
-                <p>Desea eliminar la aseguradora?</p>
+            <Modal title="Eliminar poliza" open={isModalOpen} onOk={handleOk} onCancel={handleCancel} okText="Si" cancelText="No">
+                <p>Desea eliminar la poliza?</p>
             </Modal>
         </PageLayout>
     )
 }
 
-export default AseguradorasPage
+export default PolizasPage

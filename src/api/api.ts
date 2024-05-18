@@ -4,13 +4,12 @@ import { axiosBaseQuery } from './axiosBaseQuery'
 import { Aseguradora } from '../types/Aseguradora'
 import { Cliente } from '../types/Cliente'
 
-
 export const Api = createApi({
   reducerPath: 'api',
   baseQuery: axiosBaseQuery({
     baseUrl: API_URL,
   }),
-  tagTypes: ['aseguradoras', 'aseguradora', 'clientes', 'cliente'],
+  tagTypes: ['aseguradoras', 'aseguradora', 'clientes', 'cliente', 'polizas', 'poliza'],
   endpoints: (builder) => ({
     getCSRFCookie: builder.query<string, void>({
       query: () => ({
@@ -99,6 +98,43 @@ export const Api = createApi({
       }),
       invalidatesTags: (_result, _error, id) => [{ type: 'cliente', id }, 'clientes'],
     }),
+    getPolizas: builder.query<any, void>({
+      query: () => ({
+        method: 'GET',
+        url: `/api/polizas`,
+      }),
+      providesTags: ['polizas'],
+    }),
+    getPoliza: builder.query<any, number>({
+      query: (id) => ({
+        url: `/api/polizas/${id}`,
+        method: 'GET',
+      }),
+      providesTags: (_result, _error, id) => [{ type: 'poliza', id }]
+    }),
+    crearPoliza: builder.mutation<any, any>({
+      query: (poliza) => ({
+        url: `/api/polizas`,
+        method: 'POST',
+        data: poliza,
+      }),
+      invalidatesTags: ['polizas'],
+    }),
+    modificarPoliza: builder.mutation<any, any>({
+      query: (poliza) => ({
+        url: `/api/polizas/${poliza.id}`,
+        method: 'PUT',
+        data: poliza,
+      }),
+      invalidatesTags: (_result, _error, { id }) => [{ type: 'poliza', id}, 'polizas'],
+    }),
+    eliminarPoliza: builder.mutation<void, number>({
+      query: (id) => ({
+        url: `/api/polizas/${id}`,
+        method: 'DELETE',
+      }),
+      invalidatesTags: (_result, _error, id) => [{ type: 'poliza', id }, 'polizas'],
+    }),
   }),
 })
 
@@ -115,4 +151,9 @@ export const {
   useCrearClienteMutation,
   useModificarClienteMutation,
   useEliminarClienteMutation,
+  useGetPolizasQuery,
+  useGetPolizaQuery,
+  useCrearPolizaMutation,
+  useModificarPolizaMutation,
+  useEliminarPolizaMutation,
 } = Api

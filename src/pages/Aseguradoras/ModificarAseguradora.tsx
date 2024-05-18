@@ -1,4 +1,4 @@
-import { Row, Col, Typography, Button, message } from 'antd';
+import { Row, Col, Typography, Button, Spin, message } from 'antd';
 import { ArrowLeftOutlined } from '@ant-design/icons';
 import { useNavigate, useParams } from 'react-router-dom';
 import PageLayout from '../../components/PageLayout';
@@ -11,8 +11,8 @@ const { Title } = Typography;
 const ModificarAseguradora = () => {
     const { id } = useParams();
     const navigate = useNavigate();
-    const { data: aseguradora } = useGetAseguradoraQuery(Number(id));
-    const [modificar] = useModificarAseguradoraMutation();
+    const { data: aseguradora, isLoading } = useGetAseguradoraQuery(Number(id));
+    const [modificar, modificarResult] = useModificarAseguradoraMutation();
     const onFinish = (values: Partial<Aseguradora>) => {
         modificar({ id: Number(id), ...values }).unwrap().then(() => {
             message.success('Aseguradora modificada con éxito.');
@@ -30,7 +30,9 @@ const ModificarAseguradora = () => {
                         Regresar
                     </Button>
                     <Title level={2}>Modificar Aseguradora</Title>
-                    <AseguradorasForm initialValues={aseguradora} onFinish={onFinish} submitText='Modificar' />
+                    <Spin spinning={isLoading}>
+                        <AseguradorasForm initialValues={aseguradora} onFinish={onFinish} submitText='Modificar' isLoading={modificarResult.isLoading} />
+                    </Spin>
                 </Col>
             </Row>
         </PageLayout>
