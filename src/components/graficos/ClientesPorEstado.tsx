@@ -12,7 +12,7 @@ const ClientesPorEstado = () => {
         yField: 'value',
         colorField: 'type',
         style: {
-            fill: ({ type }) => (type === 'Al dia' ? '#3f8600' : '#cf1322'),
+            fill: ({ type }: { type: string }) => (type === 'Al dia' ? '#3f8600' : '#cf1322'),
         }
     };
 
