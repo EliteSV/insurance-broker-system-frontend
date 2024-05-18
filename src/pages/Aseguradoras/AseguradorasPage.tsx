@@ -1,11 +1,12 @@
 import { useState } from 'react';
-import { Button, Modal, Space, Table, message, Row, Col } from 'antd';
-import { PlusOutlined, EditOutlined, DeleteOutlined, EyeOutlined } from '@ant-design/icons';
-import type { TableProps } from 'antd';
-import { useNavigate, Link } from 'react-router-dom';
+import { Button, Modal, message, Row, Col } from 'antd';
+import { PlusOutlined } from '@ant-design/icons';
+
+import { useNavigate } from 'react-router-dom';
 import PageLayout from '../../components/PageLayout'
-import { Aseguradora } from '../../types/Aseguradora';
+
 import { useGetAseguradorasQuery, useEliminarAseguradoraMutation } from '../../api/api';
+import TablaAseguradoras from '../../components/tablas/TablaAseguradoras';
 
 function AseguradorasPage() {
     const navigate = useNavigate()
@@ -39,53 +40,12 @@ function AseguradorasPage() {
         setIsModalOpen(false);
     };
 
-    const columns: TableProps<Aseguradora>['columns'] = [
-        {
-            title: 'ID',
-            dataIndex: 'id',
-            key: 'id',
-        },
-        {
-            title: 'Nombre',
-            dataIndex: 'nombre',
-            key: 'nombre',
-        },
-        {
-            title: 'Dirección',
-            dataIndex: 'direccion',
-            key: 'direccion',
-            responsive: ['lg'],
-        },
-        {
-            title: 'Telefono',
-            dataIndex: 'telefono',
-            key: 'telefono',
-            responsive: ['md'],
-        },
-        {
-            title: 'Email',
-            dataIndex: 'email',
-            key: 'email',
-            responsive: ['md'],
-        },
-        {
-            title: 'Acciones',
-            key: 'acciones',
-            render: (_, record) => (
-                <Space size="middle">
-                    <Link to={`/aseguradoras/${record.id}`}><EyeOutlined /></Link>
-                    <Link to={`/aseguradoras/modificar/${record.id}`}><EditOutlined /></Link>
-                    <a onClick={() => handleOpen(record.id)}><DeleteOutlined /> </a>
-                </Space>
-            ),
-        },
-    ];
     return (
         <PageLayout>
             <Row>
                 <Col xs={{ span: 24 }} lg={{ span: 20, offset: 2 }}>
                     <Button type="primary" icon={<PlusOutlined />} style={{ marginBottom: '24px' }} onClick={handleClick}>Registrar nueva</Button>
-                    <Table rowKey='id' columns={columns} dataSource={data} loading={isLoading} />
+                    <TablaAseguradoras data={data || []} isLoading={isLoading} onDelete={handleOpen} />
                 </Col>
             </Row>
             <Modal title="Eliminar aseguradora" open={isModalOpen} onOk={handleOk} onCancel={handleCancel} okText="Si" cancelText="No">

@@ -1,11 +1,11 @@
 import { useState } from 'react';
-import { Button, Modal, Space, Table, message, Row, Col } from 'antd';
-import { PlusOutlined, EditOutlined, DeleteOutlined, EyeOutlined } from '@ant-design/icons';
-import type { TableProps } from 'antd';
-import { useNavigate, Link } from 'react-router-dom';
+import { Button, Modal, message, Row, Col } from 'antd';
+import { PlusOutlined } from '@ant-design/icons';
+import { useNavigate } from 'react-router-dom';
 import PageLayout from '../../components/PageLayout'
-import { Poliza } from '../../types/Poliza';
 import { useGetPolizasQuery, useEliminarPolizaMutation } from '../../api/api';
+import TablaPolizas from '../../components/tablas/TablaPolizas';
+
 
 function PolizasPage() {
     const navigate = useNavigate()
@@ -39,53 +39,13 @@ function PolizasPage() {
         setIsModalOpen(false);
     };
 
-    const columns: TableProps<Poliza>['columns'] = [
-        {
-            title: 'ID',
-            dataIndex: 'id',
-            key: 'id',
-        },
-        {
-            title: 'Nombre',
-            dataIndex: 'nombre',
-            key: 'nombre',
-        },
-        {
-            title: 'Monto',
-            dataIndex: 'monto',
-            key: 'monto',
-            responsive: ['lg'],
-        },
-        {
-            title: 'Cuotas',
-            dataIndex: 'cuotas',
-            key: 'cuotas',
-            responsive: ['lg'],
-        },
-        {
-            title: 'Estado',
-            dataIndex: 'estado',
-            key: 'estado',
-            responsive: ['md'],
-        },
-        {
-            title: 'Acciones',
-            key: 'acciones',
-            render: (_, record) => (
-                <Space size="middle">
-                    <Link to={`/polizas/${record.id}`}><EyeOutlined /></Link>
-                    <Link to={`/polizas/modificar/${record.id}`}><EditOutlined /></Link>
-                    <a onClick={() => handleOpen(record.id)}><DeleteOutlined /> </a>
-                </Space>
-            ),
-        },
-    ];
+
     return (
         <PageLayout>
             <Row>
                 <Col xs={{ span: 24 }} lg={{ span: 20, offset: 2 }}>
                     <Button type="primary" icon={<PlusOutlined />} style={{ marginBottom: '24px' }} onClick={handleClick}>Registrar nueva</Button>
-                    <Table rowKey='id' columns={columns} dataSource={data} loading={isLoading} />
+                    <TablaPolizas data={data || []} isLoading={isLoading} onDelete={handleOpen} />
                 </Col>
             </Row>
             <Modal title="Eliminar poliza" open={isModalOpen} onOk={handleOk} onCancel={handleCancel} okText="Si" cancelText="No">
