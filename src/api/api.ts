@@ -3,6 +3,7 @@ import { API_URL } from '../constants'
 import { axiosBaseQuery } from './axiosBaseQuery'
 import { Aseguradora } from '../types/Aseguradora'
 import { Cliente } from '../types/Cliente'
+import { formatPoliza } from '../utils/utils';
 
 export const Api = createApi({
   reducerPath: 'api',
@@ -110,6 +111,7 @@ export const Api = createApi({
         url: `/api/polizas/${id}`,
         method: 'GET',
       }),
+      transformResponse: (response) => formatPoliza(response),
       providesTags: (_result, _error, id) => [{ type: 'poliza', id }]
     }),
     crearPoliza: builder.mutation<any, any>({

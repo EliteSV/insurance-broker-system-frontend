@@ -1,4 +1,5 @@
 import { Typography } from 'antd';
+import dayjs from 'dayjs';
 import { TipoPoliza } from '../../types/Poliza';
 
 const { Text } = Typography;
@@ -26,7 +27,7 @@ function DetallesPoliza({ tipo_poliza_id, detalles }: DetallesPolizaProps) {
                     {detalles.valor_asegurado}
                     <br />
                     <Text strong>Año construcción: </Text>
-                    {detalles.anio_construccion}
+                    {dayjs(detalles.anio_construccion).format('YYYY')}
                     <br />
                     <Text strong>Materiales construcción: </Text>
                     {detalles.materiales_construccion}
@@ -63,7 +64,7 @@ function DetallesPoliza({ tipo_poliza_id, detalles }: DetallesPolizaProps) {
                     {detalles.capacidad}
                     <br />
                     <Text strong>Año fabricación: </Text>
-                    {detalles.anio_fabricacion}
+                    {dayjs(detalles.anio_fabricacion).format('YYYY')}
                     <br />
                     <Text strong>Placa: </Text>
                     {detalles.placa}
@@ -85,7 +86,7 @@ function DetallesPoliza({ tipo_poliza_id, detalles }: DetallesPolizaProps) {
                     {detalles.nombre_asegurado}
                     <br />
                     <Text strong>Fecha nacimiento: </Text>
-                    {detalles.fecha_nacimiento}
+                    {dayjs(detalles.fecha_nacimiento).format('DD/MM/YYYY')}
                     <br />
                     <Text strong>Género: </Text>
                     {detalles.genero}
@@ -110,7 +111,7 @@ function DetallesPoliza({ tipo_poliza_id, detalles }: DetallesPolizaProps) {
                     {detalles.nombre_asegurado}
                     <br />
                     <Text strong>Fecha nacimiento: </Text>
-                    {detalles.fecha_nacimiento}
+                    {dayjs(detalles.fecha_nacimiento).format('DD/MM/YYYY')}
                     <br />
                     <Text strong>Género: </Text>
                     {detalles.genero}

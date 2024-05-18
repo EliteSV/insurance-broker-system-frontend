@@ -2,12 +2,7 @@ import dayjs from 'dayjs'
 import { TipoPoliza } from '../types/Poliza';
 
 export function formatPoliza(poliza: any) {
-  const {detalles, ...rest} = poliza;
-  const formattedPoliza = {
-    ...rest,
-    detalles: detalles ? JSON.parse(detalles): {},
-  };
- 
+ const formattedPoliza = poliza;
   if (formattedPoliza.tipo_poliza_id === TipoPoliza.Automovil) {
     formattedPoliza.detalles = {
       ...formattedPoliza.detalles,
