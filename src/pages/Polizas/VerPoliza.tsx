@@ -1,21 +1,21 @@
-import { Button, Row, Col, Card } from 'antd';
-import { ArrowLeftOutlined } from '@ant-design/icons';
-import { useNavigate, useParams } from 'react-router-dom';
+import { Row, Col, Card } from 'antd';
+import { useParams } from 'react-router-dom';
+import dayjs from 'dayjs';
 import PageLayout from '../../components/PageLayout';
 import { useGetPolizaQuery } from '../../api/api';
 import DetallesPoliza from './DetallesPoliza';
+import { cuotasToFormaDePago } from '../../utils/utils';
+import TablaPagos from '../../components/tablas/TablaPagos';
+import { ButtonRegresar } from '../../components/common';
 
 const VerPoliza = () => {
     const { id } = useParams();
-    const navigate = useNavigate();
-    const { data: poliza, isLoading } = useGetPolizaQuery(Number(id));
+    const { data: poliza, isLoading, isFetching, refetch } = useGetPolizaQuery(Number(id));
     return (
         <PageLayout>
             <Row align='middle' style={{ marginTop: '64px' }}>
                 <Col xs={{ span: 24 }} lg={{ span: 12, offset: 6 }}>
-                    <Button type="primary" shape="round" icon={<ArrowLeftOutlined />} size="large" onClick={() => navigate('/polizas')} style={{ marginBottom: 24 }}>
-                        Regresar
-                    </Button>
+                    <ButtonRegresar />
                     <Card title={`${poliza?.codigo || ''} - ${poliza?.nombre || ''}`} loading={isLoading}>
                         <Card type="inner" title="Monto" size='small'>
                             {poliza?.monto}
@@ -23,11 +23,23 @@ const VerPoliza = () => {
                         <Card
                             style={{ marginTop: 16 }}
                             type="inner"
-                            title="Cuotas"
+                            title="Forma de pago"
                             size='small'
                         >
-                            {poliza?.cuotas}
+                            {cuotasToFormaDePago(poliza?.cuotas)}
                         </Card>
+                        {poliza?.vigencias.map((vigencia: any) => (
+                            <Card
+                                key={vigencia.id}
+                                style={{ marginTop: 16 }}
+                                type="inner"
+                                title={`Vigencia ${dayjs(vigencia.fecha_inicio).format('DD/MM/YYYY')} - ${dayjs(vigencia.fecha_vencimiento).format('DD/MM/YYYY')}`}
+                                size='small'
+                            >
+                                <TablaPagos data={vigencia.pagos} isLoading={isLoading || isFetching} refetch={refetch} />
+                            </Card>
+                        )
+                        )}
                         <Card
                             style={{ marginTop: 16 }}
                             type="inner"
