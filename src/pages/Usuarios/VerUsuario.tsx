@@ -3,14 +3,14 @@ import { ArrowLeftOutlined } from '@ant-design/icons';
 import { useNavigate, useParams } from 'react-router-dom';
 import PageLayout from '../../components/PageLayout';
 import { useGetUsuarioQuery } from '../../api/api';
-import moment from 'moment';
+import { formatDate } from '../../utils/utils';
 
 const VerUsuario = () =>{
     const { id } = useParams();
     const navigate = useNavigate();
     const { data: usuario, isLoading } = useGetUsuarioQuery(Number(id));
-
-    return (
+    
+     return (
         <PageLayout>
             <Row align='middle' style={{ marginTop: '64px' }}>
                 <Col xs={{ span: 24 }} lg={{ span: 12, offset: 6 }}>
@@ -37,7 +37,7 @@ const VerUsuario = () =>{
                             type="inner"
                             title="Creado"
                         >
-                            {moment(usuario?.created_at).format('DD-MM-YYYY HH:mm:ss')}
+                            {formatDate(usuario?.created_at)}
                         </Card>
                         <Card
                             style={{ marginTop: 16 }}
@@ -45,7 +45,7 @@ const VerUsuario = () =>{
                             title="Actualizado"
                         >
                             {
-                            moment(usuario?.updated_at).format('DD-MM-YYYY HH:mm:ss')
+                            formatDate(usuario?.updated_at)
                             }
                         </Card>
                     </Card>

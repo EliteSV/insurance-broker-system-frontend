@@ -6,7 +6,7 @@ import PageLayout from '../../components/PageLayout'
 import { PlusOutlined, EditOutlined, DeleteOutlined, EyeOutlined } from '@ant-design/icons';
 import { useEliminarUsuarioMutation, useGetUsuariosQuery } from '../../api/api'
 import { Usuario } from '../../types/Usuario';
-import moment from 'moment';
+import { formatDate } from '../../utils/utils';
 
 function UsuariosPage() {
     const navigate = useNavigate()
@@ -62,14 +62,14 @@ function UsuariosPage() {
             title: 'Creado',
             dataIndex: 'created_at',
             key: 'created_at',
-            render: (record) => moment(record.created_at).format('DD-MM-YYYY hh:mm:ss'),         
+            render: (record) => <span>{formatDate(record)}</span>,         
 
         },
         {
             title: 'Actualizado',
             dataIndex: 'updated_at',
             key: 'updated_at',
-            render: (record) => moment(record.updated_at).format('DD-MM-YYYY hh:mm:ss'),         
+            render: (record) => <span>{formatDate(record)}</span>,         
 
         },
         {
