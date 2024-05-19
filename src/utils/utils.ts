@@ -54,3 +54,9 @@ export const pagoToFormData = (values: any, method: 'POST' | 'PUT' = 'POST') => 
   }
   return formData;
 }
+
+export const formatDate = (date: string | undefined): string =>{
+  console.log(date)
+  const dateValue = dayjs(date);
+  return dateValue.format('DD-MM-YYYY HH:mm:ss');
+}

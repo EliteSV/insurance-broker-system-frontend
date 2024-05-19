@@ -6,6 +6,9 @@ import { Cliente } from "../types/Cliente";
 import { formatPoliza } from "../utils/utils";
 import { Dashboard } from "../types/Dashboard";
 import { PolizaPorEstado, VigenciaPoliza } from "../types/Poliza";
+import { Usuario } from '../types/Usuario'
+import { Rol } from '../types/Rol'
+
 
 export const Api = createApi({
   reducerPath: "api",
@@ -21,6 +24,9 @@ export const Api = createApi({
     "poliza",
     "pagos",
     "pago",
+    "usuarios",
+    "usuario",
+    "roles",
     "dashboard",
     "reportes",
   ],
@@ -233,6 +239,50 @@ export const Api = createApi({
       }),
       providesTags: ["reportes"],
     }),
+    getUsuarios: builder.query<Usuario[], void>({
+      query: () => ({
+        method: 'GET',
+        url: `/api/usuarios`,
+      }),
+      providesTags: ['usuarios'],
+    }),
+    getUsuario: builder.query<Usuario, number>({
+      query: (id) => ({
+        url: `/api/usuarios/${id}`,
+        method: 'GET',
+      }),
+      providesTags: (_result, _error, id) => [{ type: 'usuario', id }]
+    }),
+    crearUsuario: builder.mutation<Usuario, FormData>({
+      query: (usuario) => ({
+        url: `/api/usuarios`,
+        method: 'POST',
+        data: usuario,
+      }),
+      invalidatesTags: ['usuarios'],
+    }),
+    modificarUsuario: builder.mutation<Usuario, any>({
+      query: ({id,formData}) => ({
+        url: `/api/usuarios/${id}`,
+        method: 'POST',
+        data: formData,
+      }),
+      invalidatesTags: (_result, _error, { id }) => [{ type: 'usuario', id}, 'usuarios'],
+    }),
+    eliminarUsuario: builder.mutation<void, number>({
+      query: (id) => ({
+        url: `/api/usuarios/${id}`,
+        method: 'DELETE',
+      }),
+      invalidatesTags: (_result, _error, id) => [{ type: 'usuario', id }, 'usuarios'],
+    }),
+    getRoles: builder.query<Rol[], void>({
+      query: () => ({
+        method: 'GET',
+        url: `/api/roles`,
+      }),
+      providesTags: ['roles'],
+    }),
   }),
 });
 
@@ -263,4 +313,10 @@ export const {
   useGetClientesConMoraQuery,
   useGetPolizasPorEstadoQuery,
   useGetPolizasPorVencerQuery,
-} = Api;
+  useGetUsuariosQuery,
+  useGetUsuarioQuery,
+  useCrearUsuarioMutation,
+  useModificarUsuarioMutation,
+  useEliminarUsuarioMutation,
+  useGetRolesQuery
+} = Api

@@ -1,7 +1,10 @@
+import { Rol } from "./Rol";
+
 export type Usuario = {
     id: number;
     nombre: string;
     email: string;
-    password: string;
-    rol_id: number;
-    };
+    rol: Rol;
+    created_at: string;
+    updated_at: string;
+}
