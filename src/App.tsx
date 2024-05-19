@@ -14,9 +14,12 @@ import ModificarAseguradora from "./pages/Aseguradoras/ModificarAseguradora"
 import Pagos from "./pages/PagosPage"
 import Reportes from "./pages/ReportesPage"
 import Contabilidad from "./pages/ContabilidadPage"
-import Usuarios from "./pages/UsuariosPage"
+import Usuarios from "./pages/Usuarios/UsuariosPage"
 import NotFoundPage from "./pages/NotFoundPage"
 import PrivateRoutes from "./components/PrivateRoutes"
+import RegistrarUsuario from "./pages/Usuarios/RegistrarUsuario"
+import ModificarUsuario from "./pages/Usuarios/ModificarUsuarios"
+import VerUsuario from "./pages/Usuarios/VerUsuario"
 
 function App() {
   return (
@@ -38,6 +41,9 @@ function App() {
             <Route path="/reportes" element={<Reportes />} />
             <Route path="/contabilidad" element={<Contabilidad />} />
             <Route path="/usuarios" element={<Usuarios />} />
+            <Route path="/usuarios/registrar" element={<RegistrarUsuario />} />
+            <Route path="/usuarios/modificar/:id" element={<ModificarUsuario />} />
+            <Route path="/usuarios/:id" element={<VerUsuario />} />
             <Route path="/logout" element={<Logout />} />
           </Route>
           <Route path="/login" element={<Login />} />
