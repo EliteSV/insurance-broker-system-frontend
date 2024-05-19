@@ -1,24 +1,32 @@
-import { Column } from '@ant-design/charts';
+import { Column } from "@ant-design/charts";
 
-const ClientesPorEstado = () => {
-    const data = [
-        { type: 'Al dia', value: 50, },
-        { type: 'En mora', value: 15, },
-    ];
+type ClientesPorEstadoProps = {
+  data: {
+    clientesMora: number;
+    clientesAlDia: number;
+  };
+};
 
-    const config = {
-        data,
-        xField: 'type',
-        yField: 'value',
-        colorField: 'type',
-        style: {
-            fill: ({ type }: { type: string }) => (type === 'Al dia' ? '#3f8600' : '#cf1322'),
-        }
-    };
+const ClientesPorEstado = ({ data }: ClientesPorEstadoProps) => {
+  const { clientesAlDia, clientesMora } = data;
 
-    return (
-        <Column {...config} />
-    );
+  const chartData = [
+    { type: "Al dia", value: clientesAlDia },
+    { type: "En mora", value: clientesMora },
+  ];
+
+  const config = {
+    data: chartData,
+    xField: "type",
+    yField: "value",
+    colorField: "type",
+    style: {
+      fill: ({ type }: { type: string }) =>
+        type === "Al dia" ? "#3f8600" : "#cf1322",
+    },
+  };
+
+  return <Column {...config} />;
 };
 
 export default ClientesPorEstado;

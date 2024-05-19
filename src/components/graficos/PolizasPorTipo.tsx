@@ -1,26 +1,27 @@
-import { Pie } from '@ant-design/charts';
+import { Pie } from "@ant-design/charts";
+import { NumericObject } from "../../types/GlobalTypes";
 
-function PolizasPorTipo() {
-    const data = [
-        { type: 'Automóvil', value: 27 },
-        { type: 'Incendio', value: 18 },
-        { type: 'Médico', value: 35 },
-        { type: 'Vida', value: 20 },
-    ];
+type PolizaPorTipoProps = {
+  data: NumericObject;
+};
 
-    const config = {
-        appendPadding: 8,
-        data,
-        angleField: 'value',
-        colorField: 'type',
-        radius: 1,
-        innerRadius: 0.6,
-        interactions: [{ type: 'element-active' }],
-    };
+function PolizasPorTipo({ data }: PolizaPorTipoProps) {
+  const transformedData = Object.entries(data).map(([type, value]) => ({
+    type,
+    value,
+  }));
 
-    return (
-        <Pie {...config} />
-    )
+  const config = {
+    appendPadding: 8,
+    data: transformedData,
+    angleField: "value",
+    colorField: "type",
+    radius: 1,
+    innerRadius: 0.6,
+    interactions: [{ type: "element-active" }],
+  };
+
+  return <Pie {...config} />;
 }
 
-export default PolizasPorTipo
+export default PolizasPorTipo;
