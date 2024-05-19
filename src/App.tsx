@@ -14,7 +14,10 @@ import Aseguradoras from "./pages/Aseguradoras/AseguradorasPage"
 import VerAseguradora from "./pages/Aseguradoras/VerAseguradora"
 import RegistrarAseguradora from "./pages/Aseguradoras/RegistrarAseguradora"
 import ModificarAseguradora from "./pages/Aseguradoras/ModificarAseguradora"
-import Pagos from "./pages/PagosPage"
+import Pagos from "./pages/Pagos/PagosPage"
+import VerPago from "./pages/Pagos/VerPago"
+import RegistrarPago from "./pages/Pagos/RegistrarPago"
+import ModificarPago from "./pages/Pagos/ModificarPago"
 import Reportes from "./pages/ReportesPage"
 import Contabilidad from "./pages/ContabilidadPage"
 import Usuarios from "./pages/UsuariosPage"
@@ -41,6 +44,9 @@ function App() {
             <Route path="/aseguradoras/modificar/:id" element={<ModificarAseguradora />} />
             <Route path="/aseguradoras/:id" element={<VerAseguradora />} />
             <Route path="/pagos" element={<Pagos />} />
+            <Route path="/pagos/registrar" element={<RegistrarPago />} />
+            <Route path="/pagos/modificar/:id" element={<ModificarPago />} />
+            <Route path="/pagos/:id" element={<VerPago />} />
             <Route path="/reportes" element={<Reportes />} />
             <Route path="/contabilidad" element={<Contabilidad />} />
             <Route path="/usuarios" element={<Usuarios />} />

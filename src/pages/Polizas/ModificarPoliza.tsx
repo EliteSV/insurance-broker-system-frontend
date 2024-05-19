@@ -32,7 +32,7 @@ const ModificarPoliza = () => {
                     </Button>
                     <Title level={2}>Modificar Poliza</Title>
                     <Spin spinning={isLoading}>
-                        <PolizaForm initialValues={poliza} onFinish={onFinish} submitText='Modificar' isLoading={modificarResult.isLoading} />
+                        <PolizaForm initialValues={poliza} onFinish={onFinish} submitText='Modificar' isLoading={modificarResult.isLoading} showEstado />
                     </Spin>
                 </Col>
             </Row>
