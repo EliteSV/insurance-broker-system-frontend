@@ -1,10 +1,10 @@
-import { Row, Col, Typography, Button, Spin, message } from 'antd';
-import { ArrowLeftOutlined } from '@ant-design/icons';
+import { Row, Col, Typography, Spin, message } from 'antd';
 import { useNavigate, useParams } from 'react-router-dom';
 import PageLayout from '../../components/PageLayout';
 import { Poliza } from '../../types/Poliza';
 import { useGetPolizaQuery, useModificarPolizaMutation } from '../../api/api';
 import PolizaForm from '../../components/forms/PolizaForm';
+import { ButtonRegresar } from '../../components/common';
 
 const { Title } = Typography;
 
@@ -27,9 +27,7 @@ const ModificarPoliza = () => {
         <PageLayout>
             <Row align='middle' style={{ marginTop: '64px' }}>
                 <Col xs={{ span: 20, offset: 2 }} lg={{ span: 8, offset: 8 }}>
-                    <Button type="primary" shape="round" icon={<ArrowLeftOutlined />} size="large" onClick={() => navigate('/polizas')} style={{ marginBottom: 24 }}>
-                        Regresar
-                    </Button>
+                    <ButtonRegresar />
                     <Title level={2}>Modificar Poliza</Title>
                     <Spin spinning={isLoading}>
                         <PolizaForm initialValues={poliza} onFinish={onFinish} submitText='Modificar' isLoading={modificarResult.isLoading} showEstado />

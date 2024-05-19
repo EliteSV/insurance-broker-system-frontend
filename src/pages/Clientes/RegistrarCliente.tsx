@@ -1,10 +1,10 @@
-import { Button, Col, Row, message } from 'antd';
-import { ArrowLeftOutlined } from '@ant-design/icons';
+import { Col, Row, message } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import PageLayout from '../../components/PageLayout';
 import ClienteForm from '../../components/forms/ClienteForm';
 import { useCrearClienteMutation } from '../../api/api';
 import { TipoDocumento } from '../../types/Documento';
+import { ButtonRegresar } from '../../components/common';
 
 const RegistrarCliente = () => {
     const navigate = useNavigate();
@@ -40,9 +40,7 @@ const RegistrarCliente = () => {
         <PageLayout>
             <Row align='middle' style={{ marginTop: '64px' }}>
                 <Col xs={{ span: 20, offset: 2 }} lg={{ span: 8, offset: 8 }}>
-                    <Button type="primary" shape="round" icon={<ArrowLeftOutlined />} size="large" onClick={() => navigate('/clientes')} style={{ marginBottom: 24 }}>
-                        Regresar
-                    </Button>
+                    <ButtonRegresar />
                     <ClienteForm onFinish={onFinish} isLoading={crearClienteResult.isLoading} submitText='Registrar' />
                 </Col>
             </Row>

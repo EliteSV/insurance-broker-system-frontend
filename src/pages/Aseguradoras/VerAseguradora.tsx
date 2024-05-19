@@ -1,21 +1,18 @@
-import { Button, Row, Col, Card } from 'antd';
-import { ArrowLeftOutlined } from '@ant-design/icons';
-import { useNavigate, useParams } from 'react-router-dom';
+import { Row, Col, Card } from 'antd';
+import { useParams } from 'react-router-dom';
 import PageLayout from '../../components/PageLayout';
 import { useGetAseguradoraQuery } from '../../api/api';
+import { ButtonRegresar } from '../../components/common';
 
 const VerAseguradora = () => {
     const { id } = useParams();
-    const navigate = useNavigate();
     const { data: aseguradora, isLoading } = useGetAseguradoraQuery(Number(id));
 
     return (
         <PageLayout>
             <Row align='middle' style={{ marginTop: '64px' }}>
                 <Col xs={{ span: 24 }} lg={{ span: 12, offset: 6 }}>
-                    <Button type="primary" shape="round" icon={<ArrowLeftOutlined />} size="large" onClick={() => navigate('/aseguradoras')} style={{ marginBottom: 24 }}>
-                        Regresar
-                    </Button>
+                    <ButtonRegresar />
                     <Card title={aseguradora?.nombre} loading={isLoading}>
                         <Card type="inner" title="Dirección">
                             {aseguradora?.direccion}
