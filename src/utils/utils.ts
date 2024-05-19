@@ -1,5 +1,5 @@
 import dayjs from 'dayjs'
-import { TipoPoliza } from '../types/Poliza';
+import { TipoPoliza, FormaDePago } from '../types/Poliza';
 import { Pago } from '../types/Pago';
 import { EstadoPago } from '../types/Pago';
 
@@ -59,4 +59,19 @@ export const formatDate = (date: string | undefined): string =>{
   console.log(date)
   const dateValue = dayjs(date);
   return dateValue.format('DD-MM-YYYY HH:mm:ss');
+}
+
+export const cuotasToFormaDePago = (cuotas: number) => {
+  switch (cuotas) {
+    case FormaDePago.Anual:
+      return 'Anual';
+    case FormaDePago.Semestral:
+      return 'Semestral';
+    case FormaDePago.Trimestral:
+      return 'Trimestral';
+    case FormaDePago.Mensual:
+      return 'Mensual';
+    default:
+      return '';
+  }
 }

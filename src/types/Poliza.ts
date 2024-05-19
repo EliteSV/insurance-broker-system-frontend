@@ -47,6 +47,13 @@ export enum EstadoPoliza {
   Cancelada = 'Cancelada',
 }
 
+export enum FormaDePago {
+    Anual = 1,
+    Semestral = 2,
+    Trimestral = 4,
+    Mensual = 12,
+}
+
 export type PolizaAutomovil = {
   propietario: string;
   valor_asegurado: number;

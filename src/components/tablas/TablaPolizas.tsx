@@ -3,6 +3,7 @@ import { EditOutlined, DeleteOutlined, EyeOutlined } from '@ant-design/icons';
 import type { TableProps } from 'antd';
 import { Link } from 'react-router-dom';
 import { Poliza } from '../../types/Poliza';
+import { cuotasToFormaDePago } from '../../utils/utils';
 import { getEstadoPolizaTag } from '../../utils/tags';
 
 type TablaPolizasProps = {
@@ -40,6 +41,7 @@ function TablaPolizas({ data, isLoading, onDelete }: TablaPolizasProps) {
             title: 'Cuotas',
             dataIndex: 'cuotas',
             key: 'cuotas',
+            render: (cuotas) => cuotasToFormaDePago(cuotas),
             responsive: ['md'],
         },
         {

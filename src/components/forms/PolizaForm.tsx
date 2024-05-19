@@ -6,6 +6,7 @@ import PolizaVidaForm from './PolizaVidaForm';
 import { TipoPoliza, EstadoPoliza } from '../../types/Poliza';
 import { useEffect } from 'react';
 import { useGetAseguradorasQuery, useGetClientesQuery } from '../../api/api';
+import { FormaDePago } from '../../types/Poliza';
 
 const { Option } = Select;
 const { RangePicker } = DatePicker;
@@ -66,10 +67,10 @@ function PolizaForm({ initialValues, isLoading, onFinish, submitText, showVigenc
                 rules={[{ required: true, message: 'Por favor, seleccione el numero de cuotas' }]}
             >
                 <Select placeholder="Seleccione la opcion de pago">
-                    <Option value={12}>Mensual</Option>
-                    <Option value={4}>Trimestral</Option>
-                    <Option value={2}>Semestral</Option>
-                    <Option value={1}>Anual</Option>
+                    <Option value={FormaDePago.Mensual}>Mensual</Option>
+                    <Option value={FormaDePago.Trimestral}>Trimestral</Option>
+                    <Option value={FormaDePago.Semestral}>Semestral</Option>
+                    <Option value={FormaDePago.Anual}>Anual</Option>
                 </Select>
             </Form.Item>
 

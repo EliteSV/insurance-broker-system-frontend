@@ -117,7 +117,11 @@ const PagoForm = ({ initialValues, isLoading, onFinish, submitText = 'Registrar'
                 name="poliza_id"
                 rules={[{ required: true, message: 'Por favor, seleccione la poliza' }]}
             >
-                <Select placeholder="Seleccione la poliza" showSearch filterOption options={polizaOptions} onChange={onPolizaChange} />
+                <Select placeholder="Seleccione la poliza" showSearch options={polizaOptions} onChange={onPolizaChange}
+                    optionFilterProp="children"
+                    filterOption={(input, option) =>
+                        (option?.label as any)?.toLowerCase().includes(input.toLowerCase())
+                    } />
             </Form.Item>
 
             <Form.Item
