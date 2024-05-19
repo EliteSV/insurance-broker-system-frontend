@@ -7,6 +7,7 @@ import { Usuario } from '../types/Usuario'
 import { Rol } from '../types/Rol'
 import { Dashboard } from "../types/Dashboard";
 import { formatPoliza } from "../utils/utils";
+import { PolizaPorEstado, VigenciaPoliza } from "../types/Poliza";
 
 export const Api = createApi({
   reducerPath: "api",
@@ -26,6 +27,7 @@ export const Api = createApi({
     "usuario",
     "roles",
     "dashboard",
+    "reportes",
   ],
   endpoints: (builder) => ({
     getCSRFCookie: builder.query<string, void>({
@@ -259,6 +261,27 @@ export const Api = createApi({
       }),
       providesTags: ['roles'],
     }),
+    getClientesConMora: builder.query<Cliente[], void>({
+      query: () => ({
+        method: "GET",
+        url: `/api/reportes/clientes-con-mora`,
+      }),
+      providesTags: ["reportes"],
+    }),
+    getPolizasPorEstado: builder.query<PolizaPorEstado, void>({
+      query: () => ({
+        method: "GET",
+        url: `/api/reportes/polizas-por-estado`,
+      }),
+      providesTags: ["reportes"],
+    }),
+    getPolizasPorVencer: builder.query<VigenciaPoliza[], number>({
+      query: (weeks) => ({
+        url: `/api/polizas-vencimiento?weeks=${weeks}`,
+        method: 'GET',
+      }),
+      providesTags: ["reportes"],
+    }),
   }),
 });
 
@@ -292,4 +315,7 @@ export const {
   useModificarUsuarioMutation,
   useEliminarUsuarioMutation,
   useGetRolesQuery,
+  useGetClientesConMoraQuery,
+  useGetPolizasPorEstadoQuery,
+  useGetPolizasPorVencerQuery,
 } = Api;
