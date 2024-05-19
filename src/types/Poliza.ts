@@ -1,5 +1,6 @@
 export type Poliza = {
     id: number;
+    codigo: string;
     nombre: string;
     estado: string;
     monto: number;

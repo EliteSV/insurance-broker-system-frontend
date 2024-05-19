@@ -26,8 +26,7 @@ const RegistrarCliente = () => {
             formData.append(`documentos[${i + 2}][file]`, values.documentos_polizas.fileList[i].originFileObj);
             formData.append(`documentos[${i + 2}][tipo_documento_id]`, TipoDocumento.POLIZA.toString());
         }
-        crearCliente(formData).unwrap().then((res) => {
-            console.log(res);
+        crearCliente(formData).unwrap().then(() => {
             message.success('Cliente registrado exitosamente.');
             navigate('/clientes');
         })
@@ -44,7 +43,7 @@ const RegistrarCliente = () => {
                     <Button type="primary" shape="round" icon={<ArrowLeftOutlined />} size="large" onClick={() => navigate('/clientes')} style={{ marginBottom: 24 }}>
                         Regresar
                     </Button>
-                    <ClienteForm onFinish={onFinish} isLoading={crearClienteResult.isLoading} />
+                    <ClienteForm onFinish={onFinish} isLoading={crearClienteResult.isLoading} submitText='Registrar' />
                 </Col>
             </Row>
         </PageLayout>

@@ -14,7 +14,6 @@ const ModificarCliente = () => {
     const { data: cliente, isLoading } = useGetClienteQuery(Number(id));
     const [modificar, modificarResult] = useModificarClienteMutation();
     const onFinish = (values: any) => {
-        console.log(values);
         const formData = new FormData();
         formData.append('_method', 'put');
         formData.append('nombre', values.nombre);

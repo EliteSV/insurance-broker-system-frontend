@@ -16,6 +16,7 @@ function TablaAseguradoras({ data, isLoading, onDelete }: TablaAseguradorasProps
             title: 'ID',
             dataIndex: 'id',
             key: 'id',
+            hidden: true,
         },
         {
             title: 'Nombre',
