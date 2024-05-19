@@ -16,7 +16,7 @@ const VerPoliza = () => {
                     <Button type="primary" shape="round" icon={<ArrowLeftOutlined />} size="large" onClick={() => navigate('/polizas')} style={{ marginBottom: 24 }}>
                         Regresar
                     </Button>
-                    <Card title={`${poliza?.id || ''} - ${poliza?.nombre || ''}`} loading={isLoading}>
+                    <Card title={`${poliza?.codigo || ''} - ${poliza?.nombre || ''}`} loading={isLoading}>
                         <Card type="inner" title="Monto" size='small'>
                             {poliza?.monto}
                         </Card>

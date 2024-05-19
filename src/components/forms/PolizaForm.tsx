@@ -36,10 +36,17 @@ function PolizaForm({ initialValues, isLoading, onFinish, submitText, showVigenc
             initialValues={initialValues}
             onFinish={onFinish}
         >
+
+            <Form.Item
+                label="Código"
+                name="codigo"
+                rules={[{ required: true, message: 'Por favor ingrese el código.' }]}
+            >
+                <Input />
+            </Form.Item>
             <Form.Item
                 label="Nombre"
                 name="nombre"
-                rules={[{ required: true, message: 'Por favor ingrese el nombre.' }]}
             >
                 <Input />
             </Form.Item>
@@ -106,7 +113,7 @@ function PolizaForm({ initialValues, isLoading, onFinish, submitText, showVigenc
             >
                 <Select placeholder="Seleccione el cliente" showSearch filterOption optionFilterProp="children">
                     {clientes?.map(cliente => (
-                        <Option key={cliente.id} value={cliente.id}>{`${cliente.id} | ${cliente.nombre}`}</Option>
+                        <Option key={cliente.id} value={cliente.id}>{`${cliente.dui} | ${cliente.nombre}`}</Option>
                     ))}
                 </Select>
             </Form.Item>

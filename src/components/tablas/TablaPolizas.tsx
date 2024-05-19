@@ -16,29 +16,35 @@ function TablaPolizas({ data, isLoading, onDelete }: TablaPolizasProps) {
             title: 'ID',
             dataIndex: 'id',
             key: 'id',
+            hidden: true,
+        },
+        {
+            title: 'Codigo',
+            dataIndex: 'codigo',
+            key: 'codigo',
         },
         {
             title: 'Nombre',
             dataIndex: 'nombre',
             key: 'nombre',
+            responsive: ['lg'],
         },
         {
             title: 'Monto',
             dataIndex: 'monto',
             key: 'monto',
-            responsive: ['lg'],
+            responsive: ['md'],
         },
         {
             title: 'Cuotas',
             dataIndex: 'cuotas',
             key: 'cuotas',
-            responsive: ['lg'],
+            responsive: ['md'],
         },
         {
             title: 'Estado',
             dataIndex: 'estado',
             key: 'estado',
-            responsive: ['md'],
         },
         {
             title: 'Acciones',

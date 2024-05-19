@@ -17,6 +17,12 @@ function TablaClientes({ data, isLoading, onDelete }: TablaClientesProps) {
             title: 'ID',
             dataIndex: 'id',
             key: 'id',
+            hidden: true,
+        },
+        {
+            title: 'DUI',
+            dataIndex: 'dui',
+            key: 'dui',
         },
         {
             title: 'Nombre',
@@ -33,18 +39,13 @@ function TablaClientes({ data, isLoading, onDelete }: TablaClientesProps) {
             title: 'Telefono',
             dataIndex: 'telefono',
             key: 'telefono',
+            responsive: ['md'],
         },
         {
             title: 'Email',
             dataIndex: 'email',
             key: 'email',
             responsive: ['md'],
-        },
-        {
-            title: 'DUI',
-            dataIndex: 'dui',
-            key: 'dui',
-            responsive: ['lg'],
         },
         {
             title: 'NIT',
