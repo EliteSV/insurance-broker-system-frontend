@@ -1,19 +1,37 @@
-import React from "react";
-import { Button, Space, Table, Row, Col } from "antd";
+import { useState, useEffect } from "react";
+import { Button, Space, Table, Row, Col, Select } from "antd";
 import type { TableProps, TableColumnType } from "antd";
 import dayjs from "dayjs";
 import { exportToPDF, exportToExcel } from "../../utils/exporters";
 import { VigenciaPoliza } from "../../types/Poliza";
+import { useGetPolizasPorVencerQuery } from "../../api/api";
 
-type TablaPolizasPorVencerProps = {
-  data: VigenciaPoliza[];
-  isLoading: boolean;
-};
+const { Option } = Select;
 
-const TablaPolizasPorVencer: React.FC<TablaPolizasPorVencerProps> = ({
-  data,
-  isLoading,
-}) => {
+const TablaPolizasPorVencer = () => {
+  const [weeks, setWeeks] = useState(1);
+
+  const { data, refetch, isLoading } = useGetPolizasPorVencerQuery(weeks);
+
+  useEffect(() => {
+    refetch();
+  }, [weeks, refetch]);
+
+  const handleChange = (value: string) => {
+    switch (value) {
+      case "1 Mes":
+        setWeeks(4);
+        break;
+      case "2 Semanas":
+        setWeeks(2);
+        break;
+      case "1 Semana":
+      default:
+        setWeeks(1);
+        break;
+    }
+  };
+
   const columns: TableProps<VigenciaPoliza>["columns"] = [
     {
       title: "Fecha Inicio",
@@ -53,9 +71,9 @@ const TablaPolizasPorVencer: React.FC<TablaPolizasPorVencerProps> = ({
       dataIndex: col.dataIndex as keyof VigenciaPoliza,
     }));
     exportToPDF(
-      data,
+      data || [],
       exportColumns,
-      `Polizas Detalles ${dayjs().format("YYYY-MM-DD")}`
+      `Polizas por vencer ${dayjs().format("YYYY-MM-DD")}`
     );
   };
 
@@ -65,16 +83,27 @@ const TablaPolizasPorVencer: React.FC<TablaPolizasPorVencerProps> = ({
       dataIndex: col.dataIndex as keyof VigenciaPoliza,
     }));
     exportToExcel(
-      data,
+      data || [],
       exportColumns,
-      `Polizas Detalles ${dayjs().format("YYYY-MM-DD")}`
+      `Polizas por vencer ${dayjs().format("YYYY-MM-DD")}`
     );
   };
 
   return (
     <>
-      <Row gutter={[16, 16]}>
-        <Col xs={24}>
+      <Row gutter={[16, 16]} justify="space-between" align="middle">
+        <Col xs={24} sm={12}>
+          <Select
+            defaultValue="1 Semana"
+            style={{ width: 200 }}
+            onChange={handleChange}
+          >
+            <Option value="1 Semana">1 Semana</Option>
+            <Option value="2 Semanas">2 Semanas</Option>
+            <Option value="1 Mes">1 Mes</Option>
+          </Select>
+        </Col>
+        <Col xs={24} sm={12} style={{ textAlign: "right" }}>
           <Space style={{ marginBottom: 16 }}>
             <Button type="primary" onClick={handleExportToPDF}>
               PDF

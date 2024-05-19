@@ -226,9 +226,9 @@ export const Api = createApi({
       }),
       providesTags: ["reportes"],
     }),
-    getPolizasPorVencer: builder.query<VigenciaPoliza[], string>({
-      query: (date) => ({
-        url: `/api/polizas-vencimiento?date=${date}`,
+    getPolizasPorVencer: builder.query<VigenciaPoliza[], number>({
+      query: (weeks) => ({
+        url: `/api/polizas-vencimiento?weeks=${weeks}`,
         method: 'GET',
       }),
       providesTags: ["reportes"],

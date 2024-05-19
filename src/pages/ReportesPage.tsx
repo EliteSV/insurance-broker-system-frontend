@@ -3,14 +3,12 @@ import PageLayout from "../components/PageLayout";
 import {
   useGetClientesConMoraQuery,
   useGetPolizasPorEstadoQuery,
-  useGetPolizasPorVencerQuery,
 } from "../api/api";
 import TablaClientesConMora from "../components/tablas/TablaClientesReportes";
 import TablaPolizasCanceladas from "../components/tablas/TablaPolizasPorEstado";
 import TablaPolizasPorVencer from "../components/tablas/TablaPolizasPorVencer";
-import dayjs from "dayjs";
 import { Cliente } from "../types/Cliente";
-import { PolizaPorEstado, VigenciaPoliza } from "../types/Poliza";
+import { PolizaPorEstado } from "../types/Poliza";
 
 const { TabPane } = Tabs;
 
@@ -19,9 +17,6 @@ const ReportesPage: React.FC = () => {
     useGetClientesConMoraQuery();
   const { data: polizaPorEstadoData, isLoading: isLoadingPolizasPorEstado } =
     useGetPolizasPorEstadoQuery();
-  const { data: polizasPorVencerData, isLoading: isLoadingPolizasPorVencer } =
-    useGetPolizasPorVencerQuery(dayjs().format("YYYY-MM-DD"));
-
   return (
     <PageLayout>
       <h1>Reportes</h1>
@@ -46,13 +41,10 @@ const ReportesPage: React.FC = () => {
             </Col>
           </Row>
         </TabPane>
-        <TabPane tab="Polizas vencidas" key="3">
+        <TabPane tab="Polizas Por Vencer" key="3">
           <Row>
             <Col xs={24} sm={24} md={24} lg={24} xl={24}>
-              <TablaPolizasPorVencer
-                data={polizasPorVencerData as VigenciaPoliza[]}
-                isLoading={isLoadingPolizasPorVencer}
-              />
+              <TablaPolizasPorVencer />
             </Col>
           </Row>
         </TabPane>
