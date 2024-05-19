@@ -5,6 +5,7 @@ import { Aseguradora } from "../types/Aseguradora";
 import { Cliente } from "../types/Cliente";
 import { formatPoliza } from "../utils/utils";
 import { Dashboard } from "../types/Dashboard";
+import { PolizaPorEstado, VigenciaPoliza } from "../types/Poliza";
 
 export const Api = createApi({
   reducerPath: "api",
@@ -21,6 +22,7 @@ export const Api = createApi({
     "pagos",
     "pago",
     "dashboard",
+    "reportes",
   ],
   endpoints: (builder) => ({
     getCSRFCookie: builder.query<string, void>({
@@ -210,6 +212,27 @@ export const Api = createApi({
       }),
       invalidatesTags: (_result, _error, id) => [{ type: 'pago', id }, 'pagos'],
     }),
+    getClientesConMora: builder.query<Cliente[], void>({
+      query: () => ({
+        method: "GET",
+        url: `/api/reportes/clientes-con-mora`,
+      }),
+      providesTags: ["reportes"],
+    }),
+    getPolizasPorEstado: builder.query<PolizaPorEstado, void>({
+      query: () => ({
+        method: "GET",
+        url: `/api/reportes/polizas-por-estado`,
+      }),
+      providesTags: ["reportes"],
+    }),
+    getPolizasPorVencer: builder.query<VigenciaPoliza[], string>({
+      query: (date) => ({
+        url: `/api/polizas-vencimiento?date=${date}`,
+        method: 'GET',
+      }),
+      providesTags: ["reportes"],
+    }),
   }),
 });
 
@@ -237,4 +260,7 @@ export const {
   useModificarPagoMutation,
   useEliminarPagoMutation,
   useGetDashboardQuery,
+  useGetClientesConMoraQuery,
+  useGetPolizasPorEstadoQuery,
+  useGetPolizasPorVencerQuery,
 } = Api;
