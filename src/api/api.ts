@@ -44,6 +44,12 @@ export const Api = createApi({
         data: credentials,
       }),
     }),
+    getLoggedUser: builder.query<Usuario, void>({
+      query: () => ({
+        url: "/api/user",
+        method: "GET",
+      }),
+    }),
     getAseguradoras: builder.query<Aseguradora[], void>({
       query: () => ({
         method: "GET",
@@ -288,6 +294,8 @@ export const Api = createApi({
 
 export const {
   useLoginMutation,
+  useGetLoggedUserQuery,
+  useLazyGetLoggedUserQuery,
   useLazyGetCSRFCookieQuery,
   useGetAseguradorasQuery,
   useGetAseguradoraQuery,

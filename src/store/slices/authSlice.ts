@@ -1,8 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
+import { Usuario } from '../../types/Usuario'
 
 interface AuthState {
-  user: unknown | null
+  user: Usuario | null
   token: string | null
   isLoggedIn: boolean
 }
@@ -28,10 +29,13 @@ export const authSlice = createSlice({
       state.isLoggedIn = false
       localStorage.removeItem('token');
     },
+    setUser(state, action: PayloadAction<{ user: Usuario }>) {
+      state.user = action.payload.user
+    },
   },
 })
 
-export const { login,logout } = authSlice.actions
+export const { login,logout, setUser } = authSlice.actions
 
 
 export default authSlice.reducer

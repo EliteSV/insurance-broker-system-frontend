@@ -12,6 +12,8 @@ import {
 } from '@ant-design/icons';
 import { Layout, Menu } from 'antd';
 import { Link } from 'react-router-dom';
+import { RolEnum } from '../types/Rol';
+import { useAppSelector, } from '../store/hooks'
 
 const { Content, Sider } = Layout;
 
@@ -48,16 +50,19 @@ const items = [
         key: '/reportes',
         label: <Link to="/reportes">Reportes</Link>,
         icon: <AreaChartOutlined />,
+        roles: [RolEnum.Admin, RolEnum.Gerente],
     },
     {
         key: '/contabilidad',
         label: <Link to="/contabilidad">Contabilidad</Link>,
         icon: <FundOutlined />,
+        roles: [RolEnum.Admin, RolEnum.Gerente],
     },
     {
         key: '/usuarios',
         label: <Link to="/usuarios">Usuarios</Link>,
         icon: <TeamOutlined />,
+        roles: [RolEnum.Admin],
     },
     {
         key: '/logout',
@@ -68,6 +73,11 @@ const items = [
 
 function PageLayout({ children }: { children: React.ReactNode }) {
     const [collapsed, setCollapsed] = useState(false);
+    const loggedUser = useAppSelector(state => state.auth.user)
+    const filteredItems = items.filter(item => {
+        if (!item.roles) return true;
+        return item.roles.includes(loggedUser?.rol_id as RolEnum)
+    })
 
     return (
         <Layout style={{ width: '100%', minHeight: '100vh' }}>
@@ -79,7 +89,7 @@ function PageLayout({ children }: { children: React.ReactNode }) {
                 collapsedWidth="0"
             >
                 <div className="demo-logo-vertical" />
-                <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline" items={items} />
+                <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline" items={filteredItems} />
             </Sider>
             <Layout>
                 <Content style={{ margin: '0 16px', padding: '16px' }}>

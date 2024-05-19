@@ -50,7 +50,7 @@ function UsuariosPage() {
         {
             title: 'Rol',
             key: 'rol',
-            render: (record) => record.rol?.nombre,         
+            render: (record) => record.rol?.nombre,
         },
         {
             title: 'Email',
@@ -62,14 +62,14 @@ function UsuariosPage() {
             title: 'Creado',
             dataIndex: 'created_at',
             key: 'created_at',
-            render: (record) => <span>{formatDate(record)}</span>,         
+            render: (record) => <span>{formatDate(record)}</span>,
 
         },
         {
             title: 'Actualizado',
             dataIndex: 'updated_at',
             key: 'updated_at',
-            render: (record) => <span>{formatDate(record)}</span>,         
+            render: (record) => <span>{formatDate(record)}</span>,
 
         },
         {
