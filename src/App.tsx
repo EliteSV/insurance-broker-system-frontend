@@ -6,12 +6,18 @@ import Clientes from "./pages/Clientes/ClientesPage"
 import VerCliente from "./pages/Clientes/VerCliente"
 import RegistrarCliente from "./pages/Clientes/RegistrarCliente"
 import ModificarCliente from "./pages/Clientes/ModificarCliente"
-import Polizas from "./pages/PolizasPage"
+import Polizas from "./pages/Polizas/PolizasPage"
+import VerPoliza from "./pages/Polizas/VerPoliza"
+import RegistrarPoliza from "./pages/Polizas/RegistrarPoliza"
+import ModificarPoliza from "./pages/Polizas/ModificarPoliza"
 import Aseguradoras from "./pages/Aseguradoras/AseguradorasPage"
 import VerAseguradora from "./pages/Aseguradoras/VerAseguradora"
 import RegistrarAseguradora from "./pages/Aseguradoras/RegistrarAseguradora"
 import ModificarAseguradora from "./pages/Aseguradoras/ModificarAseguradora"
-import Pagos from "./pages/PagosPage"
+import Pagos from "./pages/Pagos/PagosPage"
+import VerPago from "./pages/Pagos/VerPago"
+import RegistrarPago from "./pages/Pagos/RegistrarPago"
+import ModificarPago from "./pages/Pagos/ModificarPago"
 import Reportes from "./pages/ReportesPage"
 import Contabilidad from "./pages/ContabilidadPage"
 import Usuarios from "./pages/Usuarios/UsuariosPage"
@@ -33,11 +39,17 @@ function App() {
             <Route path="/clientes/modificar/:id" element={<ModificarCliente />} />
             <Route path="/clientes/:id" element={<VerCliente />} />
             <Route path="/polizas" element={<Polizas />} />
+            <Route path="/polizas/registrar" element={<RegistrarPoliza />} />
+            <Route path="/polizas/modificar/:id" element={<ModificarPoliza />} />
+            <Route path="/polizas/:id" element={<VerPoliza />} />
             <Route path="/aseguradoras" element={<Aseguradoras />} />
             <Route path="/aseguradoras/registrar" element={<RegistrarAseguradora />} />
             <Route path="/aseguradoras/modificar/:id" element={<ModificarAseguradora />} />
             <Route path="/aseguradoras/:id" element={<VerAseguradora />} />
             <Route path="/pagos" element={<Pagos />} />
+            <Route path="/pagos/registrar" element={<RegistrarPago />} />
+            <Route path="/pagos/modificar/:id" element={<ModificarPago />} />
+            <Route path="/pagos/:id" element={<VerPago />} />
             <Route path="/reportes" element={<Reportes />} />
             <Route path="/contabilidad" element={<Contabilidad />} />
             <Route path="/usuarios" element={<Usuarios />} />

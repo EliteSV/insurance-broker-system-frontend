@@ -1,19 +1,18 @@
 import { useState } from 'react';
 import { Button, Modal, message, Row, Col } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
-
 import { useNavigate } from 'react-router-dom';
 import PageLayout from '../../components/PageLayout'
+import { useGetPolizasQuery, useEliminarPolizaMutation } from '../../api/api';
+import TablaPolizas from '../../components/tablas/TablaPolizas';
 
-import { useGetAseguradorasQuery, useEliminarAseguradoraMutation } from '../../api/api';
-import TablaAseguradoras from '../../components/tablas/TablaAseguradoras';
 
-function AseguradorasPage() {
+function PolizasPage() {
     const navigate = useNavigate()
-    const { data, isLoading } = useGetAseguradorasQuery()
-    const [eliminarAseguradora] = useEliminarAseguradoraMutation()
+    const { data, isLoading } = useGetPolizasQuery()
+    const [eliminarPoliza] = useEliminarPolizaMutation()
     const handleClick = () => {
-        navigate('/aseguradoras/registrar')
+        navigate('/polizas/registrar')
     }
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [id, setId] = useState<number | null>(null);
@@ -25,12 +24,12 @@ function AseguradorasPage() {
 
     const handleOk = () => {
         if (id) {
-            eliminarAseguradora(id).unwrap().then(() => {
-                message.success('Aseguradora eliminada correctamente');
-                navigate('/aseguradoras')
+            eliminarPoliza(id).unwrap().then(() => {
+                message.success('Poliza eliminada correctamente');
+                navigate('/polizas')
             })
                 .catch(() => {
-                    message.error('Error al eliminar la aseguradora');
+                    message.error('Error al eliminar la poliza');
                 });
         }
         setIsModalOpen(false);
@@ -40,19 +39,20 @@ function AseguradorasPage() {
         setIsModalOpen(false);
     };
 
+
     return (
         <PageLayout>
             <Row>
                 <Col xs={{ span: 24 }} lg={{ span: 20, offset: 2 }}>
                     <Button type="primary" icon={<PlusOutlined />} style={{ marginBottom: '24px' }} onClick={handleClick}>Registrar nueva</Button>
-                    <TablaAseguradoras data={data || []} isLoading={isLoading} onDelete={handleOpen} />
+                    <TablaPolizas data={data || []} isLoading={isLoading} onDelete={handleOpen} />
                 </Col>
             </Row>
-            <Modal title="Eliminar aseguradora" open={isModalOpen} onOk={handleOk} onCancel={handleCancel} okText="Si" cancelText="No">
-                <p>Desea eliminar la aseguradora?</p>
+            <Modal title="Eliminar poliza" open={isModalOpen} onOk={handleOk} onCancel={handleCancel} okText="Si" cancelText="No">
+                <p>Desea eliminar la poliza?</p>
             </Modal>
         </PageLayout>
     )
 }
 
-export default AseguradorasPage
+export default PolizasPage

@@ -3,12 +3,13 @@ import { Form, Input, Button } from 'antd';
 
 type Props = {
     initialValues?: any
+    isLoading?: boolean
     onFinish: (values: any) => void
     submitText?: string
 }
 
 
-function AseguradorasForm({ initialValues, onFinish, submitText = 'Enviar' }: Props) {
+function AseguradorasForm({ initialValues, onFinish, isLoading, submitText = 'Enviar' }: Props) {
     const [form] = Form.useForm();
     useEffect(() => form.resetFields(), [form, initialValues]);
     return (
@@ -67,7 +68,7 @@ function AseguradorasForm({ initialValues, onFinish, submitText = 'Enviar' }: Pr
             </Form.Item>
 
             <Form.Item>
-                <Button type="primary" htmlType="submit">
+                <Button type="primary" htmlType="submit" loading={isLoading}>
                     {submitText}
                 </Button>
             </Form.Item>

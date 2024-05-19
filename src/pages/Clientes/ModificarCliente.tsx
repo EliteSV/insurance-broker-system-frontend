@@ -1,4 +1,4 @@
-import { Row, Col, Typography, Button, message } from 'antd';
+import { Row, Col, Typography, Button, Spin, message } from 'antd';
 import { ArrowLeftOutlined } from '@ant-design/icons';
 import { useNavigate, useParams } from 'react-router-dom';
 import PageLayout from '../../components/PageLayout';
@@ -11,10 +11,9 @@ const { Title } = Typography;
 const ModificarCliente = () => {
     const { id } = useParams();
     const navigate = useNavigate();
-    const { data: cliente } = useGetClienteQuery(Number(id));
+    const { data: cliente, isLoading } = useGetClienteQuery(Number(id));
     const [modificar, modificarResult] = useModificarClienteMutation();
     const onFinish = (values: any) => {
-        console.log(values);
         const formData = new FormData();
         formData.append('_method', 'put');
         formData.append('nombre', values.nombre);
@@ -32,6 +31,7 @@ const ModificarCliente = () => {
         if (values.documentos_nit) {
             formData.append(`documentos[${docIndex}][file]`, values.documentos_nit.file)
             formData.append(`documentos[${docIndex}][tipo_documento_id]`, TipoDocumento.NIT.toString());
+            docIndex++;
         }
         if (values.documentos_polizas) {
             for (let i = 0; i < values.documentos_polizas.fileList.length; i++) {
@@ -55,7 +55,9 @@ const ModificarCliente = () => {
                         Regresar
                     </Button>
                     <Title level={2}>Modificar Cliente</Title>
-                    <ClienteForm initialValues={cliente} onFinish={onFinish} submitText='Modificar' requireDocs={false} isLoading={modificarResult.isLoading} />
+                    <Spin spinning={isLoading}>
+                        <ClienteForm initialValues={cliente} onFinish={onFinish} submitText='Modificar' requireDocs={false} isLoading={modificarResult.isLoading} />
+                    </Spin>
                 </Col>
             </Row>
         </PageLayout>
