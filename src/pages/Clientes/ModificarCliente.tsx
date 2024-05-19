@@ -1,10 +1,10 @@
-import { Row, Col, Typography, Button, Spin, message } from 'antd';
-import { ArrowLeftOutlined } from '@ant-design/icons';
+import { Row, Col, Typography, Spin, message } from 'antd';
 import { useNavigate, useParams } from 'react-router-dom';
 import PageLayout from '../../components/PageLayout';
 import { useGetClienteQuery, useModificarClienteMutation } from '../../api/api';
 import ClienteForm from '../../components/forms/ClienteForm';
 import { TipoDocumento } from '../../types/Documento';
+import { ButtonRegresar } from '../../components/common';
 
 const { Title } = Typography;
 
@@ -51,9 +51,7 @@ const ModificarCliente = () => {
         <PageLayout>
             <Row align='middle' style={{ marginTop: '64px' }}>
                 <Col xs={{ span: 20, offset: 2 }} lg={{ span: 8, offset: 8 }}>
-                    <Button type="primary" shape="round" icon={<ArrowLeftOutlined />} size="large" onClick={() => navigate('/clientes')} style={{ marginBottom: 24 }}>
-                        Regresar
-                    </Button>
+                    <ButtonRegresar />
                     <Title level={2}>Modificar Cliente</Title>
                     <Spin spinning={isLoading}>
                         <ClienteForm initialValues={cliente} onFinish={onFinish} submitText='Modificar' requireDocs={false} isLoading={modificarResult.isLoading} />

@@ -1,9 +1,9 @@
-import { Button, Col, Row, Typography, message } from 'antd'
-import { ArrowLeftOutlined } from '@ant-design/icons';
+import { Col, Row, Typography, message } from 'antd'
 import { useNavigate, useParams } from 'react-router-dom';
 import PageLayout from '../../components/PageLayout';
 import UsuarioForm from '../../components/forms/UsuarioForm'
 import { useModificarUsuarioMutation, useGetUsuarioQuery } from '../../api/api';
+import { ButtonRegresar } from '../../components/common';
 
 const { Title } = Typography;
 
@@ -28,9 +28,7 @@ const ModificarUsuario = () => {
         <PageLayout>
             <Row align='middle' style={{ marginTop: '64px' }}>
                 <Col xs={{ span: 20, offset: 2 }} lg={{ span: 8, offset: 8 }}>
-                    <Button type="primary" shape="round" icon={<ArrowLeftOutlined />} size="large" onClick={() => navigate('/usuarios')} style={{ marginBottom: 24 }}>
-                        Regresar
-                    </Button>
+                    <ButtonRegresar />
                     <Title level={2}>Modificar Usuario</Title>
                     <UsuarioForm initialValues={usuario} onFinish={onFinish} isLoading={modificarResult.isLoading} requiredPassword={false} submitText='Modificar' />
                 </Col>

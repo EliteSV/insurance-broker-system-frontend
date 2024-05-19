@@ -1,10 +1,10 @@
-import { Row, Col, Typography, Button, Spin, message } from 'antd';
-import { ArrowLeftOutlined } from '@ant-design/icons';
+import { Row, Col, Typography, Spin, message } from 'antd';
 import { useNavigate, useParams } from 'react-router-dom';
 import PageLayout from '../../components/PageLayout';
 import { Aseguradora } from '../../types/Aseguradora';
 import { useGetAseguradoraQuery, useModificarAseguradoraMutation } from '../../api/api';
 import AseguradorasForm from '../../components/forms/AseguradorasForm';
+import { ButtonRegresar } from '../../components/common';
 
 const { Title } = Typography;
 
@@ -26,9 +26,7 @@ const ModificarAseguradora = () => {
         <PageLayout>
             <Row align='middle' style={{ marginTop: '64px' }}>
                 <Col xs={{ span: 20, offset: 2 }} lg={{ span: 8, offset: 8 }}>
-                    <Button type="primary" shape="round" icon={<ArrowLeftOutlined />} size="large" onClick={() => navigate('/aseguradoras')} style={{ marginBottom: 24 }}>
-                        Regresar
-                    </Button>
+                    <ButtonRegresar />
                     <Title level={2}>Modificar Aseguradora</Title>
                     <Spin spinning={isLoading}>
                         <AseguradorasForm initialValues={aseguradora} onFinish={onFinish} submitText='Modificar' isLoading={modificarResult.isLoading} />

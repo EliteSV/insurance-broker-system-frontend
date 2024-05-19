@@ -1,21 +1,18 @@
-import { Button, Row, Col, Card, Image, Flex } from 'antd';
-import { ArrowLeftOutlined } from '@ant-design/icons';
-import { useNavigate, useParams } from 'react-router-dom';
+import { Row, Col, Card, Image, Flex } from 'antd';
+import { useParams } from 'react-router-dom';
 import PageLayout from '../../components/PageLayout';
 import { useGetClienteQuery } from '../../api/api';
+import { ButtonRegresar } from '../../components/common';
 
 const VerCliente = () => {
     const { id } = useParams();
-    const navigate = useNavigate();
     const { data: cliente, isLoading } = useGetClienteQuery(Number(id));
 
     return (
         <PageLayout>
             <Row align='middle' style={{ marginTop: '64px' }}>
                 <Col xs={{ span: 24 }} lg={{ span: 12, offset: 6 }}>
-                    <Button type="primary" shape="round" icon={<ArrowLeftOutlined />} size="large" onClick={() => navigate('/clientes')} style={{ marginBottom: 24 }}>
-                        Regresar
-                    </Button>
+                    <ButtonRegresar />
                     <Card title={cliente?.nombre} loading={isLoading}>
                         <Card type="inner" title="Dirección">
                             {cliente?.direccion}
