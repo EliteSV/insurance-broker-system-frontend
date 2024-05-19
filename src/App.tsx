@@ -21,11 +21,13 @@ import ModificarPago from "./pages/Pagos/ModificarPago"
 import Reportes from "./pages/ReportesPage"
 import Contabilidad from "./pages/ContabilidadPage"
 import Usuarios from "./pages/Usuarios/UsuariosPage"
-import NotFoundPage from "./pages/NotFoundPage"
-import PrivateRoutes from "./components/PrivateRoutes"
 import RegistrarUsuario from "./pages/Usuarios/RegistrarUsuario"
 import ModificarUsuario from "./pages/Usuarios/ModificarUsuarios"
 import VerUsuario from "./pages/Usuarios/VerUsuario"
+import NotFoundPage from "./pages/NotFoundPage"
+import PrivateRoutes from "./components/auth/PrivateRoutes"
+import AdminRoutes from "./components/auth/AdminRoutes"
+import GerenteRoutes from "./components/auth/GerenteRoutes"
 
 function App() {
   return (
@@ -50,12 +52,16 @@ function App() {
             <Route path="/pagos/registrar" element={<RegistrarPago />} />
             <Route path="/pagos/modificar/:id" element={<ModificarPago />} />
             <Route path="/pagos/:id" element={<VerPago />} />
-            <Route path="/reportes" element={<Reportes />} />
-            <Route path="/contabilidad" element={<Contabilidad />} />
-            <Route path="/usuarios" element={<Usuarios />} />
-            <Route path="/usuarios/registrar" element={<RegistrarUsuario />} />
-            <Route path="/usuarios/modificar/:id" element={<ModificarUsuario />} />
-            <Route path="/usuarios/:id" element={<VerUsuario />} />
+            <Route element={<GerenteRoutes />}>
+              <Route path="/reportes" element={<Reportes />} />
+              <Route path="/contabilidad" element={<Contabilidad />} />
+            </Route>
+            <Route element={<AdminRoutes />}>
+              <Route path="/usuarios" element={<Usuarios />} />
+              <Route path="/usuarios/registrar" element={<RegistrarUsuario />} />
+              <Route path="/usuarios/modificar/:id" element={<ModificarUsuario />} />
+              <Route path="/usuarios/:id" element={<VerUsuario />} />
+            </Route>
             <Route path="/logout" element={<Logout />} />
           </Route>
           <Route path="/login" element={<Login />} />
