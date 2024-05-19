@@ -3,7 +3,7 @@ import PolizaAutomovilForm from './PolizaAutomovilForm';
 import PolizaIncendioForm from './PolizaIncendioForm';
 import PolizaMedicoForm from './PolizaMedicoForm';
 import PolizaVidaForm from './PolizaVidaForm';
-import { TipoPoliza } from '../../types/Poliza';
+import { TipoPoliza, EstadoPoliza } from '../../types/Poliza';
 import { useEffect } from 'react';
 import { useGetAseguradorasQuery, useGetClientesQuery } from '../../api/api';
 
@@ -16,9 +16,10 @@ type Props = {
     onFinish: (values: any) => void;
     submitText?: string;
     showVigencia?: boolean;
+    showEstado?: boolean;
 }
 
-function PolizaForm({ initialValues, isLoading, onFinish, submitText, showVigencia }: Props) {
+function PolizaForm({ initialValues, isLoading, onFinish, submitText, showVigencia, showEstado }: Props) {
     const [form] = Form.useForm();
     useEffect(() => form.resetFields(), [form, initialValues]);
     const tipoPoliza = Form.useWatch('tipo_poliza_id', form);
@@ -80,6 +81,22 @@ function PolizaForm({ initialValues, isLoading, onFinish, submitText, showVigenc
                 >
                     <RangePicker placeholder={['Inicio', 'Vencimiento']} />
                 </Form.Item>
+            )}
+            {showEstado && (
+                <Form.Item
+                    label="Estado"
+                    name="estado"
+                    rules={[{ required: true, message: 'Por favor, seleccione el estado de la poliza' }]}
+                >
+                    <Select placeholder="Seleccione el estado">
+                        <Option value={EstadoPoliza.Pendiente}>Pendiente</Option>
+                        <Option value={EstadoPoliza.Vigente}>Vigente</Option>
+                        <Option value={EstadoPoliza.Vencida}>Vencida</Option>
+                        <Option value={EstadoPoliza.Expirada}>Expirada</Option>
+                        <Option value={EstadoPoliza.Cancelada}>Cancelada</Option>
+                    </Select>
+                </Form.Item>
+
             )}
             <Form.Item
                 label="Tipo de Poliza"

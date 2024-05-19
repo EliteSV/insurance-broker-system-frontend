@@ -2,7 +2,7 @@ export type Poliza = {
     id: number;
     codigo: string;
     nombre: string;
-    estado: string;
+    estado: EstadoPoliza;
     monto: number;
     cuotas: number;
     detalles: PolizaAutomovil | PolizaIncendio | PolizaVida | PolizaMedico;
@@ -24,6 +24,14 @@ export enum TipoPoliza {
     Automovil = 2,
     Medico = 3,
     Vida = 4,
+}
+
+export enum EstadoPoliza {
+   Pendiente = 'Pendiente',
+   Vigente = 'Vigente',
+   Vencida = 'Vencida',
+   Expirada = 'Expirada',
+   Cancelada = 'Cancelada',
 }
 
 export type PolizaAutomovil = {

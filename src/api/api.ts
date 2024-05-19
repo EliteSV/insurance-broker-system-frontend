@@ -18,6 +18,8 @@ export const Api = createApi({
     "cliente",
     "polizas",
     "poliza",
+    "pagos",
+    "pago",
     "dashboard",
   ],
   endpoints: (builder) => ({
@@ -171,6 +173,43 @@ export const Api = createApi({
       }),
       providesTags: ["dashboard"],
     }),
+    getPagos: builder.query<any, void>({
+      query: () => ({
+        method: 'GET',
+        url: `/api/pagos`,
+      }),
+      providesTags: ['pagos'],
+    }),
+    getPago: builder.query<any, number>({
+      query: (id) => ({
+        url: `/api/pagos/${id}`,
+        method: 'GET',
+      }),
+      providesTags: (_result, _error, id) => [{ type: 'pago', id }]
+    }),
+    crearPago: builder.mutation<any, FormData>({
+      query: (pago) => ({
+        url: `/api/pagos`,
+        method: 'POST',
+        data: pago,
+      }),
+      invalidatesTags: ['pagos'],
+    }),
+    modificarPago: builder.mutation<any, any>({
+      query: ({id,formData}) => ({
+        url: `/api/pagos/${id}`,
+        method: 'POST',
+        data: formData,
+      }),
+      invalidatesTags: (_result, _error, { id }) => [{ type: 'pago', id}, 'pagos'],
+    }),
+    eliminarPago: builder.mutation<void, number>({
+      query: (id) => ({
+        url: `/api/pagos/${id}`,
+        method: 'DELETE',
+      }),
+      invalidatesTags: (_result, _error, id) => [{ type: 'pago', id }, 'pagos'],
+    }),
   }),
 });
 
@@ -192,5 +231,10 @@ export const {
   useCrearPolizaMutation,
   useModificarPolizaMutation,
   useEliminarPolizaMutation,
+  useGetPagosQuery,
+  useGetPagoQuery,
+  useCrearPagoMutation,
+  useModificarPagoMutation,
+  useEliminarPagoMutation,
   useGetDashboardQuery,
 } = Api;

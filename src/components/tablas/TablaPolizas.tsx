@@ -3,6 +3,7 @@ import { EditOutlined, DeleteOutlined, EyeOutlined } from '@ant-design/icons';
 import type { TableProps } from 'antd';
 import { Link } from 'react-router-dom';
 import { Poliza } from '../../types/Poliza';
+import { getEstadoPolizaTag } from '../../utils/tags';
 
 type TablaPolizasProps = {
     data: Poliza[];
@@ -45,6 +46,7 @@ function TablaPolizas({ data, isLoading, onDelete }: TablaPolizasProps) {
             title: 'Estado',
             dataIndex: 'estado',
             key: 'estado',
+            render: (estado) => getEstadoPolizaTag(estado),
         },
         {
             title: 'Acciones',

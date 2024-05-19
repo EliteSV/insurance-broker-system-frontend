@@ -1,5 +1,7 @@
 import dayjs from 'dayjs'
 import { TipoPoliza } from '../types/Poliza';
+import { Pago } from '../types/Pago';
+import { EstadoPago } from '../types/Pago';
 
 export function formatPoliza(poliza: any) {
  const formattedPoliza = poliza;
@@ -23,4 +25,32 @@ export function formatPoliza(poliza: any) {
     }
   }
   return formattedPoliza;
+}
+
+export const formatPago = (pago?: Pago) => {
+  if (!pago) return null
+  return {
+    ...pago,
+    fecha_pagado: pago.fecha_pagado ? dayjs(pago.fecha_pagado) : null,
+    fecha_vencimiento: dayjs(pago.fecha_vencimiento),
+    poliza_id: pago.vigencia?.poliza_id
+  }
+}
+
+export const pagoToFormData = (values: any, method: 'POST' | 'PUT' = 'POST') => {
+  console.log(values)
+  const formData = new FormData();
+  if (method === 'PUT') {
+    formData.append('_method', 'put');
+  }
+  formData.append('cuota', values.cuota);
+  formData.append('cantidad', values.cantidad);
+  formData.append('fecha_vencimiento', values.fecha_vencimiento);
+  formData.append('estado', values.estado);
+  formData.append('vigencia_poliza_id', values.vigencia_poliza_id);
+  if (values.estado === EstadoPago.Pagado) {
+      formData.append('fecha_pagado', values.fecha_pagado);
+      formData.append(`comprobante`, values.comprobante.file);
+  }
+  return formData;
 }
