@@ -1,9 +1,11 @@
-import { Button, Col, Row, message } from 'antd'
+import { Button, Col, Row, Typography, message } from 'antd'
 import { ArrowLeftOutlined } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
 import PageLayout from '../../components/PageLayout';
 import UsuarioForm from '../../components/forms/UsuarioForm'
 import { useCrearUsuarioMutation } from '../../api/api';
+
+const { Title } = Typography;
 
 const RegistrarUsuario = () => {
     const navigate = useNavigate();
@@ -27,7 +29,8 @@ const RegistrarUsuario = () => {
                     <Button type="primary" shape="round" icon={<ArrowLeftOutlined />} size="large" onClick={() => navigate('/usuarios')} style={{ marginBottom: 24 }}>
                         Regresar
                     </Button>
-                    <UsuarioForm onFinish={onFinish} isLoading={crearUsuarioResult.isLoading} requiredPassword={true} />
+                    <Title level={2}>Registrar Usuario</Title>
+                    <UsuarioForm onFinish={onFinish} isLoading={crearUsuarioResult.isLoading} requiredPassword={true} submitText='Registrar' />
                 </Col>
             </Row>
         </PageLayout>
