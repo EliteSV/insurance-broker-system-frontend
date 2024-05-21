@@ -102,3 +102,10 @@ export type PolizaMedico = {
 export type PolizaPorEstado = {
   [key: string]: PolizaConDetalles[];
 };
+
+export type RenovacionPoliza = {
+  poliza_id: number;
+  fecha_inicio: string;
+  fecha_vencimiento: string;
+};
+

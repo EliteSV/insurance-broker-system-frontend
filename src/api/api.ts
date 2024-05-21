@@ -5,7 +5,7 @@ import { Aseguradora } from "../types/Aseguradora";
 import { Cliente } from "../types/Cliente";
 import { formatPoliza } from "../utils/utils";
 import { Dashboard } from "../types/Dashboard";
-import { PolizaPorEstado, VigenciaPoliza } from "../types/Poliza";
+import { PolizaPorEstado, VigenciaPoliza, RenovacionPoliza } from "../types/Poliza";
 import { Usuario } from '../types/Usuario'
 import { Rol } from '../types/Rol'
 
@@ -289,6 +289,14 @@ export const Api = createApi({
       }),
       providesTags: ['roles'],
     }),
+    renovarPoliza: builder.mutation<VigenciaPoliza, RenovacionPoliza>({
+      query: (renovacion) => ({
+        url: `/api/renovacion`,
+        method: "POST",
+        data: renovacion
+      }),
+      invalidatesTags: ["polizas"],
+    }),
   }),
 });
 
@@ -326,5 +334,6 @@ export const {
   useCrearUsuarioMutation,
   useModificarUsuarioMutation,
   useEliminarUsuarioMutation,
-  useGetRolesQuery
+  useGetRolesQuery,
+  useRenovarPolizaMutation,
 } = Api
