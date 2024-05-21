@@ -289,6 +289,14 @@ export const Api = createApi({
       }),
       providesTags: ['roles'],
     }),
+    eliminarDocumentosCliente: builder.mutation<void, { urls: string[] }>({
+      query: (body) => ({
+        url: `/api/archivos`,
+        method: 'DELETE',
+        data: body,
+      }),
+      invalidatesTags: ["cliente"],
+    }),
   }),
 });
 
@@ -326,5 +334,6 @@ export const {
   useCrearUsuarioMutation,
   useModificarUsuarioMutation,
   useEliminarUsuarioMutation,
-  useGetRolesQuery
+  useGetRolesQuery,
+  useEliminarDocumentosClienteMutation,
 } = Api
