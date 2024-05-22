@@ -27,7 +27,7 @@ const VerUsuario = () => {
                             type="inner"
                             title="Rol"
                         >
-                            {usuario?.rol.nombre}
+                            {usuario?.rol?.nombre}
                         </Card>
                         <Card
                             style={{ marginTop: 16 }}
