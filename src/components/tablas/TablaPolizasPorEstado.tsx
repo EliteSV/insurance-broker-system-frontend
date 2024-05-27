@@ -13,7 +13,7 @@ type TablaPolizasPorEstadoProps = {
 };
 
 const TablaPolizasPorEstado: React.FC<TablaPolizasPorEstadoProps> = ({
-  data,
+  data = { vigentes: [], vencidas: [], expiradas: [], canceladas: [] },
   isLoading,
 }) => {
   const [selectedType, setSelectedType] =
