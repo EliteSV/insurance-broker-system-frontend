@@ -4,85 +4,127 @@ import PolizaIncendioForm from './PolizaIncendioForm';
 import PolizaMedicoForm from './PolizaMedicoForm';
 import PolizaVidaForm from './PolizaVidaForm';
 import { TipoPoliza, EstadoPoliza } from '../../types/Poliza';
-import { useEffect } from 'react';
+import { useEffect, useMemo } from "react";
 import { useGetAseguradorasQuery, useGetClientesQuery } from '../../api/api';
 import { FormaDePago } from '../../types/Poliza';
+import dayjs, { Dayjs } from "dayjs";
 
 const { Option } = Select;
 const { RangePicker } = DatePicker;
 
 type Props = {
-    isLoading?: boolean;
-    initialValues?: any;
-    onFinish: (values: any) => void;
-    submitText?: string;
-    showVigencia?: boolean;
-    showEstado?: boolean;
+  isLoading?: boolean;
+  initialValues?: any;
+  onFinish: (values: any) => void;
+  submitText?: string;
+  showVigencia?: boolean;
+  showEstado?: boolean;
 }
 
 function PolizaForm({ initialValues, isLoading, onFinish, submitText, showVigencia, showEstado }: Props) {
-    const [form] = Form.useForm();
-    useEffect(() => form.resetFields(), [form, initialValues]);
-    const tipoPoliza = Form.useWatch('tipo_poliza_id', form);
-    const { data: aseguradoras } = useGetAseguradorasQuery();
-    const { data: clientes } = useGetClientesQuery();
+  const [form] = Form.useForm();
+  const tipoPoliza = Form.useWatch('tipo_poliza_id', form);
+  const { data: aseguradoras } = useGetAseguradorasQuery();
+  const { data: clientes } = useGetClientesQuery();
 
-    const handleChange = () => {
-        form.setFieldsValue({ detalles: null });
-    };
+  const handleChange = () => {
+    form.setFieldsValue({ detalles: null });
+  };
 
-    return (
-        <Form
-            name="polizaForm"
-            form={form}
-            initialValues={initialValues}
-            onFinish={onFinish}
+  const validateDateRange = (_: unknown, value: [Dayjs, Dayjs] | undefined) => {
+    if (value && value.length === 2) {
+      const startDate = dayjs(value[0]);
+      const endDate = dayjs(value[1]);
+      if (endDate.diff(startDate, "year", true) !== 1) {
+        return Promise.reject(
+          new Error(
+            "La fecha de vencimiento debe ser exactamente un año después de la fecha de inicio."
+          )
+        );
+      }
+    }
+    return Promise.resolve();
+  };
+
+  const validVigencia = initialValues?.vigencias?.find((vigencia: any) => {
+    return dayjs(vigencia.fecha_vencimiento).isAfter(dayjs());
+  });
+
+  const defaultValues = useMemo(
+    () => ({
+      ...initialValues,
+      vigencia: validVigencia
+        ? [
+            dayjs(validVigencia.fecha_inicio),
+            dayjs(validVigencia.fecha_vencimiento),
+          ]
+        : undefined,
+    }),
+    [initialValues, validVigencia]
+  );
+
+  useEffect(() => {
+    form.setFieldsValue(defaultValues);
+  }, [defaultValues, form]);
+
+  return (
+    <Form
+        name="polizaForm"
+        form={form}
+        initialValues={initialValues}
+        onFinish={onFinish}
+    >
+
+        <Form.Item
+            label="Código"
+            name="codigo"
+            rules={[{ required: true, message: 'Por favor ingrese el código.' }]}
         >
+            <Input />
+        </Form.Item>
+        <Form.Item
+            label="Nombre"
+            name="nombre"
+        >
+            <Input />
+        </Form.Item>
 
-            <Form.Item
-                label="Código"
-                name="codigo"
-                rules={[{ required: true, message: 'Por favor ingrese el código.' }]}
-            >
-                <Input />
-            </Form.Item>
-            <Form.Item
-                label="Nombre"
-                name="nombre"
-            >
-                <Input />
-            </Form.Item>
+        <Form.Item
+            label="Monto"
+            name="monto"
+            rules={[{ required: true, message: 'Por favor ingrese el monto.' }]}
+        >
+            <InputNumber addonBefore="$" />
+        </Form.Item>
 
-            <Form.Item
-                label="Monto"
-                name="monto"
-                rules={[{ required: true, message: 'Por favor ingrese el monto.' }]}
-            >
-                <InputNumber addonBefore="$" />
-            </Form.Item>
+        <Form.Item
+            label="Cuotas"
+            name="cuotas"
+            rules={[{ required: true, message: 'Por favor, seleccione el numero de cuotas' }]}
+        >
+            <Select placeholder="Seleccione la opcion de pago">
+                <Option value={FormaDePago.Mensual}>Mensual</Option>
+                <Option value={FormaDePago.Trimestral}>Trimestral</Option>
+                <Option value={FormaDePago.Semestral}>Semestral</Option>
+                <Option value={FormaDePago.Anual}>Anual</Option>
+            </Select>
+        </Form.Item>
 
-            <Form.Item
-                label="Cuotas"
-                name="cuotas"
-                rules={[{ required: true, message: 'Por favor, seleccione el numero de cuotas' }]}
-            >
-                <Select placeholder="Seleccione la opcion de pago">
-                    <Option value={FormaDePago.Mensual}>Mensual</Option>
-                    <Option value={FormaDePago.Trimestral}>Trimestral</Option>
-                    <Option value={FormaDePago.Semestral}>Semestral</Option>
-                    <Option value={FormaDePago.Anual}>Anual</Option>
-                </Select>
-            </Form.Item>
-
-            {showVigencia && (
-                <Form.Item
-                    label="Vigencia"
-                    name="vigencia"
-                    rules={[{ required: true, message: 'Por favor, seleccione la fecha de inicio y fin.' }]}
-                >
-                    <RangePicker placeholder={['Inicio', 'Vencimiento']} />
-                </Form.Item>
-            )}
+      {showVigencia && (
+        <Form.Item
+          label="Vigencia"
+          name="vigencia"
+          rules={[
+            {
+              required: true,
+              message: "Por favor, seleccione la fecha de inicio y fin.",
+            },
+            { validator: validateDateRange },
+          ]}
+        >
+          <RangePicker placeholder={['Inicio', 'Vencimiento']} />
+        </Form.Item>
+      )}
             {showEstado && (
                 <Form.Item
                     label="Estado"
@@ -112,7 +154,7 @@ function PolizaForm({ initialValues, isLoading, onFinish, submitText, showVigenc
                 </Select>
             </Form.Item>
 
-            <Form.Item
+      <Form.Item
                 label="Aseguradora"
                 name="aseguradora_id"
                 rules={[{ required: true, message: 'Por favor, seleccione la aseguradora' }]}
@@ -124,7 +166,7 @@ function PolizaForm({ initialValues, isLoading, onFinish, submitText, showVigenc
                 </Select>
             </Form.Item>
 
-            <Form.Item
+      <Form.Item
                 label="Cliente"
                 name="cliente_id"
                 rules={[{ required: true, message: 'Por favor, seleccione el cliente' }]}
@@ -136,19 +178,19 @@ function PolizaForm({ initialValues, isLoading, onFinish, submitText, showVigenc
                 </Select>
             </Form.Item>
 
-            <Divider />
-            {tipoPoliza === TipoPoliza.Incendio && (<PolizaIncendioForm />)}
-            {tipoPoliza === TipoPoliza.Automovil && (<PolizaAutomovilForm />)}
-            {tipoPoliza === TipoPoliza.Medico && (<PolizaMedicoForm />)}
-            {tipoPoliza === TipoPoliza.Vida && (<PolizaVidaForm />)}
+      <Divider />
+      {tipoPoliza === TipoPoliza.Incendio && (<PolizaIncendioForm />)}
+      {tipoPoliza === TipoPoliza.Automovil && (<PolizaAutomovilForm />)}
+      {tipoPoliza === TipoPoliza.Medico && (<PolizaMedicoForm />)}
+      {tipoPoliza === TipoPoliza.Vida && (<PolizaVidaForm />)}
 
-            <Form.Item>
-                <Button type="primary" htmlType="submit" loading={isLoading}>
-                    {submitText}
-                </Button>
-            </Form.Item>
-        </Form>
-    )
+      <Form.Item>
+        <Button type="primary" htmlType="submit" loading={isLoading}>
+          {submitText}
+        </Button>
+      </Form.Item>
+    </Form>
+  )
 }
 
 export default PolizaForm
