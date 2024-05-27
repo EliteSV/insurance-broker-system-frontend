@@ -1,5 +1,5 @@
 import { Space, Table, } from 'antd';
-import { EditOutlined, DeleteOutlined, EyeOutlined } from '@ant-design/icons';
+import { EditOutlined, DeleteOutlined, EyeOutlined, ReloadOutlined } from '@ant-design/icons';
 import type { TableProps } from 'antd';
 import { Link } from 'react-router-dom';
 import { Poliza } from '../../types/Poliza';
@@ -10,9 +10,10 @@ type TablaPolizasProps = {
     data: Poliza[];
     isLoading: boolean;
     onDelete: (id: number) => void;
+    onRenew: (id: number, nombre: string) => void;
 };
 
-function TablaPolizas({ data, isLoading, onDelete }: TablaPolizasProps) {
+function TablaPolizas({ data, isLoading, onDelete, onRenew }: TablaPolizasProps) {
     const columns: TableProps<Poliza>['columns'] = [
         {
             title: 'ID',
@@ -58,6 +59,7 @@ function TablaPolizas({ data, isLoading, onDelete }: TablaPolizasProps) {
                     <Link to={`/polizas/${record.id}`}><EyeOutlined /></Link>
                     <Link to={`/polizas/modificar/${record.id}`}><EditOutlined /></Link>
                     <a onClick={() => onDelete(record.id)}><DeleteOutlined /> </a>
+                    {record.estado === 'Expirada' && <a onClick={() => onRenew(record.id, record.nombre)}><ReloadOutlined /></a>}
                 </Space>
             ),
         },
