@@ -14,13 +14,13 @@ const ModificarUsuario = () => {
     const { data: usuario } = useGetUsuarioQuery(Number(id));
 
     const onFinish = (values: any) => {
-        modificar({ id: Number(id), ...values }).unwrap().then((res) => {
+        modificar({ id: Number(id), data: values }).unwrap().then((res) => {
             console.log(res);
-            message.success('Usuario registrado exitosamente.');
+            message.success('Usuario modificado exitosamente.');
             navigate('/usuarios')
         }).catch((error) => {
             console.log(error);
-            message.error('Ocurrió un error al registrar el usuario.')
+            message.error('Ocurrió un error al modificar el usuario.')
         })
     }
 

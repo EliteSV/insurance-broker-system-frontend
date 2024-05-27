@@ -267,11 +267,11 @@ export const Api = createApi({
       }),
       invalidatesTags: ['usuarios'],
     }),
-    modificarUsuario: builder.mutation<Usuario, any>({
-      query: ({id,formData}) => ({
+    modificarUsuario: builder.mutation<Usuario, {id:number, data:Usuario}>({
+      query: ({id,data}) => ({
         url: `/api/usuarios/${id}`,
-        method: 'POST',
-        data: formData,
+        method: 'PUT',
+        data: data,
       }),
       invalidatesTags: (_result, _error, { id }) => [{ type: 'usuario', id}, 'usuarios'],
     }),
@@ -289,13 +289,35 @@ export const Api = createApi({
       }),
       providesTags: ['roles'],
     }),
-    renovarPoliza: builder.mutation<VigenciaPoliza, RenovacionPoliza>({
+    eliminarDocumentosCliente: builder.mutation<void, { urls: string[] }>({
+      query: (body) => ({
+        url: `/api/archivos`,
+        method: 'DELETE',
+        data: body,
+      }),
+      invalidatesTags: ["cliente"],
+    }),
+        renovarPoliza: builder.mutation<VigenciaPoliza, RenovacionPoliza>({
       query: (renovacion) => ({
         url: `/api/renovacion`,
         method: "POST",
         data: renovacion
       }),
       invalidatesTags: ["polizas"],
+    }),
+    forgotPassword: builder.mutation<void, {email:string}>({
+      query: (data) => ({
+        url: '/api/forgot-password',
+        method: 'POST',
+        data,
+      }),
+    }),
+    resetPassword: builder.mutation<void, {data:any}>({
+      query: (data) => ({
+        url: '/api/reset-password',
+        method: 'POST',
+        data
+      }),
     }),
   }),
 });
@@ -336,4 +358,7 @@ export const {
   useEliminarUsuarioMutation,
   useGetRolesQuery,
   useRenovarPolizaMutation,
+  useEliminarDocumentosClienteMutation,
+  useForgotPasswordMutation,
+  useResetPasswordMutation
 } = Api

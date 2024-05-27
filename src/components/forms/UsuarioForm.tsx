@@ -71,7 +71,7 @@ function UsuarioForm({
       >
         <Select placeholder="Seleccione un rol">
           {
-            data && data.map(rol => <Select.Option value={rol.id}>{rol.nombre}</Select.Option>)
+            data && data.map(rol => <Select.Option key={rol.id} value={rol.id}>{rol.nombre}</Select.Option>)
           }
         </Select>
       </Form.Item>

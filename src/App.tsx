@@ -28,6 +28,8 @@ import NotFoundPage from "./pages/NotFoundPage"
 import PrivateRoutes from "./components/auth/PrivateRoutes"
 import AdminRoutes from "./components/auth/AdminRoutes"
 import GerenteRoutes from "./components/auth/GerenteRoutes"
+import ForgotPassword from "./pages/ForgotPassword"
+import ResetPassword from "./pages/ResetPassword"
 
 function App() {
   return (
@@ -65,7 +67,8 @@ function App() {
             <Route path="/logout" element={<Logout />} />
           </Route>
           <Route path="/login" element={<Login />} />
-
+          <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/reset-password/:token" element={<ResetPassword />} />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </BrowserRouter>
