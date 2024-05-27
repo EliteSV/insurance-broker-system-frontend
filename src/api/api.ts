@@ -267,11 +267,11 @@ export const Api = createApi({
       }),
       invalidatesTags: ['usuarios'],
     }),
-    modificarUsuario: builder.mutation<Usuario, any>({
-      query: ({id,formData}) => ({
+    modificarUsuario: builder.mutation<Usuario, {id:number, data:Usuario}>({
+      query: ({id,data}) => ({
         url: `/api/usuarios/${id}`,
-        method: 'POST',
-        data: formData,
+        method: 'PUT',
+        data: data,
       }),
       invalidatesTags: (_result, _error, { id }) => [{ type: 'usuario', id}, 'usuarios'],
     }),
@@ -296,6 +296,20 @@ export const Api = createApi({
         data: body,
       }),
       invalidatesTags: ["cliente"],
+    }),
+    forgotPassword: builder.mutation<void, {email:string}>({
+      query: (data) => ({
+        url: '/api/forgot-password',
+        method: 'POST',
+        data,
+      }),
+    }),
+    resetPassword: builder.mutation<void, {data:any}>({
+      query: (data) => ({
+        url: '/api/reset-password',
+        method: 'POST',
+        data
+      }),
     }),
   }),
 });
@@ -336,4 +350,6 @@ export const {
   useEliminarUsuarioMutation,
   useGetRolesQuery,
   useEliminarDocumentosClienteMutation,
+  useForgotPasswordMutation,
+  useResetPasswordMutation
 } = Api

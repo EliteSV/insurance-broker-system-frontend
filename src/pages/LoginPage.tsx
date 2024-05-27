@@ -4,7 +4,7 @@ import PublicLayout from '../components/PublicLayout';
 import { useLoginMutation, useLazyGetCSRFCookieQuery } from '../api/api';
 import { login } from '../store/slices/authSlice';
 import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 const { Title } = Typography;
 
@@ -56,15 +56,18 @@ const LoginPage = () => {
                             </Form.Item>
 
                             <Form.Item>
-                                <Button type="primary" htmlType="submit" loading={loginResult.isLoading}>
-                                    Iniciar sesión
-                                </Button>
+                                <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                                    <Button type="primary" htmlType="submit" loading={loginResult.isLoading}>
+                                        Iniciar sesión
+                                    </Button>
+                                    <Link to="/forgot-password" style={{ alignSelf: 'center' }}>Olvidé mi contraseña</Link>
+                                </div>
                             </Form.Item>
                         </Form>
                     </Card>
                 </Col>
             </Row>
-        </PublicLayout >
+        </PublicLayout>
     );
 };
 
