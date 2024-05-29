@@ -95,17 +95,6 @@ function PolizaForm({
       </Form.Item>
 
       <Form.Item
-        label="Código"
-        name="codigo"
-        rules={[{ required: true, message: 'Por favor ingrese el código.' }]}
-      >
-        <Input />
-      </Form.Item>
-      <Form.Item label="Nombre" name="nombre">
-        <Input />
-      </Form.Item>
-
-      <Form.Item
         label="Monto"
         name="monto"
         rules={[{ required: true, message: 'Por favor ingrese el monto.' }]}
