@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect } from 'react';
 import {
   Form,
   Input,
@@ -9,9 +9,9 @@ import {
   Row,
   Modal,
   message,
-} from "antd";
-import DocumentList from "../common/DocumentList";
-import { useEliminarDocumentosClienteMutation } from "../../api/api";
+} from 'antd';
+import DocumentList from '../common/DocumentList';
+import { useEliminarDocumentosClienteMutation } from '../../api/api';
 
 type ClienteFormProps = {
   requireDocs?: boolean;
@@ -26,7 +26,7 @@ const ClienteForm: React.FC<ClienteFormProps> = ({
   isLoading,
   initialValues,
   requireDocs = true,
-  submitText = "Enviar",
+  submitText = 'Enviar',
 }) => {
   const [dui, setDui] = useState<UploadFile[]>([]);
   const [nit, setNit] = useState<UploadFile[]>([]);
@@ -51,15 +51,15 @@ const ClienteForm: React.FC<ClienteFormProps> = ({
       eliminarDocumentos({ urls: [documentUrlToDelete] })
         .unwrap()
         .then(() => {
-          message.success("Documento eliminado correctamente");
+          message.success('Documento eliminado correctamente');
           form.setFieldsValue({
             documentos: form
-              .getFieldValue("documentos")
+              .getFieldValue('documentos')
               .filter((doc: any) => doc.url !== documentUrlToDelete),
           });
         })
         .catch(() => {
-          message.error("Error al eliminar documento");
+          message.error('Error al eliminar documento');
         })
         .finally(() => {
           setIsModalOpen(false);
@@ -83,7 +83,7 @@ const ClienteForm: React.FC<ClienteFormProps> = ({
             name="nombre"
             label="Nombre"
             rules={[
-              { required: true, message: "Por favor, ingresa tu nombre." },
+              { required: true, message: 'Por favor, ingresa tu nombre.' },
             ]}
           >
             <Input />
@@ -94,12 +94,12 @@ const ClienteForm: React.FC<ClienteFormProps> = ({
             label="E-mail"
             rules={[
               {
-                type: "email",
-                message: "¡El E-mail ingresado no es válido!",
+                type: 'email',
+                message: '¡El E-mail ingresado no es válido!',
               },
               {
                 required: true,
-                message: "Por favor, ingresa tu E-mail.",
+                message: 'Por favor, ingresa tu E-mail.',
               },
             ]}
           >
@@ -112,11 +112,11 @@ const ClienteForm: React.FC<ClienteFormProps> = ({
             rules={[
               {
                 required: true,
-                message: "Por favor, ingresa tu número de teléfono.",
+                message: 'Por favor, ingresa tu número de teléfono.',
               },
               {
                 pattern: /^(?:\d{8}|\d{4}-\d{4})$/,
-                message: "Por favor, ingrese un número de teléfono válido",
+                message: 'Por favor, ingrese un número de teléfono válido',
               },
             ]}
           >
@@ -127,10 +127,10 @@ const ClienteForm: React.FC<ClienteFormProps> = ({
             name="dui"
             label="DUI"
             rules={[
-              { required: true, message: "Por favor, ingresa tu DUI." },
+              { required: true, message: 'Por favor, ingresa tu DUI.' },
               {
                 pattern: /^[0-9]{8}-[0-9]{1}$/,
-                message: "Por favor, ingrese un DUI válido",
+                message: 'Por favor, ingrese un DUI válido',
               },
             ]}
           >
@@ -141,10 +141,10 @@ const ClienteForm: React.FC<ClienteFormProps> = ({
             name="nit"
             label="NIT"
             rules={[
-              { required: true, message: "Por favor, ingresa tu NIT." },
+              { required: true, message: 'Por favor, ingresa tu NIT.' },
               {
                 pattern: /^[0-9]{4}-[0-9]{6}-[0-9]{3}-[0-9]{1}$/,
-                message: "Por favor, ingrese un NIT válido",
+                message: 'Por favor, ingrese un NIT válido',
               },
             ]}
           >
@@ -155,7 +155,7 @@ const ClienteForm: React.FC<ClienteFormProps> = ({
             name="direccion"
             label="Dirección"
             rules={[
-              { required: true, message: "Por favor, ingresa tu dirección." },
+              { required: true, message: 'Por favor, ingresa tu dirección.' },
             ]}
           >
             <Input />
@@ -167,7 +167,7 @@ const ClienteForm: React.FC<ClienteFormProps> = ({
             rules={[
               {
                 required: requireDocs,
-                message: "Por favor, selecciona una imagen del DUI.",
+                message: 'Por favor, selecciona una imagen del DUI.',
               },
             ]}
           >
@@ -187,7 +187,7 @@ const ClienteForm: React.FC<ClienteFormProps> = ({
             rules={[
               {
                 required: requireDocs,
-                message: "Por favor, selecciona una imagen del NIT.",
+                message: 'Por favor, selecciona una imagen del NIT.',
               },
             ]}
           >
@@ -207,7 +207,7 @@ const ClienteForm: React.FC<ClienteFormProps> = ({
             rules={[
               {
                 required: requireDocs,
-                message: "Por favor, selecciona al menos una imagen de póliza.",
+                message: 'Por favor, selecciona al menos una imagen de póliza.',
               },
             ]}
           >

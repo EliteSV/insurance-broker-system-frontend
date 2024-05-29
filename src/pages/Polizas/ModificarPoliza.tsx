@@ -23,27 +23,33 @@ const ModificarPoliza = () => {
     modificar(payload)
       .unwrap()
       .then(() => {
-        message.success("Póliza modificada con éxito.");
-        navigate("/polizas");
+        message.success('Póliza modificada con éxito.');
+        navigate('/polizas');
       })
       .catch(() => {
-        message.error("Ocurrió un error al modificar la poliza.");
+        message.error('Ocurrió un error al modificar la poliza.');
       });
   };
 
   return (
     <PageLayout>
-        <Row align='middle' style={{ marginTop: '64px' }}>
-            <Col xs={{ span: 20, offset: 2 }} lg={{ span: 8, offset: 8 }}>
-                <ButtonRegresar />
-                <Title level={2}>Modificar Poliza</Title>
-                <Spin spinning={isLoading}>
-                    <PolizaForm initialValues={poliza} onFinish={onFinish} submitText='Modificar' isLoading={modificarResult.isLoading} showEstado />
-                </Spin>
-            </Col>
-        </Row>
+      <Row align="middle" style={{ marginTop: '64px' }}>
+        <Col xs={{ span: 20, offset: 2 }} lg={{ span: 8, offset: 8 }}>
+          <ButtonRegresar />
+          <Title level={2}>Modificar Poliza</Title>
+          <Spin spinning={isLoading}>
+            <PolizaForm
+              initialValues={poliza}
+              onFinish={onFinish}
+              submitText="Modificar"
+              isLoading={modificarResult.isLoading}
+              showEstado
+            />
+          </Spin>
+        </Col>
+      </Row>
     </PageLayout>
-);
+  );
 };
 
 export default ModificarPoliza;

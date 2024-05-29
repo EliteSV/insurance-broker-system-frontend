@@ -1,14 +1,14 @@
-import { Tabs, Row, Col } from "antd";
-import PageLayout from "../components/PageLayout";
+import { Tabs, Row, Col } from 'antd';
+import PageLayout from '../components/PageLayout';
 import {
   useGetClientesConMoraQuery,
   useGetPolizasPorEstadoQuery,
-} from "../api/api";
-import TablaClientesConMora from "../components/tablas/TablaClientesReportes";
-import TablaPolizasCanceladas from "../components/tablas/TablaPolizasPorEstado";
-import TablaPolizasPorVencer from "../components/tablas/TablaPolizasPorVencer";
-import { Cliente } from "../types/Cliente";
-import { PolizaPorEstado } from "../types/Poliza";
+} from '../api/api';
+import TablaClientesConMora from '../components/tablas/TablaClientesReportes';
+import TablaPolizasCanceladas from '../components/tablas/TablaPolizasPorEstado';
+import TablaPolizasPorVencer from '../components/tablas/TablaPolizasPorVencer';
+import { Cliente } from '../types/Cliente';
+import { PolizaPorEstado } from '../types/Poliza';
 
 const ReportesPage: React.FC = () => {
   const { data: clientesData, isLoading: isLoadingClientes } =
@@ -18,8 +18,8 @@ const ReportesPage: React.FC = () => {
 
   const tabItems = [
     {
-      key: "1",
-      label: "Clientes en Mora",
+      key: '1',
+      label: 'Clientes en Mora',
       children: (
         <Row>
           <Col xs={24} sm={24} md={24} lg={24} xl={24}>
@@ -32,8 +32,8 @@ const ReportesPage: React.FC = () => {
       ),
     },
     {
-      key: "2",
-      label: "Polizas por estados",
+      key: '2',
+      label: 'Polizas por estados',
       children: (
         <Row>
           <Col xs={24} sm={24} md={24} lg={24} xl={24}>
@@ -46,8 +46,8 @@ const ReportesPage: React.FC = () => {
       ),
     },
     {
-      key: "3",
-      label: "Polizas Por Vencer",
+      key: '3',
+      label: 'Polizas Por Vencer',
       children: (
         <Row>
           <Col xs={24} sm={24} md={24} lg={24} xl={24}>

@@ -1,15 +1,15 @@
-import { Card, Statistic, Row, Col } from "antd";
+import { Card, Statistic, Row, Col } from 'antd';
 
 import {
   UserOutlined,
   InsuranceOutlined,
   SafetyOutlined,
   WarningOutlined,
-} from "@ant-design/icons";
-import PageLayout from "../components/PageLayout";
-import PolizasPorTipo from "../components/graficos/PolizasPorTipo";
-import ClientesPorEstado from "../components/graficos/ClientesPorEstado";
-import { useGetDashboardQuery } from "../api/api";
+} from '@ant-design/icons';
+import PageLayout from '../components/PageLayout';
+import PolizasPorTipo from '../components/graficos/PolizasPorTipo';
+import ClientesPorEstado from '../components/graficos/ClientesPorEstado';
+import { useGetDashboardQuery } from '../api/api';
 
 function HomePage() {
   const { data, isLoading } = useGetDashboardQuery();
@@ -33,7 +33,7 @@ function HomePage() {
               title="Polizas Vigentes"
               value={polizasVigentes}
               prefix={<InsuranceOutlined />}
-              valueStyle={{ color: "#3f8600" }}
+              valueStyle={{ color: '#3f8600' }}
             />
           </Card>
         </Col>
@@ -43,7 +43,7 @@ function HomePage() {
               title="Polizas Vencidas"
               value={polizasMora}
               prefix={<WarningOutlined />}
-              valueStyle={{ color: "#cf1322" }}
+              valueStyle={{ color: '#cf1322' }}
             />
           </Card>
         </Col>

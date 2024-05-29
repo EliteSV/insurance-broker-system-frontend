@@ -1,10 +1,10 @@
-import { useState, useEffect } from "react";
-import { Button, Space, Table, Row, Col, Select } from "antd";
-import type { TableProps, TableColumnType } from "antd";
-import dayjs from "dayjs";
-import { exportToPDF, exportToExcel } from "../../utils/exporters";
-import { VigenciaPoliza } from "../../types/Poliza";
-import { useGetPolizasPorVencerQuery } from "../../api/api";
+import { useState, useEffect } from 'react';
+import { Button, Space, Table, Row, Col, Select } from 'antd';
+import type { TableProps, TableColumnType } from 'antd';
+import dayjs from 'dayjs';
+import { exportToPDF, exportToExcel } from '../../utils/exporters';
+import { VigenciaPoliza } from '../../types/Poliza';
+import { useGetPolizasPorVencerQuery } from '../../api/api';
 
 const { Option } = Select;
 
@@ -19,43 +19,43 @@ const TablaPolizasPorVencer = () => {
 
   const handleChange = (value: string) => {
     switch (value) {
-      case "1 Mes":
+      case '1 Mes':
         setWeeks(4);
         break;
-      case "2 Semanas":
+      case '2 Semanas':
         setWeeks(2);
         break;
-      case "1 Semana":
+      case '1 Semana':
       default:
         setWeeks(1);
         break;
     }
   };
 
-  const columns: TableProps<VigenciaPoliza>["columns"] = [
+  const columns: TableProps<VigenciaPoliza>['columns'] = [
     {
-      title: "Fecha Inicio",
-      dataIndex: "fecha_inicio",
-      key: "fecha_inicio",
-      responsive: ["xs", "sm", "md", "lg"],
+      title: 'Fecha Inicio',
+      dataIndex: 'fecha_inicio',
+      key: 'fecha_inicio',
+      responsive: ['xs', 'sm', 'md', 'lg'],
     },
     {
-      title: "Fecha Vencimiento",
-      dataIndex: "fecha_vencimiento",
-      key: "fecha_vencimiento",
-      responsive: ["xs", "sm", "md", "lg"],
+      title: 'Fecha Vencimiento',
+      dataIndex: 'fecha_vencimiento',
+      key: 'fecha_vencimiento',
+      responsive: ['xs', 'sm', 'md', 'lg'],
     },
     {
-      title: "Nombre de Poliza",
-      dataIndex: ["poliza", "nombre"],
-      key: "poliza_nombre",
-      responsive: ["xs", "sm", "md", "lg"],
+      title: 'Nombre de Poliza',
+      dataIndex: ['poliza', 'nombre'],
+      key: 'poliza_nombre',
+      responsive: ['xs', 'sm', 'md', 'lg'],
     },
     {
-      title: "Nombre de Aseguradora",
-      dataIndex: ["poliza", "aseguradora", "nombre"],
-      key: "aseguradora_nombre",
-      responsive: ["xs", "sm", "md", "lg"],
+      title: 'Nombre de Aseguradora',
+      dataIndex: ['poliza', 'aseguradora', 'nombre'],
+      key: 'aseguradora_nombre',
+      responsive: ['xs', 'sm', 'md', 'lg'],
     },
   ];
 
@@ -73,7 +73,7 @@ const TablaPolizasPorVencer = () => {
     exportToPDF(
       data || [],
       exportColumns,
-      `Polizas por vencer ${dayjs().format("YYYY-MM-DD")}`
+      `Polizas por vencer ${dayjs().format('YYYY-MM-DD')}`
     );
   };
 
@@ -85,7 +85,7 @@ const TablaPolizasPorVencer = () => {
     exportToExcel(
       data || [],
       exportColumns,
-      `Polizas por vencer ${dayjs().format("YYYY-MM-DD")}`
+      `Polizas por vencer ${dayjs().format('YYYY-MM-DD')}`
     );
   };
 
@@ -103,7 +103,7 @@ const TablaPolizasPorVencer = () => {
             <Option value="1 Mes">1 Mes</Option>
           </Select>
         </Col>
-        <Col xs={24} sm={12} style={{ textAlign: "right" }}>
+        <Col xs={24} sm={12} style={{ textAlign: 'right' }}>
           <Space style={{ marginBottom: 16 }}>
             <Button type="primary" onClick={handleExportToPDF}>
               PDF

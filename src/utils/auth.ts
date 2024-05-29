@@ -1,9 +1,9 @@
-import { RolEnum } from "../types/Rol";
+import { RolEnum } from '../types/Rol';
 
 export const isAdmin = (rol?: RolEnum) => {
-    return rol === RolEnum.Admin;
+  return rol === RolEnum.Admin;
 };
 
 export const isGerenteOrAdmin = (rol?: RolEnum) => {
-    return rol === RolEnum.Admin || rol === RolEnum.Gerente;
+  return rol === RolEnum.Admin || rol === RolEnum.Gerente;
 };
