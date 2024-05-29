@@ -22,7 +22,7 @@ const ReportesPage: React.FC = () => {
       label: 'Clientes en Mora',
       children: (
         <Row>
-          <Col xs={24} sm={24} md={24} lg={24} xl={24}>
+          <Col xs={24}>
             <TablaClientesConMora
               data={clientesData as Cliente[]}
               isLoading={isLoadingClientes}
@@ -36,7 +36,7 @@ const ReportesPage: React.FC = () => {
       label: 'Polizas por estados',
       children: (
         <Row>
-          <Col xs={24} sm={24} md={24} lg={24} xl={24}>
+          <Col xs={24}>
             <TablaPolizasCanceladas
               data={polizaPorEstadoData as PolizaPorEstado}
               isLoading={isLoadingPolizasPorEstado}
@@ -50,7 +50,7 @@ const ReportesPage: React.FC = () => {
       label: 'Polizas Por Vencer',
       children: (
         <Row>
-          <Col xs={24} sm={24} md={24} lg={24} xl={24}>
+          <Col xs={24}>
             <TablaPolizasPorVencer />
           </Col>
         </Row>

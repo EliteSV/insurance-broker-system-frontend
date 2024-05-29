@@ -15,40 +15,34 @@ const TablaClientesConMora: React.FC<TablaClientesConMoraProps> = ({
 }) => {
   const columns: TableProps<Cliente>['columns'] = [
     {
-      title: 'Nombre',
-      dataIndex: 'nombre',
-      key: 'nombre',
-      responsive: ['xs', 'sm', 'md', 'lg'],
-    },
-    {
-      title: 'Dirección',
-      dataIndex: 'direccion',
-      key: 'direccion',
-      responsive: ['xs', 'sm', 'md', 'lg'],
-    },
-    {
-      title: 'Telefono',
-      dataIndex: 'telefono',
-      key: 'telefono',
-      responsive: ['xs', 'sm', 'md', 'lg'],
-    },
-    {
-      title: 'Email',
-      dataIndex: 'email',
-      key: 'email',
-      responsive: ['xs', 'sm', 'md', 'lg'],
-    },
-    {
       title: 'DUI',
       dataIndex: 'dui',
       key: 'dui',
-      responsive: ['xs', 'sm', 'md', 'lg'],
+    },
+    {
+      title: 'Nombre',
+      dataIndex: 'nombre',
+      key: 'nombre',
     },
     {
       title: 'NIT',
       dataIndex: 'nit',
       key: 'nit',
-      responsive: ['xs', 'sm', 'md', 'lg'],
+    },
+    {
+      title: 'Email',
+      dataIndex: 'email',
+      key: 'email',
+    },
+    {
+      title: 'Dirección',
+      dataIndex: 'direccion',
+      key: 'direccion',
+    },
+    {
+      title: 'Telefono',
+      dataIndex: 'telefono',
+      key: 'telefono',
     },
   ];
 

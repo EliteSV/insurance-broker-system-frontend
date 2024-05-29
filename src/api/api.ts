@@ -12,6 +12,7 @@ import {
 } from '../types/Poliza';
 import { Usuario } from '../types/Usuario';
 import { Rol } from '../types/Rol';
+import dayjs from 'dayjs';
 
 export const Api = createApi({
   reducerPath: 'api',
@@ -250,6 +251,16 @@ export const Api = createApi({
         method: 'GET',
       }),
       providesTags: ['reportes'],
+      transformResponse: (response: any) => {
+        const vigencias = response.map((vigencia: VigenciaPoliza) => ({
+          ...vigencia,
+          fecha_inicio: dayjs(vigencia.fecha_inicio).format('DD/MM/YYYY'),
+          fecha_vencimiento: dayjs(vigencia.fecha_vencimiento).format(
+            'DD/MM/YYYY'
+          ),
+        }));
+        return vigencias;
+      },
     }),
     getUsuarios: builder.query<Usuario[], void>({
       query: () => ({
