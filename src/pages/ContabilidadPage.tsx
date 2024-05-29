@@ -30,4 +30,4 @@ function ContabilidadPage() {
     )
 }
 
-export default ContabilidadPage
+export default ContabilidadPage;

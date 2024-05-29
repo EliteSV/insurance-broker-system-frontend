@@ -1,4 +1,12 @@
-import { Form, Input, Button, Select, DatePicker, Divider, InputNumber } from 'antd';
+import {
+  Form,
+  Input,
+  Button,
+  Select,
+  DatePicker,
+  Divider,
+  InputNumber,
+} from 'antd';
 import PolizaAutomovilForm from './PolizaAutomovilForm';
 import PolizaIncendioForm from './PolizaIncendioForm';
 import PolizaMedicoForm from './PolizaMedicoForm';
@@ -20,9 +28,16 @@ type Props = {
   submitText?: string;
   showVigencia?: boolean;
   showEstado?: boolean;
-}
+};
 
-function PolizaForm({ initialValues, isLoading, onFinish, submitText, showVigencia, showEstado }: Props) {
+function PolizaForm({
+  initialValues,
+  isLoading,
+  onFinish,
+  submitText,
+  showVigencia,
+  showEstado,
+}: Props) {
   const [form] = Form.useForm();
   const tipoPoliza = Form.useWatch('tipo_poliza_id', form);
   const { data: aseguradoras } = useGetAseguradorasQuery();
@@ -36,10 +51,10 @@ function PolizaForm({ initialValues, isLoading, onFinish, submitText, showVigenc
     if (value && value.length === 2) {
       const startDate = dayjs(value[0]);
       const endDate = dayjs(value[1]);
-      if (endDate.diff(startDate, "year", true) !== 1) {
+      if (endDate.diff(startDate, 'year', true) !== 1) {
         return Promise.reject(
           new Error(
-            "La fecha de vencimiento debe ser exactamente un año después de la fecha de inicio."
+            'La fecha de vencimiento debe ser exactamente un año después de la fecha de inicio.'
           )
         );
       }
@@ -68,6 +83,16 @@ function PolizaForm({ initialValues, isLoading, onFinish, submitText, showVigenc
       initialValues={initialValues}
       onFinish={onFinish}
     >
+      <Form.Item
+        label="Código"
+        name="codigo"
+        rules={[{ required: true, message: 'Por favor ingrese el código.' }]}
+      >
+        <Input />
+      </Form.Item>
+      <Form.Item label="Nombre" name="nombre">
+        <Input />
+      </Form.Item>
 
       <Form.Item
         label="Código"
@@ -111,7 +136,7 @@ function PolizaForm({ initialValues, isLoading, onFinish, submitText, showVigenc
           rules={[
             {
               required: true,
-              message: "Por favor, seleccione la fecha de inicio y fin.",
+              message: 'Por favor, seleccione la fecha de inicio y fin.',
             },
             { validator: validateDateRange },
           ]}
@@ -133,7 +158,6 @@ function PolizaForm({ initialValues, isLoading, onFinish, submitText, showVigenc
             <Option value={EstadoPoliza.Cancelada}>Cancelada</Option>
           </Select>
         </Form.Item>
-
       )}
       <Form.Item
         label="Tipo de Poliza"
@@ -173,10 +197,10 @@ function PolizaForm({ initialValues, isLoading, onFinish, submitText, showVigenc
       </Form.Item>
 
       <Divider />
-      {tipoPoliza === TipoPoliza.Incendio && (<PolizaIncendioForm />)}
-      {tipoPoliza === TipoPoliza.Automovil && (<PolizaAutomovilForm />)}
-      {tipoPoliza === TipoPoliza.Medico && (<PolizaMedicoForm />)}
-      {tipoPoliza === TipoPoliza.Vida && (<PolizaVidaForm />)}
+      {tipoPoliza === TipoPoliza.Incendio && <PolizaIncendioForm />}
+      {tipoPoliza === TipoPoliza.Automovil && <PolizaAutomovilForm />}
+      {tipoPoliza === TipoPoliza.Medico && <PolizaMedicoForm />}
+      {tipoPoliza === TipoPoliza.Vida && <PolizaVidaForm />}
 
       <Form.Item>
         <Button type="primary" htmlType="submit" loading={isLoading}>
@@ -184,7 +208,7 @@ function PolizaForm({ initialValues, isLoading, onFinish, submitText, showVigenc
         </Button>
       </Form.Item>
     </Form>
-  )
+  );
 }
 
-export default PolizaForm
+export default PolizaForm;

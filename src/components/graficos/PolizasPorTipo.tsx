@@ -1,5 +1,5 @@
-import { Pie } from "@ant-design/charts";
-import { NumericObject } from "../../types/GlobalTypes";
+import { Pie } from '@ant-design/charts';
+import { NumericObject } from '../../types/GlobalTypes';
 
 type PolizaPorTipoProps = {
   data: NumericObject;
@@ -14,11 +14,11 @@ function PolizasPorTipo({ data }: PolizaPorTipoProps) {
   const config = {
     appendPadding: 8,
     data: transformedData,
-    angleField: "value",
-    colorField: "type",
+    angleField: 'value',
+    colorField: 'type',
     radius: 1,
     innerRadius: 0.6,
-    interactions: [{ type: "element-active" }],
+    interactions: [{ type: 'element-active' }],
   };
 
   return <Pie {...config} />;

@@ -49,10 +49,10 @@ export enum EstadoPoliza {
 }
 
 export enum FormaDePago {
-    Anual = 1,
-    Semestral = 2,
-    Trimestral = 4,
-    Mensual = 12,
+  Anual = 1,
+  Semestral = 2,
+  Trimestral = 4,
+  Mensual = 12,
 }
 
 export type PolizaAutomovil = {
@@ -109,4 +109,3 @@ export type RenovacionPoliza = {
   fecha_inicio: string;
   fecha_vencimiento: string;
 };
-

@@ -1,9 +1,9 @@
-import { Row, Col, Card } from "antd";
-import { useParams } from "react-router-dom";
-import PageLayout from "../../components/PageLayout";
-import { useGetClienteQuery } from "../../api/api";
-import { ButtonRegresar } from "../../components/common";
-import DocumentList from "../../components/common/DocumentList";
+import { Row, Col, Card } from 'antd';
+import { useParams } from 'react-router-dom';
+import PageLayout from '../../components/PageLayout';
+import { useGetClienteQuery } from '../../api/api';
+import { ButtonRegresar } from '../../components/common';
+import DocumentList from '../../components/common/DocumentList';
 
 const VerCliente = () => {
   const { id } = useParams();
@@ -11,7 +11,7 @@ const VerCliente = () => {
 
   return (
     <PageLayout>
-      <Row align="middle" style={{ marginTop: "64px" }}>
+      <Row align="middle" style={{ marginTop: '64px' }}>
         <Col xs={{ span: 24 }} lg={{ span: 12, offset: 6 }}>
           <ButtonRegresar />
           <Card title={cliente?.nombre} loading={isLoading}>

@@ -23,11 +23,11 @@ const ModificarPoliza = () => {
     modificar(payload)
       .unwrap()
       .then(() => {
-        message.success("Póliza modificada con éxito.");
-        navigate("/polizas");
+        message.success('Póliza modificada con éxito.');
+        navigate('/polizas');
       })
       .catch(() => {
-        message.error("Ocurrió un error al modificar la poliza.");
+        message.error('Ocurrió un error al modificar la poliza.');
       });
   };
 
