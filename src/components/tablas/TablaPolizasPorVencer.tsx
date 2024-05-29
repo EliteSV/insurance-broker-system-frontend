@@ -37,25 +37,29 @@ const TablaPolizasPorVencer = () => {
       title: 'Fecha Inicio',
       dataIndex: 'fecha_inicio',
       key: 'fecha_inicio',
-      responsive: ['xs', 'sm', 'md', 'lg'],
+      responsive: ['lg'],
     },
     {
       title: 'Fecha Vencimiento',
       dataIndex: 'fecha_vencimiento',
       key: 'fecha_vencimiento',
-      responsive: ['xs', 'sm', 'md', 'lg'],
+    },
+    {
+      title: 'Código de Poliza',
+      dataIndex: ['poliza', 'codigo'],
+      key: 'poliza_codigo',
     },
     {
       title: 'Nombre de Poliza',
       dataIndex: ['poliza', 'nombre'],
       key: 'poliza_nombre',
-      responsive: ['xs', 'sm', 'md', 'lg'],
+      responsive: ['lg'],
     },
     {
       title: 'Nombre de Aseguradora',
       dataIndex: ['poliza', 'aseguradora', 'nombre'],
       key: 'aseguradora_nombre',
-      responsive: ['xs', 'sm', 'md', 'lg'],
+      responsive: ['lg'],
     },
   ];
 
@@ -119,7 +123,6 @@ const TablaPolizasPorVencer = () => {
         columns={columns}
         dataSource={data}
         loading={isLoading}
-        scroll={{ x: 800 }}
       />
     </>
   );

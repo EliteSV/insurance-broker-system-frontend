@@ -1,3 +1,4 @@
+import { Spin } from 'antd';
 import { Outlet, Navigate } from 'react-router-dom';
 import { useAppSelector, useAppDispatch } from '../../store/hooks';
 import { login, setUser } from '../../store/slices/authSlice';
@@ -6,7 +7,7 @@ import { useEffect } from 'react';
 
 const PrivateRoutes = () => {
   const auth = useAppSelector((state) => state.auth);
-  const [getLoggedUser] = useLazyGetLoggedUserQuery();
+  const [getLoggedUser, userResult] = useLazyGetLoggedUserQuery();
   const dispatch = useAppDispatch();
   const checkToken = () => {
     if (auth.token) {
@@ -33,7 +34,14 @@ const PrivateRoutes = () => {
     }
   });
 
-  return token ? <Outlet /> : <Navigate to="/login" />;
+  return token ? (
+    <>
+      <Outlet />
+      <Spin spinning={userResult.isLoading} fullscreen size="large" />
+    </>
+  ) : (
+    <Navigate to="/login" />
+  );
 };
 
 export default PrivateRoutes;
