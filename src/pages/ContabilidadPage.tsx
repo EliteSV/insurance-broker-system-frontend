@@ -23,13 +23,7 @@ function ContabilidadPage() {
       </Row>
       <Row gutter={[16, 16]} style={{ marginTop: '24px' }}>
         <Col span={24}>
-          <TablaPolizas
-            data={polizas}
-            isLoading={isLoading}
-            showGanancias
-            onDelete={() => {}}
-            onRenew={() => {}}
-          />
+          <TablaPolizas data={polizas} isLoading={isLoading} showGanancias />
         </Col>
       </Row>
     </PageLayout>
