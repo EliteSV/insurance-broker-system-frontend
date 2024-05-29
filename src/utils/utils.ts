@@ -1,5 +1,6 @@
 import dayjs from 'dayjs'
-import { TipoPoliza, FormaDePago } from '../types/Poliza';
+import { maxBy } from 'lodash'
+import { TipoPoliza, FormaDePago, VigenciaPoliza } from '../types/Poliza';
 import { Pago } from '../types/Pago';
 import { EstadoPago } from '../types/Pago';
 
@@ -73,4 +74,8 @@ export const cuotasToFormaDePago = (cuotas: number) => {
     default:
       return '';
   }
+}
+
+export const getLatestVigencia = (vigencias: VigenciaPoliza[]) => {
+  return maxBy(vigencias, 'created_at');
 }

@@ -33,17 +33,17 @@ const ModificarPoliza = () => {
 
   return (
     <PageLayout>
-        <Row align='middle' style={{ marginTop: '64px' }}>
-            <Col xs={{ span: 20, offset: 2 }} lg={{ span: 8, offset: 8 }}>
-                <ButtonRegresar />
-                <Title level={2}>Modificar Poliza</Title>
-                <Spin spinning={isLoading}>
-                    <PolizaForm initialValues={poliza} onFinish={onFinish} submitText='Modificar' isLoading={modificarResult.isLoading} showEstado />
-                </Spin>
-            </Col>
-        </Row>
+      <Row align='middle' style={{ marginTop: '64px' }}>
+        <Col xs={{ span: 20, offset: 2 }} lg={{ span: 8, offset: 8 }}>
+          <ButtonRegresar />
+          <Title level={2}>Modificar Poliza</Title>
+          <Spin spinning={isLoading}>
+            <PolizaForm initialValues={poliza} onFinish={onFinish} submitText='Modificar' isLoading={modificarResult.isLoading} showEstado showVigencia />
+          </Spin>
+        </Col>
+      </Row>
     </PageLayout>
-);
+  );
 };
 
 export default ModificarPoliza;

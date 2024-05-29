@@ -30,6 +30,7 @@ export type VigenciaPoliza = {
   fecha_vencimiento: string;
   poliza_id: number;
   poliza: PolizaConDetalles;
+  created_at: string;
 };
 
 export enum TipoPoliza {
