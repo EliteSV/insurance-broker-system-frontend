@@ -12,10 +12,10 @@ import PolizaIncendioForm from './PolizaIncendioForm';
 import PolizaMedicoForm from './PolizaMedicoForm';
 import PolizaVidaForm from './PolizaVidaForm';
 import { TipoPoliza, EstadoPoliza } from '../../types/Poliza';
-import { useEffect } from "react";
+import { useEffect } from 'react';
 import { useGetAseguradorasQuery, useGetClientesQuery } from '../../api/api';
 import { FormaDePago } from '../../types/Poliza';
-import dayjs, { Dayjs } from "dayjs";
+import dayjs, { Dayjs } from 'dayjs';
 import { getLatestVigencia } from '../../utils/utils';
 
 const { Option } = Select;
@@ -64,15 +64,15 @@ function PolizaForm({
 
   useEffect(() => {
     const latestVigencia = getLatestVigencia(initialValues?.vigencias);
-    const vigencia: any = [null, null]
+    const vigencia: any = [null, null];
     if (latestVigencia) {
-      vigencia[0] = dayjs(latestVigencia.fecha_inicio)
-      vigencia[1] = dayjs(latestVigencia.fecha_vencimiento)
+      vigencia[0] = dayjs(latestVigencia.fecha_inicio);
+      vigencia[1] = dayjs(latestVigencia.fecha_vencimiento);
     }
     const defaultValues = {
       ...initialValues,
       vigencia,
-    }
+    };
     form.setFieldsValue(defaultValues);
   }, [initialValues, form]);
 
@@ -101,10 +101,7 @@ function PolizaForm({
       >
         <Input />
       </Form.Item>
-      <Form.Item
-        label="Nombre"
-        name="nombre"
-      >
+      <Form.Item label="Nombre" name="nombre">
         <Input />
       </Form.Item>
 
@@ -119,7 +116,12 @@ function PolizaForm({
       <Form.Item
         label="Cuotas"
         name="cuotas"
-        rules={[{ required: true, message: 'Por favor, seleccione el numero de cuotas' }]}
+        rules={[
+          {
+            required: true,
+            message: 'Por favor, seleccione el numero de cuotas',
+          },
+        ]}
       >
         <Select placeholder="Seleccione la opcion de pago">
           <Option value={FormaDePago.Mensual}>Mensual</Option>
@@ -148,7 +150,12 @@ function PolizaForm({
         <Form.Item
           label="Estado"
           name="estado"
-          rules={[{ required: true, message: 'Por favor, seleccione el estado de la poliza' }]}
+          rules={[
+            {
+              required: true,
+              message: 'Por favor, seleccione el estado de la poliza',
+            },
+          ]}
         >
           <Select placeholder="Seleccione el estado">
             <Option value={EstadoPoliza.Pendiente}>Pendiente</Option>
@@ -162,7 +169,12 @@ function PolizaForm({
       <Form.Item
         label="Tipo de Poliza"
         name="tipo_poliza_id"
-        rules={[{ required: true, message: 'Por favor, seleccione el tipo de poliza' }]}
+        rules={[
+          {
+            required: true,
+            message: 'Por favor, seleccione el tipo de poliza',
+          },
+        ]}
       >
         <Select placeholder="Seleccione el tipo" onChange={handleChange}>
           <Option value={TipoPoliza.Incendio}>Incendio</Option>
@@ -175,11 +187,15 @@ function PolizaForm({
       <Form.Item
         label="Aseguradora"
         name="aseguradora_id"
-        rules={[{ required: true, message: 'Por favor, seleccione la aseguradora' }]}
+        rules={[
+          { required: true, message: 'Por favor, seleccione la aseguradora' },
+        ]}
       >
         <Select placeholder="Seleccione la aseguradora">
-          {aseguradoras?.map(aseguradora => (
-            <Option key={aseguradora.id} value={aseguradora.id}>{aseguradora.nombre}</Option>
+          {aseguradoras?.map((aseguradora) => (
+            <Option key={aseguradora.id} value={aseguradora.id}>
+              {aseguradora.nombre}
+            </Option>
           ))}
         </Select>
       </Form.Item>
@@ -187,11 +203,21 @@ function PolizaForm({
       <Form.Item
         label="Cliente"
         name="cliente_id"
-        rules={[{ required: true, message: 'Por favor, seleccione el cliente' }]}
+        rules={[
+          { required: true, message: 'Por favor, seleccione el cliente' },
+        ]}
       >
-        <Select placeholder="Seleccione el cliente" showSearch filterOption optionFilterProp="children">
-          {clientes?.map(cliente => (
-            <Option key={cliente.id} value={cliente.id}>{`${cliente.dui} | ${cliente.nombre}`}</Option>
+        <Select
+          placeholder="Seleccione el cliente"
+          showSearch
+          filterOption
+          optionFilterProp="children"
+        >
+          {clientes?.map((cliente) => (
+            <Option
+              key={cliente.id}
+              value={cliente.id}
+            >{`${cliente.dui} | ${cliente.nombre}`}</Option>
           ))}
         </Select>
       </Form.Item>

@@ -19,7 +19,13 @@ type TablaPolizasProps = {
   showGanancias?: boolean;
 };
 
-function TablaPolizas({ data, isLoading, onDelete, onRenew, showGanancias }: TablaPolizasProps) {
+function TablaPolizas({
+  data,
+  isLoading,
+  onDelete,
+  onRenew,
+  showGanancias,
+}: TablaPolizasProps) {
   const columns: TableProps<Poliza>['columns'] = [
     {
       title: 'ID',
@@ -56,11 +62,16 @@ function TablaPolizas({ data, isLoading, onDelete, onRenew, showGanancias }: Tab
       dataIndex: 'estado',
       key: 'estado',
       render: (estado) => getEstadoPolizaTag(estado),
-    }, {
+    },
+    {
       title: 'Ganancia',
       dataIndex: 'ganancia',
       key: 'ganancia',
-      render: (value) => Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(value),
+      render: (value) =>
+        Intl.NumberFormat('en-US', {
+          style: 'currency',
+          currency: 'USD',
+        }).format(value),
       hidden: !showGanancias,
     },
     {
@@ -68,18 +79,33 @@ function TablaPolizas({ data, isLoading, onDelete, onRenew, showGanancias }: Tab
       key: 'acciones',
       render: (_, record) => (
         <Space size="middle">
-          <Link to={`/polizas/${record.id}`}><EyeOutlined /></Link>
-          <Link to={`/polizas/modificar/${record.id}`}><EditOutlined /></Link>
-          <a onClick={() => onDelete(record.id)}><DeleteOutlined /> </a>
-          {record.estado === 'Expirada' && <a onClick={() => onRenew(record.id, record.nombre)}><ReloadOutlined /></a>}
+          <Link to={`/polizas/${record.id}`}>
+            <EyeOutlined />
+          </Link>
+          <Link to={`/polizas/modificar/${record.id}`}>
+            <EditOutlined />
+          </Link>
+          <a onClick={() => onDelete(record.id)}>
+            <DeleteOutlined />{' '}
+          </a>
+          {record.estado === 'Expirada' && (
+            <a onClick={() => onRenew(record.id, record.nombre)}>
+              <ReloadOutlined />
+            </a>
+          )}
         </Space>
       ),
       hidden: showGanancias,
     },
   ];
   return (
-    <Table rowKey='id' columns={columns} dataSource={data} loading={isLoading} />
-  )
+    <Table
+      rowKey="id"
+      columns={columns}
+      dataSource={data}
+      loading={isLoading}
+    />
+  );
 }
 
 export default TablaPolizas;
