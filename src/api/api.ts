@@ -331,6 +331,12 @@ export const Api = createApi({
         data,
       }),
     }),
+    contabilidad: builder.query<any, void>({
+      query: () => ({
+        method: 'GET',
+        url: `/api/contabilidad`,
+      }),
+    }),
   }),
 });
 
@@ -373,4 +379,5 @@ export const {
   useEliminarDocumentosClienteMutation,
   useForgotPasswordMutation,
   useResetPasswordMutation,
+  useContabilidadQuery,
 } = Api;

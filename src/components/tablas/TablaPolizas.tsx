@@ -16,6 +16,7 @@ type TablaPolizasProps = {
   isLoading: boolean;
   onDelete: (id: number) => void;
   onRenew: (id: number, nombre: string) => void;
+  showGanancias?: boolean;
 };
 
 function TablaPolizas({
@@ -23,6 +24,7 @@ function TablaPolizas({
   isLoading,
   onDelete,
   onRenew,
+  showGanancias,
 }: TablaPolizasProps) {
   const columns: TableProps<Poliza>['columns'] = [
     {
@@ -62,6 +64,17 @@ function TablaPolizas({
       render: (estado) => getEstadoPolizaTag(estado),
     },
     {
+      title: 'Ganancia',
+      dataIndex: 'ganancia',
+      key: 'ganancia',
+      render: (value) =>
+        Intl.NumberFormat('en-US', {
+          style: 'currency',
+          currency: 'USD',
+        }).format(value),
+      hidden: !showGanancias,
+    },
+    {
       title: 'Acciones',
       key: 'acciones',
       render: (_, record) => (
@@ -82,6 +95,7 @@ function TablaPolizas({
           )}
         </Space>
       ),
+      hidden: showGanancias,
     },
   ];
   return (

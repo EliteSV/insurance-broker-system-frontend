@@ -44,6 +44,7 @@ const ModificarPoliza = () => {
               submitText="Modificar"
               isLoading={modificarResult.isLoading}
               showEstado
+              showVigencia
             />
           </Spin>
         </Col>

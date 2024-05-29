@@ -12,10 +12,11 @@ import PolizaIncendioForm from './PolizaIncendioForm';
 import PolizaMedicoForm from './PolizaMedicoForm';
 import PolizaVidaForm from './PolizaVidaForm';
 import { TipoPoliza, EstadoPoliza } from '../../types/Poliza';
-import { useEffect, useMemo } from 'react';
+import { useEffect } from 'react';
 import { useGetAseguradorasQuery, useGetClientesQuery } from '../../api/api';
 import { FormaDePago } from '../../types/Poliza';
 import dayjs, { Dayjs } from 'dayjs';
+import { getLatestVigencia } from '../../utils/utils';
 
 const { Option } = Select;
 const { RangePicker } = DatePicker;
@@ -61,26 +62,19 @@ function PolizaForm({
     return Promise.resolve();
   };
 
-  const validVigencia = initialValues?.vigencias?.find((vigencia: any) => {
-    return dayjs(vigencia.fecha_vencimiento).isAfter(dayjs());
-  });
-
-  const defaultValues = useMemo(
-    () => ({
-      ...initialValues,
-      vigencia: validVigencia
-        ? [
-            dayjs(validVigencia.fecha_inicio),
-            dayjs(validVigencia.fecha_vencimiento),
-          ]
-        : undefined,
-    }),
-    [initialValues, validVigencia]
-  );
-
   useEffect(() => {
+    const latestVigencia = getLatestVigencia(initialValues?.vigencias);
+    const vigencia: any = [null, null];
+    if (latestVigencia) {
+      vigencia[0] = dayjs(latestVigencia.fecha_inicio);
+      vigencia[1] = dayjs(latestVigencia.fecha_vencimiento);
+    }
+    const defaultValues = {
+      ...initialValues,
+      vigencia,
+    };
     form.setFieldsValue(defaultValues);
-  }, [defaultValues, form]);
+  }, [initialValues, form]);
 
   return (
     <Form
