@@ -35,7 +35,9 @@ function AseguradorasPage() {
           navigate('/aseguradoras');
         })
         .catch(() => {
-          message.error('Error al eliminar la aseguradora');
+          message.error(
+            'Error al eliminar la aseguradora, verifique que no tenga pólizas asociadas'
+          );
         });
     }
     setIsModalOpen(false);

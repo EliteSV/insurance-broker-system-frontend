@@ -2,6 +2,7 @@ import { VigenciaPoliza } from './Poliza';
 
 export type Pago = {
   id: number;
+  cuota: number;
   cantidad: number;
   fecha_vencimiento: string;
   fecha_pagado: string;
