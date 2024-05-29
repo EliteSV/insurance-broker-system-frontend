@@ -6,17 +6,17 @@ import { Link } from 'react-router-dom';
 import { Pago } from '../../types/Pago';
 import dayjs from 'dayjs';
 import { getEstadoPagoTag } from '../../utils/tags';
-import { useEliminarPagoMutation } from '../../api/api';
+import { useEliminarPagoMutation, useGetPolizasQuery } from '../../api/api';
 
 type TablaPagosProps = {
   data: Pago[];
   isLoading: boolean;
-  onDelete?: (id: number) => void;
   showPoliza?: boolean;
   refetch?: () => void;
 };
 
 function TablaPagos({ data, isLoading, showPoliza, refetch }: TablaPagosProps) {
+  const { data: polizas } = useGetPolizasQuery();
   const [eliminarPago, eliminarResult] = useEliminarPagoMutation();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [id, setId] = useState<number | null>(null);
@@ -57,17 +57,28 @@ function TablaPagos({ data, isLoading, showPoliza, refetch }: TablaPagosProps) {
       title: 'Poliza',
       dataIndex: ['vigencia', 'poliza', 'codigo'],
       key: 'vigencia.poliza.codigo',
+      filters: polizas?.map((poliza: any) => ({
+        text: poliza.codigo,
+        value: poliza.codigo,
+      })),
+      filterMode: 'tree',
+      filterSearch: true,
+      onFilter: (value, record) =>
+        record.vigencia?.poliza.codigo.startsWith(value as string) || false,
       hidden: !showPoliza,
     },
     {
       title: 'Cuota',
       dataIndex: 'cuota',
       key: 'cuota',
+      responsive: ['md'],
+      sorter: (a, b) => a.cuota - b.cuota,
     },
     {
       title: 'Cantidad',
       dataIndex: 'cantidad',
       key: 'cantidad',
+      responsive: ['md'],
     },
     {
       title: 'Fecha vencimiento',
@@ -75,6 +86,8 @@ function TablaPagos({ data, isLoading, showPoliza, refetch }: TablaPagosProps) {
       key: 'fecha_vencimiento',
       render: (fecha: string) => dayjs(fecha).format('DD/MM/YYYY'),
       responsive: ['md'],
+      sorter: (a, b) =>
+        dayjs(a.fecha_vencimiento).unix() - dayjs(b.fecha_vencimiento).unix(),
     },
     {
       title: 'Fecha pagado',

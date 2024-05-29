@@ -1,5 +1,5 @@
 import React from 'react';
-import { Col, Row, Button, Typography } from 'antd';
+import { Card, Col, Row, Button, Typography } from 'antd';
 import { DeleteOutlined } from '@ant-design/icons';
 
 const { Text } = Typography;
@@ -26,42 +26,39 @@ const DocumentList: React.FC<DocumentListProps> = ({
       {documents.map((item) => {
         const fileName = item.url.split('/').pop() || 'Documento';
         const fileExtension = fileName.split('.').pop() || '';
-
+        const isImage = ['jpg', 'jpeg', 'png', 'gif', 'webp'].includes(
+          fileExtension
+        );
         return (
           <Col xs={24} key={item.id}>
-            <div
-              style={{
-                position: 'relative',
-                border: '1px solid #d9d9d9',
-                borderRadius: 4,
-                padding: 16,
-                textAlign: 'center',
-                backgroundColor: '#fafafa',
-                height: '150px',
-                display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'center',
-                alignItems: 'center',
-                cursor: 'pointer',
-              }}
+            <Card
+              style={{ width: 240, cursor: 'pointer' }}
               onClick={() => window.open(item.url, '_blank')}
+              extra={
+                onRemove && (
+                  <Button
+                    type="text"
+                    icon={<DeleteOutlined />}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      onRemove(item.url);
+                    }}
+                  />
+                )
+              }
+              cover={
+                isImage ? <img alt={fileExtension} src={item.url} /> : null
+              }
             >
-              {onRemove && (
-                <Button
-                  type="text"
-                  icon={<DeleteOutlined />}
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    onRemove(item.url);
-                  }}
-                  style={{ position: 'absolute', top: 8, right: 8 }}
-                />
+              {!isImage && (
+                <>
+                  <div style={{ fontSize: 24, color: 'gray', marginBottom: 8 }}>
+                    {fileExtension.toUpperCase()}
+                  </div>
+                  <Text ellipsis={{ tooltip: fileName }}>{fileName}</Text>
+                </>
               )}
-              <div style={{ fontSize: 24, color: 'gray', marginBottom: 8 }}>
-                {fileExtension.toUpperCase()}
-              </div>
-              <Text ellipsis={{ tooltip: fileName }}>{fileName}</Text>
-            </div>
+            </Card>
           </Col>
         );
       })}

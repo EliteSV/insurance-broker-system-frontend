@@ -30,7 +30,9 @@ function ClientesPage() {
           navigate('/clientes');
         })
         .catch(() => {
-          message.error('Error al eliminar cliente');
+          message.error(
+            'Error al eliminar cliente, verifique que no tenga pólizas asociadas'
+          );
         })
         .finally(() => {
           setIsModalOpen(false);
