@@ -1,20 +1,18 @@
-import { useEffect } from "react"
-import { useAppDispatch } from "../store/hooks"
-import { logout } from "../store/slices/authSlice"
-import { useNavigate } from "react-router-dom"
+import { useEffect } from 'react';
+import { useAppDispatch } from '../store/hooks';
+import { logout } from '../store/slices/authSlice';
+import { useNavigate } from 'react-router-dom';
 
 function LogoutPage() {
-    const dispatch = useAppDispatch()
-    const navigate = useNavigate()
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
-    useEffect(() => {
-        dispatch(logout())
-        navigate('/')
-    }, [dispatch, navigate])
+  useEffect(() => {
+    dispatch(logout());
+    navigate('/');
+  }, [dispatch, navigate]);
 
-    return (
-        <></>
-    )
+  return <></>;
 }
 
-export default LogoutPage
+export default LogoutPage;

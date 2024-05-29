@@ -1,10 +1,10 @@
-import { Row, Col, Typography, Spin, message } from "antd";
-import { useNavigate, useParams } from "react-router-dom";
-import PageLayout from "../../components/PageLayout";
-import { useGetClienteQuery, useModificarClienteMutation } from "../../api/api";
-import ClienteForm from "../../components/forms/ClienteForm";
-import { TipoDocumento } from "../../types/Documento";
-import { ButtonRegresar } from "../../components/common";
+import { Row, Col, Typography, Spin, message } from 'antd';
+import { useNavigate, useParams } from 'react-router-dom';
+import PageLayout from '../../components/PageLayout';
+import { useGetClienteQuery, useModificarClienteMutation } from '../../api/api';
+import ClienteForm from '../../components/forms/ClienteForm';
+import { TipoDocumento } from '../../types/Documento';
+import { ButtonRegresar } from '../../components/common';
 
 const { Title } = Typography;
 
@@ -15,13 +15,13 @@ const ModificarCliente = () => {
   const [modificar, modificarResult] = useModificarClienteMutation();
   const onFinish = (values: any) => {
     const formData = new FormData();
-    formData.append("_method", "put");
-    formData.append("nombre", values.nombre);
-    formData.append("email", values.email);
-    formData.append("telefono", values.telefono);
-    formData.append("direccion", values.direccion);
-    formData.append("dui", values.dui);
-    formData.append("nit", values.nit);
+    formData.append('_method', 'put');
+    formData.append('nombre', values.nombre);
+    formData.append('email', values.email);
+    formData.append('telefono', values.telefono);
+    formData.append('direccion', values.direccion);
+    formData.append('dui', values.dui);
+    formData.append('nit', values.nit);
     let docIndex = 0;
     if (values.documentos_dui) {
       formData.append(
@@ -60,17 +60,17 @@ const ModificarCliente = () => {
     modificar({ id: Number(id), formData })
       .unwrap()
       .then(() => {
-        message.success("Cliente modificado con éxito.");
-        navigate("/clientes");
+        message.success('Cliente modificado con éxito.');
+        navigate('/clientes');
       })
       .catch(() => {
-        message.error("Ocurrió un error al modificar el cliente.");
+        message.error('Ocurrió un error al modificar el cliente.');
       });
   };
 
   return (
     <PageLayout>
-      <Row align="middle" style={{ marginTop: "64px" }}>
+      <Row align="middle" style={{ marginTop: '64px' }}>
         <Col xs={{ span: 22, offset: 1 }} lg={{ span: 12, offset: 6 }}>
           <ButtonRegresar />
           <Title level={2}>Modificar Cliente</Title>

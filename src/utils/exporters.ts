@@ -1,6 +1,6 @@
-import { jsPDF } from "jspdf";
-import "jspdf-autotable";
-import * as XLSX from "xlsx";
+import { jsPDF } from 'jspdf';
+import 'jspdf-autotable';
+import * as XLSX from 'xlsx';
 
 const getNestedValue = (obj: any, path: (string | number)[]): any => {
   return path.reduce((acc, key) => (acc ? acc[key] : undefined), obj);
@@ -20,7 +20,7 @@ export const exportToPDF = <T>(
       const value = Array.isArray(col.dataIndex)
         ? getNestedValue(item, col.dataIndex)
         : item[col.dataIndex];
-      return value ? value.toString() : "";
+      return value ? value.toString() : '';
     });
     tableRows.push(rowData);
   });
@@ -44,7 +44,7 @@ export const exportToExcel = <T>(
       const value = Array.isArray(col.dataIndex)
         ? getNestedValue(item, col.dataIndex)
         : item[col.dataIndex];
-      row[col.title] = value ? value.toString() : "";
+      row[col.title] = value ? value.toString() : '';
     });
     return row;
   });

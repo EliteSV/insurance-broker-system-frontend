@@ -10,29 +10,36 @@ import ButtonRegresar from '../../components/common/ButtonRegresar';
 const { Title } = Typography;
 
 const RegistrarPago = () => {
-    const navigate = useNavigate();
-    const [crearPago, crearPagoResult] = useCrearPagoMutation();
-    const onFinish = (values: Partial<Pago>) => {
-        const formData = pagoToFormData(values);
-        crearPago(formData).unwrap().then(() => {
-            message.success('Pago registrada con éxito.');
-            navigate('/pagos');
-        }).catch(() => {
-            message.error('Ocurrió un error al registrar el pago.');
-        });
-    };
+  const navigate = useNavigate();
+  const [crearPago, crearPagoResult] = useCrearPagoMutation();
+  const onFinish = (values: Partial<Pago>) => {
+    const formData = pagoToFormData(values);
+    crearPago(formData)
+      .unwrap()
+      .then(() => {
+        message.success('Pago registrada con éxito.');
+        navigate('/pagos');
+      })
+      .catch(() => {
+        message.error('Ocurrió un error al registrar el pago.');
+      });
+  };
 
-    return (
-        <PageLayout>
-            <Row align='middle' style={{ marginTop: '64px' }}>
-                <Col xs={{ span: 20, offset: 2 }} lg={{ span: 8, offset: 8 }}>
-                    <ButtonRegresar />
-                    <Title level={2}>Registrar Pago</Title>
-                    <PagoForm onFinish={onFinish} submitText='Registrar' isLoading={crearPagoResult.isLoading} />
-                </Col>
-            </Row>
-        </PageLayout>
-    );
+  return (
+    <PageLayout>
+      <Row align="middle" style={{ marginTop: '64px' }}>
+        <Col xs={{ span: 20, offset: 2 }} lg={{ span: 8, offset: 8 }}>
+          <ButtonRegresar />
+          <Title level={2}>Registrar Pago</Title>
+          <PagoForm
+            onFinish={onFinish}
+            submitText="Registrar"
+            isLoading={crearPagoResult.isLoading}
+          />
+        </Col>
+      </Row>
+    </PageLayout>
+  );
 };
 
 export default RegistrarPago;

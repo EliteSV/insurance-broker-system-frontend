@@ -1,9 +1,9 @@
-import React, { useState } from "react";
-import { Button, Space, Table, Row, Col, Select } from "antd";
-import type { TableProps, TableColumnType } from "antd";
-import { PolizaPorEstado } from "../../types/Poliza";
-import { exportToPDF, exportToExcel } from "../../utils/exporters";
-import dayjs from "dayjs";
+import React, { useState } from 'react';
+import { Button, Space, Table, Row, Col, Select } from 'antd';
+import type { TableProps, TableColumnType } from 'antd';
+import { PolizaPorEstado } from '../../types/Poliza';
+import { exportToPDF, exportToExcel } from '../../utils/exporters';
+import dayjs from 'dayjs';
 
 const { Option } = Select;
 
@@ -17,56 +17,56 @@ const TablaPolizasPorEstado: React.FC<TablaPolizasPorEstadoProps> = ({
   isLoading,
 }) => {
   const [selectedType, setSelectedType] =
-    useState<keyof PolizaPorEstado>("vigentes");
+    useState<keyof PolizaPorEstado>('vigentes');
 
   const handleChange = (value: keyof PolizaPorEstado) => {
     setSelectedType(value);
   };
 
-  const columns: TableProps<PolizaPorEstado["vigentes"][number]>["columns"] = [
+  const columns: TableProps<PolizaPorEstado['vigentes'][number]>['columns'] = [
     {
-      title: "Codigo",
-      dataIndex: "codigo",
-      key: "codigo",
-      responsive: ["xs", "sm", "md", "lg"],
+      title: 'Codigo',
+      dataIndex: 'codigo',
+      key: 'codigo',
+      responsive: ['xs', 'sm', 'md', 'lg'],
     },
     {
-      title: "Nombre",
-      dataIndex: "nombre",
-      key: "nombre",
-      responsive: ["xs", "sm", "md", "lg"],
+      title: 'Nombre',
+      dataIndex: 'nombre',
+      key: 'nombre',
+      responsive: ['xs', 'sm', 'md', 'lg'],
     },
     {
-      title: "Monto",
-      dataIndex: "monto",
-      key: "monto",
-      responsive: ["xs", "sm", "md", "lg"],
+      title: 'Monto',
+      dataIndex: 'monto',
+      key: 'monto',
+      responsive: ['xs', 'sm', 'md', 'lg'],
     },
     {
-      title: "Cliente",
-      dataIndex: ["cliente", "nombre"],
-      key: "cliente",
-      responsive: ["xs", "sm", "md", "lg"],
+      title: 'Cliente',
+      dataIndex: ['cliente', 'nombre'],
+      key: 'cliente',
+      responsive: ['xs', 'sm', 'md', 'lg'],
     },
     {
-      title: "Aseguradora",
-      dataIndex: ["aseguradora", "nombre"],
-      key: "aseguradora",
-      responsive: ["xs", "sm", "md", "lg"],
+      title: 'Aseguradora',
+      dataIndex: ['aseguradora', 'nombre'],
+      key: 'aseguradora',
+      responsive: ['xs', 'sm', 'md', 'lg'],
     },
     {
-      title: "Tipo de Poliza",
-      dataIndex: ["tipo_poliza", "nombre"],
-      key: "tipo_poliza",
-      responsive: ["xs", "sm", "md", "lg"],
+      title: 'Tipo de Poliza',
+      dataIndex: ['tipo_poliza', 'nombre'],
+      key: 'tipo_poliza',
+      responsive: ['xs', 'sm', 'md', 'lg'],
     },
   ];
 
   const isColumnType = (
     column: any
-  ): column is TableColumnType<PolizaPorEstado["vigentes"][number]> => {
+  ): column is TableColumnType<PolizaPorEstado['vigentes'][number]> => {
     return (
-      (column as TableColumnType<PolizaPorEstado["vigentes"][number]>)
+      (column as TableColumnType<PolizaPorEstado['vigentes'][number]>)
         .dataIndex !== undefined
     );
   };
@@ -74,25 +74,25 @@ const TablaPolizasPorEstado: React.FC<TablaPolizasPorEstadoProps> = ({
   const handleExportToPDF = () => {
     const exportColumns = columns.filter(isColumnType).map((col) => ({
       title: col.title as string,
-      dataIndex: col.dataIndex as keyof PolizaPorEstado["vigentes"][number],
+      dataIndex: col.dataIndex as keyof PolizaPorEstado['vigentes'][number],
     }));
-    console.log("Exported columns", exportColumns);
+    console.log('Exported columns', exportColumns);
     exportToPDF(
       data[selectedType],
       exportColumns,
-      `Polizas ${selectedType} ${dayjs().format("YYYY-MM-DD")}`
+      `Polizas ${selectedType} ${dayjs().format('YYYY-MM-DD')}`
     );
   };
 
   const handleExportToExcel = () => {
     const exportColumns = columns.filter(isColumnType).map((col) => ({
       title: col.title as string,
-      dataIndex: col.dataIndex as keyof PolizaPorEstado["vigentes"][number],
+      dataIndex: col.dataIndex as keyof PolizaPorEstado['vigentes'][number],
     }));
     exportToExcel(
       data[selectedType],
       exportColumns,
-      `Polizas ${selectedType} ${dayjs().format("YYYY-MM-DD")}`
+      `Polizas ${selectedType} ${dayjs().format('YYYY-MM-DD')}`
     );
   };
 

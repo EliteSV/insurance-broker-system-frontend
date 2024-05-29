@@ -1,4 +1,4 @@
-import { NumericObject } from "./GlobalTypes";
+import { NumericObject } from './GlobalTypes';
 
 export type Dashboard = {
   polizasVigentes: number;

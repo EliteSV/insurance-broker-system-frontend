@@ -1,8 +1,8 @@
-import dayjs from "dayjs";
-import { Button, Space, Table, Row, Col } from "antd";
-import type { TableProps, TableColumnType } from "antd";
-import { Cliente } from "../../types/Cliente";
-import { exportToPDF, exportToExcel } from "../../utils/exporters";
+import dayjs from 'dayjs';
+import { Button, Space, Table, Row, Col } from 'antd';
+import type { TableProps, TableColumnType } from 'antd';
+import { Cliente } from '../../types/Cliente';
+import { exportToPDF, exportToExcel } from '../../utils/exporters';
 
 type TablaClientesConMoraProps = {
   data: Cliente[];
@@ -13,42 +13,42 @@ const TablaClientesConMora: React.FC<TablaClientesConMoraProps> = ({
   data,
   isLoading,
 }) => {
-  const columns: TableProps<Cliente>["columns"] = [
+  const columns: TableProps<Cliente>['columns'] = [
     {
-      title: "Nombre",
-      dataIndex: "nombre",
-      key: "nombre",
-      responsive: ["xs", "sm", "md", "lg"],
+      title: 'Nombre',
+      dataIndex: 'nombre',
+      key: 'nombre',
+      responsive: ['xs', 'sm', 'md', 'lg'],
     },
     {
-      title: "Dirección",
-      dataIndex: "direccion",
-      key: "direccion",
-      responsive: ["xs", "sm", "md", "lg"],
+      title: 'Dirección',
+      dataIndex: 'direccion',
+      key: 'direccion',
+      responsive: ['xs', 'sm', 'md', 'lg'],
     },
     {
-      title: "Telefono",
-      dataIndex: "telefono",
-      key: "telefono",
-      responsive: ["xs", "sm", "md", "lg"],
+      title: 'Telefono',
+      dataIndex: 'telefono',
+      key: 'telefono',
+      responsive: ['xs', 'sm', 'md', 'lg'],
     },
     {
-      title: "Email",
-      dataIndex: "email",
-      key: "email",
-      responsive: ["xs", "sm", "md", "lg"],
+      title: 'Email',
+      dataIndex: 'email',
+      key: 'email',
+      responsive: ['xs', 'sm', 'md', 'lg'],
     },
     {
-      title: "DUI",
-      dataIndex: "dui",
-      key: "dui",
-      responsive: ["xs", "sm", "md", "lg"],
+      title: 'DUI',
+      dataIndex: 'dui',
+      key: 'dui',
+      responsive: ['xs', 'sm', 'md', 'lg'],
     },
     {
-      title: "NIT",
-      dataIndex: "nit",
-      key: "nit",
-      responsive: ["xs", "sm", "md", "lg"],
+      title: 'NIT',
+      dataIndex: 'nit',
+      key: 'nit',
+      responsive: ['xs', 'sm', 'md', 'lg'],
     },
   ];
 
@@ -64,7 +64,7 @@ const TablaClientesConMora: React.FC<TablaClientesConMoraProps> = ({
     exportToPDF(
       data,
       exportColumns,
-      `Clientes en mora ${dayjs().format("YYYY-MM-DD")}`
+      `Clientes en mora ${dayjs().format('YYYY-MM-DD')}`
     );
   };
 
@@ -76,7 +76,7 @@ const TablaClientesConMora: React.FC<TablaClientesConMoraProps> = ({
     exportToExcel(
       data,
       exportColumns,
-      `Clientes en mora ${dayjs().format("YYYY-MM-DD")}`
+      `Clientes en mora ${dayjs().format('YYYY-MM-DD')}`
     );
   };
 
