@@ -22,8 +22,14 @@ const ModificarCliente = () => {
         message.success('Cliente modificado con éxito.');
         navigate('/clientes');
       })
-      .catch(() => {
+      .catch((error) => {
         message.error('Ocurrió un error al modificar el cliente.');
+        const errorMessage = error?.data?.error || '';
+        if (errorMessage.includes('dui has already been taken')) {
+          message.warning('El DUI ya está registrado.');
+        } else if (errorMessage.includes('nit has already been taken')) {
+          message.warning('El NIT ya está registrado.');
+        }
       });
   };
 

@@ -19,8 +19,13 @@ const RegistrarCliente = () => {
         navigate('/clientes');
       })
       .catch((error) => {
-        console.error(error);
         message.error('Ocurrió un error al registrar el cliente.');
+        const errorMessage = error?.data?.error || '';
+        if (errorMessage.includes('dui has already been taken')) {
+          message.warning('El DUI ya está registrado.');
+        } else if (errorMessage.includes('nit has already been taken')) {
+          message.warning('El NIT ya está registrado.');
+        }
       });
   };
 
