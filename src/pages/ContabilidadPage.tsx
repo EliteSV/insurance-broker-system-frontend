@@ -6,7 +6,7 @@ import TablaPolizas from '../components/tablas/TablaPolizas';
 
 function ContabilidadPage() {
   const { data, isLoading } = useContabilidadQuery();
-  const polizas = data?.polizas?.data || [];
+  const polizas = data?.polizas || [];
   return (
     <PageLayout>
       <Row gutter={[16, 16]}>
