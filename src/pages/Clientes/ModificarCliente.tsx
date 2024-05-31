@@ -3,8 +3,9 @@ import { useNavigate, useParams } from 'react-router-dom';
 import PageLayout from '../../components/PageLayout';
 import { useGetClienteQuery, useModificarClienteMutation } from '../../api/api';
 import ClienteForm from '../../components/forms/ClienteForm';
-import { TipoDocumento } from '../../types/Documento';
 import { ButtonRegresar } from '../../components/common';
+import DocumentList from '../../components/common/DocumentList';
+import { clienteToFormData } from '../../utils/utils';
 
 const { Title } = Typography;
 
@@ -14,49 +15,7 @@ const ModificarCliente = () => {
   const { data: cliente, isLoading } = useGetClienteQuery(Number(id));
   const [modificar, modificarResult] = useModificarClienteMutation();
   const onFinish = (values: any) => {
-    const formData = new FormData();
-    formData.append('_method', 'put');
-    formData.append('nombre', values.nombre);
-    formData.append('email', values.email);
-    formData.append('telefono', values.telefono);
-    formData.append('direccion', values.direccion);
-    formData.append('dui', values.dui);
-    formData.append('nit', values.nit);
-    let docIndex = 0;
-    if (values.documentos_dui) {
-      formData.append(
-        `documentos[${docIndex}][file]`,
-        values.documentos_dui.file
-      );
-      formData.append(
-        `documentos[${docIndex}][tipo_documento_id]`,
-        TipoDocumento.DUI.toString()
-      );
-      docIndex++;
-    }
-    if (values.documentos_nit) {
-      formData.append(
-        `documentos[${docIndex}][file]`,
-        values.documentos_nit.file
-      );
-      formData.append(
-        `documentos[${docIndex}][tipo_documento_id]`,
-        TipoDocumento.NIT.toString()
-      );
-      docIndex++;
-    }
-    if (values.documentos_polizas) {
-      for (let i = 0; i < values.documentos_polizas.fileList.length; i++) {
-        formData.append(
-          `documentos[${i + docIndex}][file]`,
-          values.documentos_polizas.fileList[i].originFileObj
-        );
-        formData.append(
-          `documentos[${i + docIndex}][tipo_documento_id]`,
-          TipoDocumento.POLIZA.toString()
-        );
-      }
-    }
+    const formData = clienteToFormData(values, 'PUT');
     modificar({ id: Number(id), formData })
       .unwrap()
       .then(() => {
@@ -70,10 +29,14 @@ const ModificarCliente = () => {
 
   return (
     <PageLayout>
-      <Row align="middle" style={{ marginTop: '64px' }}>
-        <Col xs={{ span: 22, offset: 1 }} lg={{ span: 12, offset: 6 }}>
+      <Row>
+        <Col xs={{ span: 22, offset: 1 }} lg={{ span: 8, offset: 4 }}>
           <ButtonRegresar />
           <Title level={2}>Modificar Cliente</Title>
+        </Col>
+      </Row>
+      <Row>
+        <Col xs={{ span: 22, offset: 1 }} lg={{ span: 8, offset: 4 }}>
           <Spin spinning={isLoading}>
             <ClienteForm
               initialValues={cliente}
@@ -83,6 +46,13 @@ const ModificarCliente = () => {
               isLoading={modificarResult.isLoading}
             />
           </Spin>
+        </Col>
+        <Col xs={{ span: 22, offset: 1 }} lg={{ span: 8 }}>
+          <DocumentList
+            documents={cliente?.documentos || []}
+            title="Documentos"
+            allowDelete
+          />
         </Col>
       </Row>
     </PageLayout>

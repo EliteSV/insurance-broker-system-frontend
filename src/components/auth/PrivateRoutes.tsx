@@ -1,7 +1,7 @@
 import { Spin } from 'antd';
 import { Outlet, Navigate } from 'react-router-dom';
 import { useAppSelector, useAppDispatch } from '../../store/hooks';
-import { login, setUser } from '../../store/slices/authSlice';
+import { login, logout, setUser } from '../../store/slices/authSlice';
 import { useLazyGetLoggedUserQuery } from '../../api/api';
 import { useEffect } from 'react';
 
@@ -30,6 +30,9 @@ const PrivateRoutes = () => {
         .unwrap()
         .then((data) => {
           dispatch(setUser({ user: data }));
+        })
+        .catch(() => {
+          dispatch(logout());
         });
     }
   });
