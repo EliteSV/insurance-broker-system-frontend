@@ -71,7 +71,6 @@ function TablaPagos({ data, isLoading, showPoliza, refetch }: TablaPagosProps) {
       title: 'Cuota',
       dataIndex: 'cuota',
       key: 'cuota',
-      responsive: ['md'],
       sorter: (a, b) => a.cuota - b.cuota,
     },
     {
