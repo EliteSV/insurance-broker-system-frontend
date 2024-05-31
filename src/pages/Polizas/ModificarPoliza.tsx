@@ -24,7 +24,7 @@ const ModificarPoliza = () => {
       .unwrap()
       .then(() => {
         message.success('Póliza modificada con éxito.');
-        navigate('/polizas');
+        navigate(-1);
       })
       .catch(() => {
         message.error('Ocurrió un error al modificar la poliza.');

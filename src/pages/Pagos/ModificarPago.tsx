@@ -23,7 +23,7 @@ const ModificarPago = () => {
       .unwrap()
       .then(() => {
         message.success('Pago actualizado con éxito.');
-        navigate('/pagos');
+        navigate(-1);
       })
       .catch(() => {
         message.error('Ocurrió un error al actualizar el pago.');
