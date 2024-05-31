@@ -3,6 +3,7 @@ import { maxBy } from 'lodash';
 import { TipoPoliza, FormaDePago, VigenciaPoliza } from '../types/Poliza';
 import { Pago } from '../types/Pago';
 import { EstadoPago } from '../types/Pago';
+import { TipoDocumento } from '../types/Documento';
 
 export function formatPoliza(poliza: any) {
   const formattedPoliza = poliza;
@@ -58,6 +59,58 @@ export const pagoToFormData = (
   if (values.estado === EstadoPago.Pagado) {
     formData.append('fecha_pagado', values.fecha_pagado);
     formData.append(`comprobante`, values.comprobante.file);
+  }
+  return formData;
+};
+
+export const clienteToFormData = (
+  values: any,
+  method: 'POST' | 'PUT' = 'POST'
+) => {
+  const formData = new FormData();
+  if (method === 'PUT') {
+    formData.append('_method', 'put');
+  }
+  formData.append('nombre', values.nombre);
+  formData.append('email', values.email);
+  formData.append('telefono', values.telefono);
+  formData.append('direccion', values.direccion);
+  formData.append('dui', values.dui);
+  formData.append('nit', values.nit);
+  let docIndex = 0;
+  if (values.documentos_dui) {
+    formData.append(
+      `documentos[${docIndex}][file]`,
+      values.documentos_dui.file
+    );
+    formData.append(
+      `documentos[${docIndex}][tipo_documento_id]`,
+      TipoDocumento.DUI.toString()
+    );
+    docIndex++;
+  }
+  if (values.documentos_nit) {
+    formData.append(
+      `documentos[${docIndex}][file]`,
+      values.documentos_nit.file
+    );
+    formData.append(
+      `documentos[${docIndex}][tipo_documento_id]`,
+      TipoDocumento.NIT.toString()
+    );
+    docIndex++;
+  }
+  if (values.documentos_polizas) {
+    for (let i = 0; i < values.documentos_polizas.fileList.length; i++) {
+      formData.append(
+        `documentos[${i + docIndex}][file]`,
+        values.documentos_polizas.fileList[i].originFileObj
+      );
+      formData.append(
+        `documentos[${i + docIndex}][tipo_documento_id]`,
+        TipoDocumento.POLIZA.toString()
+      );
+    }
   }
   return formData;
 };
